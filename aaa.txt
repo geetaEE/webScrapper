@@ -1,0 +1,115 @@
+<FeedFile xsi:noNamespaceSchemaLocation="File:///riverwood/schemas/renewals/RenewalFeedSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.connecture.com/Schemas">
+
+<ResubmitCount>1</ResubmitCount>
+
+<DateEstablished>2012-09-01</DateEstablished>
+<DateRecvd>2012-09-01</DateRecvd>
+	<BusinessType>C</BusinessType>
+				<AssociationID>1</AssociationID>
+<zip4>1111</zip4>
+	<Num>2667387</Num>
+<SICCode>1234</SICCode>
+<MGAID>1</MGAID>
+<UWID>1</UWID>
+
+RenewalFeedCaseInfoProcessor.java line 792 null pointer
+
+[warning : Association ID is not null but ignored anyway.  (/CaseData[123456789]/CaseInfo[123456789]/),
+ warning : BusinessType is not null but ignored anyway.  (/CaseData[123456789]/CaseInfo[123456789]/), 
+Owner could not be found[OwnerEID = agt10101], caseId=123456789, ownerId=agt10101, caseName=EMPLOYEE TRUST FUNDS  (/CaseData[123456789]/CaseInfo[123456789]/caseOwners/), 
+warning : AssociationID is not null but ignored anyway.  (/CaseData[123456789]/QuoteInfo[1]/),
+ MaritalStatusType not matched  (/CaseData[123456789]/QuoteInfo[1]/CensusInfo/SubscriberInfo[533000]/SubscriberInfo[1]/MaritalStatusType/), 
+subscriberId is blank but is required.  (/CaseData[123456789]/QuoteInfo[1]/CensusInfo/SubscriberInfo[533000]/clientDefinedData/subscriberId/), s
+mokerCessation is blank but is required.  (/CaseData[123456789]/QuoteInfo[1]/CensusInfo/SubscriberInfo[533000]/clientDefinedData/smokerCessation/), 
+smokerCessation is blank but is required.  (/CaseData[123456789]/QuoteInfo[1]/CensusInfo/SubscriberInfo[533000]/clientDefinedData/smokerCessation/)]
+
+Getting following errors while loading IBR's
+A  Data Issue -
+1)  Various Client Defined Fields were not present .
+ a) Federal Tax Id
+ b) Smoker Cessation
+2) The Key SubcriberID was in Wrong Case . 
+3) SIC Code was invalid.
+B Code Issue - 
+4) Previous Year Rate Factors were not provided in IBR , throwing Null Pointer Exception, requires code change.
+ 
+We are still working on it .
+
+5) Various data issue that PlanId Doesn't exist in the Plan Package.
+
+1) Data Issue
+
+
+
+
+
+SS 2860 SG Quote/Enrollment/Renewals - "Annual Out of Pocket Maximum" benefit name is displayed instead "Annual Out of Pocket" one in the tables through all application's pages
+SS 2859 SG Renewals | "Plan Selection" page: "Office Visit Copay" is displayed instead of "Annual Out of Pocket"
+SS 2787 PROD - Tasks status on the SG enrollment summary page
+
+
+&& !logicalName.equalsIgnoreCase("BNFT_DEDn") && !logicalName.equalsIgnoreCase("BNFT_OOP_MAX_POS")
+
+
+
+2327 , 2326, 2308, 2860, 2292
+
+
+2326 product
+2308 product
+
+2909 / 2312 test
+2179 discusss/NR
+
+
+SS 2179 SG Renewals | "Elections" page: Several values are shifted to the next line after editing new Plan Offering on the "Edit Subgroup" page.
+SS 2953 FP Enrollment | PDF overlay | Application error probably depends to absence of home address
+SS 2948 IFP Enrollment | PDF overlay | Aplication Error appears when click "View PDF" button
+SS 2940 IFP Enrollment | PDF overlay | redundant information on the attached pages
+
+SS 2942 IFP Enrollment | PDF overlay | Section D - spouse's language is set to Specified
+
+
+2956
+
+
+ if (PaymentDetailInfo.CHECK.equals(paymentInfo.getFirstMonthPayment()))
+          {
+            pdfInfo.addInfo(pdfInfo.getPageNumber(), pdfInfo.getSectionName(), false,
+                SHPPdfConstants.PaymentInfo.SUBSCRIBER_ADDRESS + suffix,
+                buildHomeAddress(resAddressInfo));
+          }
+          pdfInfo.addInfo(pdfInfo.getPageNumber(), pdfInfo.getSectionName(), false,
+              SHPPdfConstants.PaymentInfo.SUBSCRIBER_ACCOUNT_NUMBER + suffix,
+              getDecryptString(eFundsTransfer.getAccountNumber()));
+        }
+        if (PaymentDetailInfo.CHECK.equals(paymentInfo.getFirstMonthPayment()))
+        {
+          String homePhoneNumber = null;
+          if (applicantInfo.getHomePhone() != null
+              && !ValidationUtils.isStringEmpty(applicantInfo.getHomePhone().getNumber()))
+          {
+            homePhoneNumber = applicantInfo.getHomePhone().getNumber();
+          }
+          String formattedHomePhone = ProcessUtilities.formatPhoneNumber(homePhoneNumber);
+          if (!ValidationUtils.isStringEmpty(formattedHomePhone))
+          {
+            populateFormattedValue(pdfInfo, formattedHomePhone,
+                SHPPdfConstants.PaymentInfo.SUBSCRIBER_PHONE, "", 0);
+          }
+        }
+
+ if (!PaymentDetailInfo.CHECK.equals(paymentInfo.getFirstMonthPayment()))
+        {
+          if (getDecryptString(eFundsTransfer.getAccountNumber()) != null
+              && getDecryptString(eFundsTransfer.getAccountNumber()).length() > 0)
+          {
+            pdfInfo.addInfo(pdfInfo.getPageNumber(), pdfInfo.getSectionName(), false,
+                SHPPdfConstants.PaymentInfo.DEDUCTION + suffix, PaymentDetailInfo.SAVINGS_EFT);
+          }
+          else
+          {
+            pdfInfo.addInfo(pdfInfo.getPageNumber(), pdfInfo.getSectionName(), false,
+                SHPPdfConstants.PaymentInfo.DEDUCTION + suffix, PaymentDetailInfo.CHECKING_EFT);
+          }
+        }

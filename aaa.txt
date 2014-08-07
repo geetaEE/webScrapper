@@ -112,4 +112,4 @@ SS 2942 IFP Enrollment | PDF overlay | Section D - spouse's language is set to S
             pdfInfo.addInfo(pdfInfo.getPageNumber(), pdfInfo.getSectionName(), false,
                 SHPPdfConstants.PaymentInfo.DEDUCTION + suffix, PaymentDetailInfo.CHECKING_EFT);
           }
-        }
+       }

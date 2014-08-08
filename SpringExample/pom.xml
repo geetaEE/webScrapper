@@ -8,11 +8,33 @@
   <name>SpringExample</name>
   <url>http://maven.apache.org</url>
   
-  <deploy>
-     org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy
-  </deploy>
-  
-  <dependencies>
+  <component-set>
+     <components>
+      <component>
+        <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+         <role-hint>pom</role-hint>
+        <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+         <configuration>
+          <lifecycles>
+            <lifecycle>
+               <id>default</id>
+               <!-- START SNIPPET: pom-lifecycle -->
+               <phases>
+                 <install>
+                   org.apache.maven.plugins:maven-install-plugin:2.4:install
+                </install>
+                 <deploy>
+                   org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy
+                </deploy>
+               </phases>
+               <!-- END SNIPPET: pom-lifecycle -->
+             </lifecycle>
+           </lifecycles>
+         </configuration>
+       </component>   
+      </component-set>
+       
+   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

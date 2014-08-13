@@ -11,7 +11,7 @@ import com.webscrapper.service.WebScrapperService;
 public class WebScrapperServiceImpl implements WebScrapperService{	
 
 	@Override
-	public DBCollection insertData(String jsonData)
+	public DBCollection insertData(Object jsonData)
  {
 		DB db = null;
 		try {
@@ -21,7 +21,7 @@ public class WebScrapperServiceImpl implements WebScrapperService{
 			e.printStackTrace();
 		}
 		DBCollection table = db.getCollection(CommonConstants.TABLE_NAME);		
-		DBObject dbObject = (DBObject)JSON.parse(jsonData);		
+		DBObject dbObject = (DBObject)JSON.parse((String) jsonData);		
 		table.insert(dbObject);
 		return table;
 

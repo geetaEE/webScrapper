@@ -34,11 +34,6 @@ public class MongoConnectionManager{
         if (connection != null) {
             connection.closeConnection();
         }
-    }
-    
-    /** Override clone method */
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		throw new CloneNotSupportedException();
-	}
+    }    
+ 
 }

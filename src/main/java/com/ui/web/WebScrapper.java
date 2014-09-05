@@ -429,7 +429,7 @@ public class WebScrapper extends JFrame
                 message.add(comboBox);
 
                 Object[] options = new String[]{"Process","Cancel"};
-                int returnvalue = JOptionPane.showOptionDialog(frame, message, "", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, 
+                int returnvalue = JOptionPane.showOptionDialog(frame, message, "Web Scrapper", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, 
                         null, options, options[0]);  
                 
                 
@@ -637,7 +637,7 @@ public class WebScrapper extends JFrame
 				
 				if((null == url) || Constants.BLANK.equals(url) || (null == keyword) || Constants.BLANK.equals(keyword))						
 				{
-					JOptionPane.showMessageDialog(frame, "URL and title is required.", "Web Scrapper Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "URL and title is required.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				else
@@ -647,7 +647,7 @@ public class WebScrapper extends JFrame
 						boolean isValidURL = isValidURL(url);
 						if(!isValidURL)
 						{
-							JOptionPane.showMessageDialog(frame, "URL is invalid..", "Web Scrapper Error", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(frame, "URL is invalid..", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 							return;
 						}						
 					}
@@ -659,7 +659,7 @@ public class WebScrapper extends JFrame
 							url = "https://"+url; 
 							if(!isValidURL(url))
 							{	
-								JOptionPane.showMessageDialog(frame, "URL is invalid..", "Web Scrapper Error", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(frame, "URL is invalid..", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 								return;
 							}						
 						}					
@@ -668,7 +668,7 @@ public class WebScrapper extends JFrame
 					boolean isValid = isValidURLForConnection(url);
 					if(!isValid)
 					{
-						JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
 				}
@@ -736,8 +736,7 @@ public class WebScrapper extends JFrame
             u = new URL(url);
         } 
         catch (MalformedURLException e) 
-        {
-        	System.out.println("URL is not valid.");
+        {        	
         	return false;
         }
         
@@ -746,12 +745,9 @@ public class WebScrapper extends JFrame
             u.toURI();
         } 
         catch (URISyntaxException e) 
-        {
-        	System.out.println("URL is not valid.");
+        {        	
         	return false;
-        }
-        
-        System.out.println("URL is valid.");
+        }       
         return true;
     }
 	
@@ -764,12 +760,9 @@ public class WebScrapper extends JFrame
 		    conn.connect();
 		}		
 		catch (IOException ex) 
-		{
-			System.out.println("The connection couldn't be established.");
+		{			
 			return false;			 
 		}
-		
-		System.out.println("The connection established.");
 		return true;		
 	}
 	

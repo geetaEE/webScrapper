@@ -647,7 +647,7 @@ public class WebScrapper extends JFrame
 						boolean isValidURL = isValidURL(url);
 						if(!isValidURL)
 						{
-							JOptionPane.showMessageDialog(frame, "URL is invalid..", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 							return;
 						}						
 					}
@@ -659,7 +659,7 @@ public class WebScrapper extends JFrame
 							url = "https://"+url; 
 							if(!isValidURL(url))
 							{	
-								JOptionPane.showMessageDialog(frame, "URL is invalid..", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 								return;
 							}						
 						}					
@@ -853,8 +853,20 @@ public class WebScrapper extends JFrame
 		btnProcess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				JOptionPane.showMessageDialog(frame, "Batch Process exported data successfully.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
-				disableBatchProessPanelControls();
+				String fileName = pathtextField.getText();
+				System.out.println("File Name : "+fileName);
+				File f = new File(fileName);
+				 
+				if(f.exists())
+				{
+					JOptionPane.showMessageDialog(frame, "Batch Process exported data successfully.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+					disableBatchProessPanelControls();
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "File path is incorrect.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+					return;
+				}				
 			}
 		});
 		btnProcess.setBounds(414, 80, 169, 30);

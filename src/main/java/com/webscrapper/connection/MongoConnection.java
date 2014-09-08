@@ -7,7 +7,7 @@ import javax.naming.AuthenticationException;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
-import com.webscrapper.constants.CommonConstants;
+import com.webscrapper.constants.DBConstants;
 
 public class MongoConnection {
 
@@ -35,18 +35,18 @@ public class MongoConnection {
 	public DB getDbConnection() throws AuthenticationException {
 		if (db == null) {
 			try {
-				client = new MongoClient(CommonConstants.MONGO_SERVER,
-						CommonConstants.PORT_NO);
+				client = new MongoClient(DBConstants.MONGO_SERVER,
+						DBConstants.PORT_NO);
 			} catch (UnknownHostException e1) {
 				e1.printStackTrace();
 			}
-			db = client.getDB(CommonConstants.DB_NAME);
-			db.addUser(CommonConstants.USER_NAME,
-						CommonConstants.PASSWORD.toCharArray());
+			db = client.getDB(DBConstants.DB_NAME);
+			db.addUser(DBConstants.USER_NAME,
+						DBConstants.PASSWORD.toCharArray());
 			boolean auth = false;
 			try {
-				auth = db.authenticate(CommonConstants.USER_NAME,
-						CommonConstants.PASSWORD.toCharArray());
+				auth = db.authenticate(DBConstants.USER_NAME,
+						DBConstants.PASSWORD.toCharArray());
 			} catch (MongoException e) {
 				e.printStackTrace();
 			}

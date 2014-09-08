@@ -1,6 +1,6 @@
 package com.webscrapper.constants;
 
-public class CommonConstants {
+public class DBConstants {
 	public static final String DB_NAME ="EE_J5_DB";
 	public static final String MONGO_SERVER = "127.0.0.1";
 	public static final int PORT_NO = 27017;

@@ -1,6 +1,6 @@
-package com.webscapper.ui;
+package com.webscrapper.constants;
 
-public interface Constants 
+public interface UIConstants 
 {
 	public static String TYPE = "Type";
 	public static String FOUND_PLACES = "No. Of Found Places";

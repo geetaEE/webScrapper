@@ -61,6 +61,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 
+import com.webscrapper.constants.UIConstants;
+
 
 public class WebScrapper extends JFrame 
 {
@@ -76,8 +78,8 @@ public class WebScrapper extends JFrame
 	private JRadioButton structedRadioButton;
 	private ButtonGroup dataTypeRadioButtonGroup;
 	private JPanel extractDataTypeSelectionpanel;
-	String[] columnNames = {Constants.TYPE, Constants.FOUND_PLACES};
-	String[][] data = {{Constants.TYPE, Constants.FOUND_PLACES},{"Structured", "0"},{"UnStructured", "0"}};
+	String[] columnNames = {UIConstants.TYPE, UIConstants.FOUND_PLACES};
+	String[][] data = {{UIConstants.TYPE, UIConstants.FOUND_PLACES},{"Structured", "0"},{"UnStructured", "0"}};
 	private boolean isExtractDone = false;
 	JFileChooser fc;
 	private JScrollPane scrollPane;
@@ -635,7 +637,7 @@ public class WebScrapper extends JFrame
 				String url = urlTextField.getText().trim();
 				String keyword = titleTextField.getText().trim();
 				
-				if((null == url) || Constants.BLANK.equals(url) || (null == keyword) || Constants.BLANK.equals(keyword))						
+				if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword))						
 				{
 					JOptionPane.showMessageDialog(frame, "URL and title is required.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 					return;

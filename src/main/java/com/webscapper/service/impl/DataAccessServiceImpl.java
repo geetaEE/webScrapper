@@ -5,7 +5,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 import com.webscrapper.connection.MongoConnectionManager;
-import com.webscrapper.constants.CommonConstants;
+import com.webscrapper.constants.DBConstants;
 import com.webscrapper.service.DataAccessService;
 
 public class DataAccessServiceImpl implements DataAccessService{	
@@ -20,7 +20,7 @@ public class DataAccessServiceImpl implements DataAccessService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		DBCollection table = db.getCollection(CommonConstants.TABLE_NAME);		
+		DBCollection table = db.getCollection(DBConstants.TABLE_NAME);		
 		DBObject dbObject = (DBObject)JSON.parse((String) jsonData);		
 		table.insert(dbObject);
 		return table;

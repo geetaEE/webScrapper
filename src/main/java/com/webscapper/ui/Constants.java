@@ -1,4 +1,4 @@
-package com.ui.web;
+package com.webscapper.ui;
 
 public interface Constants 
 {

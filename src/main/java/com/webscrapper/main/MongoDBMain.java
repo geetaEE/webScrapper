@@ -2,7 +2,7 @@ package com.webscrapper.main;
 
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.webscapper.ServiceImpl.WebScrapperServiceImpl;
+import com.webscapper.service.impl.DataAccessServiceImpl;
 
 public class MongoDBMain {
 	
@@ -10,7 +10,7 @@ public class MongoDBMain {
 		String json = "{'database' : 'test','table' : 'hosting'," +
 				  "'detail' : {'records' : 99, 'index' : 'index1', 'active' : 'true'}}}";
 		
-		WebScrapperServiceImpl serviceImpl = new WebScrapperServiceImpl();
+		DataAccessServiceImpl serviceImpl = new DataAccessServiceImpl();
 		DBCollection collection = serviceImpl.insertData(json);
 		
 		DBCursor cursorDocJSON = collection.find();

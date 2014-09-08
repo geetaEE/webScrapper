@@ -7,7 +7,7 @@ import javax.naming.AuthenticationException;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
-import com.webscrapper.common.CommonConstants;
+import com.webscrapper.constants.CommonConstants;
 
 public class MongoConnection {
 

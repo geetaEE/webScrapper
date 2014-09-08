@@ -1,14 +1,14 @@
-package com.webscapper.ServiceImpl;
+package com.webscapper.service.impl;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
-import com.webscrapper.common.CommonConstants;
 import com.webscrapper.connection.MongoConnectionManager;
-import com.webscrapper.service.WebScrapperService;
+import com.webscrapper.constants.CommonConstants;
+import com.webscrapper.service.DataAccessService;
 
-public class WebScrapperServiceImpl implements WebScrapperService{	
+public class DataAccessServiceImpl implements DataAccessService{	
 
 	@Override
 	public DBCollection insertData(Object jsonData)

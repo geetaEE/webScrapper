@@ -1,4 +1,4 @@
-package com.webscrapper.common;
+package com.webscrapper.constants;
 
 public class CommonConstants {
 	public static final String DB_NAME ="EE_J5_DB";

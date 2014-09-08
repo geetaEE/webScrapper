@@ -1,4 +1,4 @@
-package com.ui.web;
+package com.webscapper.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -549,7 +549,7 @@ public class WebScrapper extends JFrame
 					}
 					else
 					{	
-						String content = "Swing is the primary Java GUI widget toolkit. It is part of Oracle's Java Foundation Classes (JFC) — an API for providing a graphical user interface (GUI) for Java programs. " +
+						String content = "Swing is the primary Java GUI widget toolkit. It is part of Oracle's Java Foundation Classes (JFC) ï¿½ an API for providing a graphical user interface (GUI) for Java programs. " +
 	
 										" Swing was developed to provide a more sophisticated set of GUI components than the earlier Abstract Window Toolkit (AWT). Swing provides a native look and feel that emulates the look and feel of several platforms, and also supports a pluggable look and feel that allows applications to have a look and feel unrelated to the underlying platform. It has more powerful and flexible components than AWT. In addition to familiar components such as buttons, check boxes and labels, Swing provides several advanced components such as tabbed panel, scroll panes, trees, tables, and lists. "+
 	

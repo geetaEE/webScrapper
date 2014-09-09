@@ -4,8 +4,6 @@ package com.webscrapper.constants;
 public enum ContentType {
     /** The Text. */
     TEXT("Text"),
-    /** The Structured. */
-    TABULAR("Structured"),
     /** The Image. */
     IMAGE("Image");
 

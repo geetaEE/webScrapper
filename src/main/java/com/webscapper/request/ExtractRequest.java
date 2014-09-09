@@ -1,9 +1,6 @@
 package com.webscapper.request;
 
-import java.util.List;
-
 import com.webscrapper.constants.ContentType;
-import com.webscrapper.constants.TagType;
 
 /** The extract request. */
 public class ExtractRequest {
@@ -11,8 +8,6 @@ public class ExtractRequest {
     private String url;
     /** The contentType. */
     private ContentType contentType;
-    /** The tag types. */
-    private List<TagType> tags;
 
     /** Get url.
      * 
@@ -42,20 +37,5 @@ public class ExtractRequest {
      *            the content type */
     public void setContentType(ContentType contentType) {
         this.contentType = contentType;
-    }
-
-    /** Get tags.
-     * 
-     * @return tags the tags */
-    public List<TagType> getTags() {
-        return tags;
-    }
-
-    /** Set tags.
-     * 
-     * @param tags
-     *            the tags */
-    public void setTags(List<TagType> tags) {
-        this.tags = tags;
     }
 }

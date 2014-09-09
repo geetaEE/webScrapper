@@ -7,11 +7,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import com.webscapper.request.ExtractRequest;
+import com.webscapper.response.ExtractResponse;
 
 /** The extract image content service. */
 public class ImageExtractService extends BaseExtractService {
     @Override
-    public Set<String> extract(ExtractRequest request) {
+    public ExtractResponse extract(ExtractRequest request) {
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());
             if (doc != null) {
@@ -23,7 +24,9 @@ public class ImageExtractService extends BaseExtractService {
                     }
                 }
                 if (!imgSet.isEmpty()) {
-                    return imgSet;
+                    ExtractResponse response = new ExtractResponse();
+                    response.setImageUrls(imgSet);
+                    return response;
                 }
             }
         }

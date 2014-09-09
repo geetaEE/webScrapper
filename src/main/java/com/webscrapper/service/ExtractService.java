@@ -1,6 +1,7 @@
 package com.webscrapper.service;
 
 import com.webscapper.request.ExtractRequest;
+import com.webscapper.response.ExtractResponse;
 
 /** The extract web content service. */
 public interface ExtractService {
@@ -9,5 +10,5 @@ public interface ExtractService {
      * @param request
      *            the request
      * @return extracted content */
-    Object extract(ExtractRequest request);
+    ExtractResponse extract(ExtractRequest request);
 }

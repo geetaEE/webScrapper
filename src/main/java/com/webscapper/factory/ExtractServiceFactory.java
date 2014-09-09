@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.webscapper.service.impl.ImageExtractService;
-import com.webscapper.service.impl.TableExtractService;
 import com.webscapper.service.impl.TextExtractService;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.service.ExtractService;
@@ -30,9 +29,7 @@ public abstract class ExtractServiceFactory {
         if (!instanceMap.containsKey(type)) {
             synchronized (ExtractServiceFactory.class) {
                 if (!instanceMap.containsKey(type)) {
-                    if (ContentType.TABULAR.equals(type)) {
-                        instanceMap.put(type, new TableExtractService());
-                    } else if (ContentType.IMAGE.equals(type)) {
+                    if (ContentType.IMAGE.equals(type)) {
                         instanceMap.put(type, new ImageExtractService());
                     } else {
                         instanceMap.put(type, new TextExtractService());

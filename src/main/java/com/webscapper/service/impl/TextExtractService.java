@@ -22,7 +22,12 @@ public class TextExtractService extends BaseExtractService {
                         for (Element element : doc.select(tagType.getName())) {
                             String elemTxt = element.text();
                             if (!textB.toString().contains(elemTxt)) {
-                                textB.append(elemTxt);
+                                if (textB.toString().isEmpty()) {
+                                    textB.append(elemTxt);
+                                } else {
+                                    textB.append(" ");
+                                    textB.append(elemTxt);
+                                }
                             }
                         }
                     }

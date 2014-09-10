@@ -2,6 +2,7 @@ package com.webscapper.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -21,16 +22,65 @@ public class TestExtractService {
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
         request.setContentType(ContentType.TEXT);
-        ExtractResponse response = ExtractServiceFactory.getInstance(ContentType.TEXT).extract(request);
+        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
         Map<TagType, String> tagDataMap = response.getTagDataMap();
         Assert.assertTrue(tagDataMap.get(TagType.BOLD).contains("A joint project of EFF"));
         Assert.assertTrue(tagDataMap.get(TagType.PARAGRAPH).contains("HTTPS Now"));
-        
+    }
+
+    /** Test https extraction. */
+    @Test
+    public void testExtractHttp() {
+        String url = "http://stackoverflow.com/";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.TEXT);
+        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+        Map<TagType, String> tagDataMap = response.getTagDataMap();
+        Assert.assertTrue(tagDataMap.get(TagType.DIV).contains(
+                "Stack Overflow is a question and answer site for professional and enthusiast programmers."));
+    }
+
+    /** Test https extraction. */
+    @Test
+    public void testExtractText() {
+        String url = "https://www.httpsnow.org/";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.TEXT);
+        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+        Map<TagType, String> tagDataMap = response.getTagDataMap();
+        Assert.assertTrue(tagDataMap.get(TagType.DIV).contains(
+                "Enter any website URL address HTTPS Now allows users to contribute information about how websites use HTTPS"));
+        Assert.assertTrue(tagDataMap.get(TagType.BOLD).contains("A joint project of EFF"));
+    }
+
+    /** Test table extraction. */
+    @Test
+    public void testExtractTable() {
+        String url = "https://www.httpsnow.org/";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.TEXT);
+        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
         List<List<List<String>>> tables = response.getTables();
         List<String> columns = tables.get(0).get(0);
         Assert.assertEquals(1, tables.size());
         Assert.assertEquals(42, tables.get(0).size());
         Assert.assertEquals(262, columns.size());
         Assert.assertEquals("Name", columns.get(0));
+    }
+
+    /** Test image extraction. */
+    @Test
+    public void testExtractImage() {
+        String url = "https://www.httpsnow.org/";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.IMAGE);
+        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+        Set<String> imageUrls = response.getImageUrls();
+        Assert.assertEquals(3, imageUrls.size());
+        Assert.assertEquals("https://www.httpsnow.org/images/httpsnow_banner.png", imageUrls.iterator().next());
     }
 }

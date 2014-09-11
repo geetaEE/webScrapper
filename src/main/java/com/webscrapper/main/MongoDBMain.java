@@ -18,7 +18,7 @@ public class MongoDBMain {
 		String json = "{'database':'test','table':'hosting','detail':{'records':99,'index':'index1','active':'true'}}";
 		
 		DataAccessServiceImpl serviceImpl = new DataAccessServiceImpl();
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		List<String> colsList = new ArrayList<String>();
 		colsList.add("COL1");

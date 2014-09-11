@@ -13,7 +13,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 
 	/*This method is used to insert the tabular data into DB*/
 	@Override
-	public DBCollection insertData(Map<String, String> map) {
+	public DBCollection insertData(Map<String, Object> map) {
 		DB db = null;
 		try {
 			db = MongoConnectionManager.getInstance().getConnection()

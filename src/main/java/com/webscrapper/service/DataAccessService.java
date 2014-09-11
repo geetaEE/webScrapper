@@ -6,6 +6,6 @@ import com.mongodb.DBCollection;
 
 public interface DataAccessService {
 
-	DBCollection insertData(Map<String, String> map);
+	DBCollection insertData(Map<String, Object> map);
 
 }

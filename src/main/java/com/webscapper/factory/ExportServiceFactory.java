@@ -7,12 +7,8 @@ import com.webscapper.service.impl.ExportToCSVService;
 import com.webscapper.service.impl.ExportToDBService;
 import com.webscapper.service.impl.ExportToDocService;
 import com.webscapper.service.impl.ExportToTextService;
-import com.webscapper.service.impl.ImageExtractService;
-import com.webscapper.service.impl.TextExtractService;
-import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
-import com.webscrapper.service.ExtractService;
 
 /** A factory for creating export service objects. */
 public abstract class ExportServiceFactory {
@@ -43,8 +39,7 @@ public abstract class ExportServiceFactory {
                     }
                     if (ExportType.DOC.equals(type)) {
                         instanceMap.put(type, new ExportToDocService());
-                    }
-                    else {
+                    } else {
                         instanceMap.put(type, new ExportToTextService());
                     }
                 }

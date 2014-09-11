@@ -1,9 +1,11 @@
 package com.webscrapper.service;
 
+import java.util.Map;
+
 import com.mongodb.DBCollection;
 
 public interface DataAccessService {
-	
-	public DBCollection insertData(Object jsonData);
+
+	DBCollection insertData(Map<String, String> map);
 
 }

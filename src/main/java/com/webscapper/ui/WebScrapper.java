@@ -61,6 +61,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 
+import com.webscapper.request.ExtractRequest;
+import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.UIConstants;
 
 
@@ -114,6 +116,9 @@ public class WebScrapper extends JFrame
 	private JScrollPane htmlControlScrollPanel;
 	private JList htmlControlList;
 	JButton extractButton;
+	private String url;
+	private ContentType contentType;
+	private ExtractRequest extractRequest;
 	
 	/**
 	 * Launch the application.
@@ -441,28 +446,35 @@ public class WebScrapper extends JFrame
                 {	
 	                if("Export".equals(optionValue))
 	                {               	
-	                	fc = new JFileChooser();
-						fc.setDialogTitle("Open");
-						fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-						int result = fc.showSaveDialog(WebScrapper.this);
-						if (result == JFileChooser.APPROVE_OPTION) 
-						{
-						    File selectedFile = fc.getSelectedFile();
-						    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-						    
-						    String msg = "All data exported successfully";
-		                	
-		                	if(selectedOptionValue.equals(ExtractDataType.IMAGE.getDescription()))
-		                	{
-		                		msg = "All Images exported successfully.";
-		                	}
-		                	
-		                	JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
-						}
-						else
-						{
-							return;
-						}                	              
+	                	String msg = "All data exported successfully";
+	                	
+	                	if(true)
+	                	{	
+		                	fc = new JFileChooser();
+							fc.setDialogTitle("Open");
+							fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+							int result = fc.showSaveDialog(WebScrapper.this);
+							if (result == JFileChooser.APPROVE_OPTION) 
+							{
+							    File selectedFile = fc.getSelectedFile();
+							    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+							    
+							    
+			                	
+			                	if(selectedOptionValue.equals(ExtractDataType.IMAGE.getDescription()))
+			                	{
+			                		msg = "All Images exported successfully.";
+			                	}
+							}
+							else
+							{
+								return;
+							} 
+	                	}
+	                	else
+	                	{
+	                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+	                	}
 	                }
 	                else
 	                {
@@ -992,6 +1004,9 @@ public class WebScrapper extends JFrame
 	
 	public void resetHeaderValuesValue()
 	{		
+		this.url = null;
+		this.contentType = null;
+		this.extractRequest = null;
 		urlTextField.setText("");
 		titleTextField.setText("");
 		urlTextField.setEditable(true);

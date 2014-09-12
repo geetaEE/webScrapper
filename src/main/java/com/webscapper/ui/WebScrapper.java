@@ -471,6 +471,17 @@ public class WebScrapper extends JFrame
 			                	{
 			                		msg = "All Images exported successfully.";
 			                	}
+			                	
+			                	ExportRequest exportRequest = frame.wsServiceProvider.buildExportRequest(frame.url, 
+																											frame.title, 
+																											frame.extractResponse, 
+																											ExportType.getExportType(extractToOptionValue), 
+																											null, 
+																											selectedFile.getAbsolutePath());
+
+			                	frame.wsServiceProvider.executeExportOperation(exportRequest);
+			                	
+			                	JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
 							}
 							else
 							{

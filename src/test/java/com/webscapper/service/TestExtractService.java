@@ -58,7 +58,7 @@ public class TestExtractService {
     /** Test table extraction. */
     @Test
     public void testExtractTable() {
-        String url = "https://www.httpsnow.org/";
+        String url = "http://www.w3schools.com/html/html_tables.asp";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
         request.setContentType(ContentType.TEXT);

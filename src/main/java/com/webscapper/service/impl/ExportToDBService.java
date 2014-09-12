@@ -27,23 +27,33 @@ public class ExportToDBService implements ExportService {
         DataAccessService serviceImpl = null;
         Map<String, Object> map = null;
         ExportResponse exportResponse = null;
-        try {
+        try 
+        {
             ExtractResponse response = request.getExtractResponse();
             List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
-            if (tablesList != null) {
+            if (tablesList != null) 
+            {
                 exportResponse = new ExportResponse();
                 map = new HashMap<String, Object>();
                 List<Map<String, List<Map<String, List<String>>>>> tableList = new ArrayList<Map<String, List<Map<String, List<String>>>>>();
-                for (List<List<String>> table : tablesList) {
+                
+                int rowCounter = 1;
+                for (List<List<String>> table : tablesList) 
+                {
                     List<Map<String, List<String>>> rowList = new ArrayList<Map<String, List<String>>>();
-                    for (List<String> row : table) {
+                    int coulumnCounter = 1;
+                    for (List<String> row : table) 
+                    {
                         Map<String, List<String>> colMap = new HashMap<String, List<String>>();
-                        colMap.put("Columns", row);
+                        colMap.put("Columns_"+coulumnCounter, row);
                         rowList.add(colMap);
+                        coulumnCounter++;
                     }
+                    
                     Map<String, List<Map<String, List<String>>>> rowMap = new HashMap<String, List<Map<String, List<String>>>>();
-                    rowMap.put("Rows", rowList);
+                    rowMap.put("Rows_"+rowCounter, rowList);
                     tableList.add(rowMap);
+                    rowCounter++;
                 }
                 map.put(CommonConstants.TITLE, request.getTitle() + DATE_FORMATTER.format(new Date()));
                 map.put(CommonConstants.URL, request.getUrl());
@@ -56,8 +66,10 @@ public class ExportToDBService implements ExportService {
                     exportResponse.setSuccess(true);
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
+        } 
+        catch (Exception e) 
+        {
+        	exportResponse.setSuccess(false);
         }
 
         return exportResponse;

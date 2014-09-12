@@ -1,5 +1,6 @@
 package com.webscapper.service.impl;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -12,9 +13,13 @@ import com.webscrapper.service.ExportService;
 public class ExportToCSVService implements ExportService {
 
     @Override
-    public ExportResponse export(ExportRequest request) {
-        String s = request.getLocation() + request.getTitle() + ".csv";
-        try {
+    public ExportResponse export(ExportRequest request) 
+    {
+        String s = request.getLocation()+File.separator+ request.getTitle() + ".csv";
+        ExportResponse exportResponse = new ExportResponse();
+        
+        try 
+        {
             FileWriter writer = new FileWriter(s);
             ExtractResponse response = request.getExtractResponse();
             List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
@@ -23,29 +28,37 @@ public class ExportToCSVService implements ExportService {
                 while (tableIterator.hasNext()) {
                     List<List<String>> rowsList = tableIterator.next();
                     Iterator<List<String>> rowIterator = rowsList.iterator();
-                    while (rowIterator.hasNext()) {
-                        List<String> colsList = rowIterator.next();
+                    while (rowIterator.hasNext()) 
+                    {
+                        int commaCounter = 0;
+                    	List<String> colsList = rowIterator.next();
                         Iterator<String> colIterator = colsList.iterator();
-                        while (colIterator.hasNext()) {
-                            writer.append(request.getTitle());
-                            writer.append(',');
-                            writer.append(request.getUrl());
-                            writer.append(',');
-                            writer.append(request.getExportType().getType());
-                            writer.append(',');
-                            writer.append(colIterator.next());
-                            writer.append('\n');
+                        while (colIterator.hasNext()) 
+                        {                            
+                            if(commaCounter >0)
+                            {
+                            	writer.append(",");
+                            }                            	
+                        	writer.append(colIterator.next());
+                        	commaCounter++;
                         }
+                        
+                        writer.append("\r\n");                       
                     }
+                    writer.append("\r\n");
                 }
             }
 
-            writer.flush();
-            writer.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
+            
+            writer.close();           
+            
+            exportResponse.setSuccess(true);            
+        } 
+        catch (Exception e) 
+        {            
+            exportResponse.setSuccess(false);
         }
-        return null;
+        return exportResponse;
     }
 
 }

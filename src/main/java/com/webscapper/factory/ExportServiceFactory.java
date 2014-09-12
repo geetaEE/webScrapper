@@ -34,10 +34,10 @@ public abstract class ExportServiceFactory {
                     if (ExportType.DB.equals(type)) {
                         instanceMap.put(type, new ExportToDBService());
                     }
-                    if (ExportType.CSV.equals(type)) {
+                    else if (ExportType.CSV.equals(type)) {
                         instanceMap.put(type, new ExportToCSVService());
                     }
-                    if (ExportType.DOC.equals(type)) {
+                    else if (ExportType.DOC.equals(type)) {
                         instanceMap.put(type, new ExportToDocService());
                     } else {
                         instanceMap.put(type, new ExportToTextService());

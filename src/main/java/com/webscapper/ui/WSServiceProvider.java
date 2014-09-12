@@ -44,18 +44,14 @@ public class WSServiceProvider
 	{
 		ExportResponse exportResponse = ExportServiceFactory.getInstance(exportRequest.getExportType()).export(exportRequest);
 		return exportResponse;
+	}	
+	
+	public String[][] fetchTabularPreviewData(ExtractResponse extractResponse)
+	{
+		return null;
 	}
 	
 	public String[] fetchColumnNameForPreview(ExtractResponse extractResponse)
-	{
-		List<List<List<String>>> tables = extractResponse.getTables();
-        List<String> columns = tables.get(0).get(0);
-        String[] columnNames = columns.toArray(new String[columns.size()]);
-        return columnNames;
-        
-	}
-	
-	public String[][] fetchColumnValuesForPreview(ExtractResponse extractResponse)
 	{
 		return null;
 	}

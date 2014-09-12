@@ -64,7 +64,7 @@ public abstract class BaseExtractService implements ExtractService {
     protected Document extractDocument(String url) {
         Document doc = null;
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(30000).get();
         } catch (IOException e) {
             BufferedReader br = null;
             StringBuilder htmlB = new StringBuilder();
@@ -91,6 +91,9 @@ public abstract class BaseExtractService implements ExtractService {
             if (!html.isEmpty()) {
                 doc = Jsoup.parse(htmlB.toString());
             }
+        }
+        if (doc != null) {
+            doc.select("*[style*=display:none]").remove();
         }
         return doc;
     }

@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -20,6 +21,7 @@ public class TextExtractService extends BaseExtractService {
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());
             if (doc != null) {
+                doc = Jsoup.parse(doc.html(), "UTF-8");
                 ExtractResponse response = new ExtractResponse();
                 // Non tabular data
                 Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
@@ -46,11 +48,11 @@ public class TextExtractService extends BaseExtractService {
                     response.setTagDataMap(tagDataMap);
                 }
                 // Tabular data.
-                List<String> columns = new ArrayList<String>();
-                List<List<String>> rows = new ArrayList<List<String>>();
                 List<List<List<String>>> tables = new ArrayList<List<List<String>>>();
                 for (Element table : doc.select("table")) {
+                    List<List<String>> rows = new ArrayList<List<String>>();
                     for (Element row : table.select("tr")) {
+                        List<String> columns = new ArrayList<String>();
                         Elements tds = null;
                         tds = row.select("th");
                         for (Element td : tds) {
@@ -64,7 +66,7 @@ public class TextExtractService extends BaseExtractService {
                     }
                     tables.add(rows);
                 }
-                if (!columns.isEmpty() && !rows.isEmpty() && !tables.isEmpty()) {
+                if (!tables.isEmpty()) {
                     response.setTables(tables);
                 }
                 // return response

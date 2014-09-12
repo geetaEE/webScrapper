@@ -65,10 +65,10 @@ public class TestExtractService {
         ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
         List<List<List<String>>> tables = response.getTables();
         List<String> columns = tables.get(0).get(0);
-        Assert.assertEquals(1, tables.size());
-        Assert.assertEquals(42, tables.get(0).size());
-        Assert.assertEquals(262, columns.size());
-        Assert.assertEquals("Name", columns.get(0));
+        Assert.assertEquals(6, tables.size());
+        Assert.assertEquals(5, tables.get(0).size());
+        Assert.assertEquals(4, columns.size());
+        Assert.assertEquals("Number", columns.get(0));
     }
 
     /** Test image extraction. */

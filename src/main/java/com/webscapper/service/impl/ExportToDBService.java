@@ -1,6 +1,8 @@
 package com.webscapper.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,8 @@ import com.webscrapper.service.ExportService;
 
 public class ExportToDBService implements ExportService {
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd-HH:mm:ss";
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
     /*
      * This method is used to insert the tabular data into DB based on the ExportType
      */
@@ -41,7 +45,7 @@ public class ExportToDBService implements ExportService {
                     rowMap.put("Rows", rowList);
                     tableList.add(rowMap);
                 }
-                map.put(CommonConstants.TITLE, request.getTitle());
+                map.put(CommonConstants.TITLE, request.getTitle() + DATE_FORMATTER.format(new Date()));
                 map.put(CommonConstants.URL, request.getUrl());
                 map.put(CommonConstants.TABLES, tableList);
 

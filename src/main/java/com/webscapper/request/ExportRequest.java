@@ -16,6 +16,8 @@ public class ExportRequest {
     private ExportType exportType;
     /** The tagsList.*/
     private List<String> tagsList;
+    /** The location.*/
+    private String location;
     
 	public String getUrl() {
 		return url;
@@ -47,7 +49,10 @@ public class ExportRequest {
 	public void setTagsList(List<String> tagsList) {
 		this.tagsList = tagsList;
 	}
-    
-    
-
+	public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

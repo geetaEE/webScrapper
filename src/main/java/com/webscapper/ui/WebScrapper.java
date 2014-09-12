@@ -61,8 +61,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 
+import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
+import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ContentType;
+import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.UIConstants;
 
 
@@ -117,8 +120,11 @@ public class WebScrapper extends JFrame
 	private JList htmlControlList;
 	JButton extractButton;
 	private String url;
+	private String title;
 	private ContentType contentType;
 	private ExtractRequest extractRequest;
+	private ExtractResponse extractResponse = null;
+	private WSServiceProvider wsServiceProvider;
 	
 	/**
 	 * Launch the application.
@@ -448,7 +454,7 @@ public class WebScrapper extends JFrame
 	                {               	
 	                	String msg = "All data exported successfully";
 	                	
-	                	if(true)
+	                	if(!"DB".equals(extractToOptionValue))
 	                	{	
 		                	fc = new JFileChooser();
 							fc.setDialogTitle("Open");
@@ -473,6 +479,16 @@ public class WebScrapper extends JFrame
 	                	}
 	                	else
 	                	{
+	                		//VivekYadav
+	                		ExportRequest exportRequest = frame.wsServiceProvider.buildExportRequest(frame.url, 
+	                																						frame.title, 
+	                																						frame.extractResponse, 
+	                																						ExportType.getExportType(extractToOptionValue), 
+	                																						null, 
+	                																						null);
+	                		
+	                		frame.wsServiceProvider.executeExportOperation(exportRequest);
+	                		
 	                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
 	                	}
 	                }
@@ -540,16 +556,17 @@ public class WebScrapper extends JFrame
 					if(structedRadioButton.isSelected())
 					{
 						//Tabular:
-						String columnNames[] = { "Column 1", "Column 2", "Column 3" };
-
+						/*String columnNames[] = { "Column 1", "Column 2", "Column 3" };*/
+						String columnNames[] = frame.wsServiceProvider.fetchColumnNameForPreview(frame.extractResponse);
 						// Create some data
-						String dataValues[][] =
+						/*String dataValues[][] =
 						{
 							{ "12", "234", "67" },
 							{ "-123", "43", "853" },
 							{ "93", "89.2", "109" },
 							{ "279", "9033", "3092" }
-						};
+						};*/
+						String dataValues[][] = frame.wsServiceProvider.fetchColumnValuesForPreview(frame.extractResponse);
 						
 						JTable table = new JTable( dataValues, columnNames );
 						
@@ -647,7 +664,7 @@ public class WebScrapper extends JFrame
 			{
 				//1 . Validation
 				String url = urlTextField.getText().trim();
-				String keyword = titleTextField.getText().trim();
+				String keyword = titleTextField.getText().trim();				
 				
 				if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword))						
 				{
@@ -687,12 +704,21 @@ public class WebScrapper extends JFrame
 					}
 				}
 				
+				String slectedValue = extractDataTypeComboBox.getSelectedItem().toString();
+				frame.url = url;
+				frame.title = keyword;
+				frame.contentType = ContentType.getContentType(slectedValue);
+				
+				//Construct ExtractRequest Object- VivekYadav
+				frame.wsServiceProvider = new WSServiceProvider();
+				frame.extractRequest = frame.wsServiceProvider.buildExtractRequest(frame.url, frame.contentType);
+				frame.extractResponse = frame.wsServiceProvider.executeExtractOperation(frame.extractRequest);
+				
 				//3. show waiting dialog
 				showWaitingDialog();
 				
 				
-				//2. Populate Check Box List 
-				String slectedValue = extractDataTypeComboBox.getSelectedItem().toString();
+				//2. Populate Check Box List				
 				if(slectedValue.equals(ExtractDataType.IMAGE.getDescription()))
 				{				
 					populateImageList();
@@ -1004,9 +1030,12 @@ public class WebScrapper extends JFrame
 	
 	public void resetHeaderValuesValue()
 	{		
-		this.url = null;
-		this.contentType = null;
-		this.extractRequest = null;
+		frame.url = null;
+		frame.title = null;
+		frame.contentType = null;
+		frame.extractRequest = null;
+		frame.wsServiceProvider = null;
+		frame.extractResponse = null;
 		urlTextField.setText("");
 		titleTextField.setText("");
 		urlTextField.setEditable(true);

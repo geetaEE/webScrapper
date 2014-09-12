@@ -565,18 +565,7 @@ public class WebScrapper extends JFrame
 					JScrollPane scrollPane = null;
 					
 					if(structedRadioButton.isSelected())
-					{						
-						/*String columnNames[] = { "Column 1", "Column 2", "Column 3", "4" };						
-						String dataValues[][] =
-						{
-							{ "12", "234", "67","2" },
-							{ "-123", "43", "853","2" },
-							{ "93", "89.2", "109","2" },
-							{ "279", "9033", "3092","2" }
-						};*/
-						
-						//Tabular:VivekYadav
-						
+					{
 						String columnNames[] = frame.wsServiceProvider.fetchColumnNameForPreview(frame.extractResponse);
 						String dataValues[][] = frame.wsServiceProvider.fetchTabularPreviewData(frame.extractResponse);
 						

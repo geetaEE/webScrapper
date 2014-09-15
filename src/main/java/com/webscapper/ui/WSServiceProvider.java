@@ -59,6 +59,10 @@ public class WSServiceProvider
         	int rowCounter = 0;           
             for (List<String> row : table) 
             {              
+            	if(rowCounter == 4)
+            	{
+            		break;
+            	}
             	columnArray[rowCounter] = new String[4];
             	int columnCounter = 0;
             	for(String columnValue : row)
@@ -83,10 +87,10 @@ public class WSServiceProvider
             {            	
             	for(int i = rowCounter ; i<= 3 ; i++)
             	{
-            		columnArray[rowCounter] = new String[4];
+            		columnArray[i] = new String[4];
             		for(int j = 0 ; j<= 3 ; j++)
             		{
-            			columnArray[rowCounter][j]="";
+            			columnArray[i][j]="";
             		}
             	}
             }

@@ -63,6 +63,7 @@ import javax.swing.border.LineBorder;
 
 import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
+import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
@@ -498,9 +499,18 @@ public class WebScrapper extends JFrame
 	                																						null, 
 	                																						null);
 	                		
-	                		frame.wsServiceProvider.executeExportOperation(exportRequest);
+	                		ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
 	                		
-	                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+	                		if(exportResponse.isSuccess())
+	                		{	
+	                			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+	                		}
+	                		else
+	                		{
+	                			msg = "Database connection is not available, kindly check MongoDB connection on your machine and then choose export to DB option.";
+	                			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+	                			return;
+	                		}
 	                	}
 	                }
 	                else

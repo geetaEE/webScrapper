@@ -453,7 +453,7 @@ public class WebScrapper extends JFrame
                 {	
 	                if("Export".equals(optionValue))
 	                {               	
-	                	String msg = "All data exported successfully";
+	                	String msg = "All data exported successfully.";
 	                	
 	                	if(!"DB".equals(extractToOptionValue))
 	                	{	
@@ -480,9 +480,19 @@ public class WebScrapper extends JFrame
 																											null, 
 																											selectedFile.getAbsolutePath());
 
-			                	frame.wsServiceProvider.executeExportOperation(exportRequest);
+			                	ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
 			                	
-			                	JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+			                	if(exportResponse.isSuccess())
+		                		{
+			                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+		                		}
+			                	else
+			                	{
+			                		msg = "Issue in data export operation, kinldy check settings.";
+			                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+			                		return;
+			                	}
+			                	
 							}
 							else
 							{

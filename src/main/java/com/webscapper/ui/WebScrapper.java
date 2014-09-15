@@ -252,6 +252,7 @@ public class WebScrapper extends JFrame
 				populateHtmlControlList();
 				btnRunQuery.setEnabled(false);
 				btnPreview.setEnabled(true);
+				htmlControlScrollPanel.setVisible(true);
 			}
 		});		
 		
@@ -266,6 +267,7 @@ public class WebScrapper extends JFrame
 				htmlControlList.setListData(new CheckListItem[] {});
 				btnRunQuery.setEnabled(true);
 				btnPreview.setEnabled(true);
+				htmlControlScrollPanel.setVisible(false);
 			}
 		});		
 		structedRadioButton.setBounds(6, 31, 92, 23);	
@@ -366,6 +368,7 @@ public class WebScrapper extends JFrame
 		htmlControlScrollPanel.setBounds(210, 11, 150, 124);
 		
 		queryRunnerControlBoxPanel.add(htmlControlScrollPanel);
+		htmlControlScrollPanel.setVisible(false);
 		queryRunnerControlBoxPanel.add(scrollPane);
 				
 		lblExtractTo = new JLabel("Export To : ");
@@ -969,6 +972,7 @@ public class WebScrapper extends JFrame
 		btnPreview.setEnabled(false);
 		unStructedRadioButton.setSelected(false);
 		structedRadioButton.setSelected(false);
+		htmlControlScrollPanel.setVisible(false);
 	}
 	
 	public void resetExtractProcessPanel()
@@ -1007,7 +1011,7 @@ public class WebScrapper extends JFrame
 			scrollPane.setVisible(false);			
 			extractTocomboBox.setVisible(true);
 			lblExtractTo.setVisible(true);
-			htmlControlScrollPanel.setVisible(true);			
+			htmlControlScrollPanel.setVisible(false);			
 			structedRadioButton.setEnabled(true);
 			unStructedRadioButton.setEnabled(true);
 			btnPreview.setEnabled(false);

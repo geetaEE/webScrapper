@@ -25,10 +25,19 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -73,6 +82,39 @@ import com.webscrapper.constants.UIConstants;
 public class WebScrapper extends JFrame 
 {
 
+	static {
+        // Initialize for ssl communication.
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+            }
+
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+            }
+        } };
+
+        try {
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+    }
+	
 	private JPanel contentPane;
 	static WebScrapper frame = null;
 	static JProgressBar progressBar;
@@ -485,6 +527,8 @@ public class WebScrapper extends JFrame
 
 			                	ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
 			                	
+			                	showWaitingDialog();
+			                	
 			                	if(exportResponse.isSuccess())
 		                		{
 			                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
@@ -513,6 +557,8 @@ public class WebScrapper extends JFrame
 	                																						null);
 	                		
 	                		ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
+	                		
+	                		showWaitingDialog();
 	                		
 	                		if(exportResponse.isSuccess())
 	                		{	
@@ -1244,7 +1290,7 @@ class DialogDisplay
 {
 	  private JPanel mainPanel = new JPanel();
 	  private JProgressBar progressBar = new JProgressBar(0, 100);	 
-	  private JLabel statusLabel = new JLabel("Extracting....", SwingConstants.CENTER);
+	  private JLabel statusLabel = new JLabel("Processing....", SwingConstants.CENTER);
 	   
 	  public DialogDisplay() 
 	  {		    

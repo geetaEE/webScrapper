@@ -63,6 +63,7 @@ import javax.swing.border.LineBorder;
 
 import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
+import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
@@ -251,6 +252,7 @@ public class WebScrapper extends JFrame
 				populateHtmlControlList();
 				btnRunQuery.setEnabled(false);
 				btnPreview.setEnabled(true);
+				htmlControlScrollPanel.setVisible(true);
 			}
 		});		
 		
@@ -265,6 +267,7 @@ public class WebScrapper extends JFrame
 				htmlControlList.setListData(new CheckListItem[] {});
 				btnRunQuery.setEnabled(true);
 				btnPreview.setEnabled(true);
+				htmlControlScrollPanel.setVisible(false);
 			}
 		});		
 		structedRadioButton.setBounds(6, 31, 92, 23);	
@@ -365,6 +368,7 @@ public class WebScrapper extends JFrame
 		htmlControlScrollPanel.setBounds(210, 11, 150, 124);
 		
 		queryRunnerControlBoxPanel.add(htmlControlScrollPanel);
+		htmlControlScrollPanel.setVisible(false);
 		queryRunnerControlBoxPanel.add(scrollPane);
 				
 		lblExtractTo = new JLabel("Export To : ");
@@ -452,7 +456,7 @@ public class WebScrapper extends JFrame
                 {	
 	                if("Export".equals(optionValue))
 	                {               	
-	                	String msg = "All data exported successfully";
+	                	String msg = "All data exported successfully.";
 	                	
 	                	if(!"DB".equals(extractToOptionValue))
 	                	{	
@@ -479,9 +483,19 @@ public class WebScrapper extends JFrame
 																											null, 
 																											selectedFile.getAbsolutePath());
 
-			                	frame.wsServiceProvider.executeExportOperation(exportRequest);
+			                	ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
 			                	
-			                	JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+			                	if(exportResponse.isSuccess())
+		                		{
+			                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+		                		}
+			                	else
+			                	{
+			                		msg = "Issue in data export operation, kinldy check settings.";
+			                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+			                		return;
+			                	}
+			                	
 							}
 							else
 							{
@@ -498,9 +512,18 @@ public class WebScrapper extends JFrame
 	                																						null, 
 	                																						null);
 	                		
-	                		frame.wsServiceProvider.executeExportOperation(exportRequest);
+	                		ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
 	                		
-	                		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+	                		if(exportResponse.isSuccess())
+	                		{	
+	                			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+	                		}
+	                		else
+	                		{
+	                			msg = "Database connection is not available, kindly check MongoDB connection on your machine and then choose export to DB option.";
+	                			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+	                			return;
+	                		}
 	                	}
 	                }
 	                else
@@ -949,6 +972,7 @@ public class WebScrapper extends JFrame
 		btnPreview.setEnabled(false);
 		unStructedRadioButton.setSelected(false);
 		structedRadioButton.setSelected(false);
+		htmlControlScrollPanel.setVisible(false);
 	}
 	
 	public void resetExtractProcessPanel()
@@ -987,7 +1011,7 @@ public class WebScrapper extends JFrame
 			scrollPane.setVisible(false);			
 			extractTocomboBox.setVisible(true);
 			lblExtractTo.setVisible(true);
-			htmlControlScrollPanel.setVisible(true);			
+			htmlControlScrollPanel.setVisible(false);			
 			structedRadioButton.setEnabled(true);
 			unStructedRadioButton.setEnabled(true);
 			btnPreview.setEnabled(false);

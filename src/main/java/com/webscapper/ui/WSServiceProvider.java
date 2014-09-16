@@ -1,9 +1,10 @@
 package com.webscapper.ui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
-import java.util.Map;
 
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.factory.ExtractServiceFactory;
@@ -155,5 +156,23 @@ public class WSServiceProvider
 	public String fetchNonTabularPreviewData(ExtractResponse extractResponse)
 	{
 		return null;       
+	}
+	
+	/**
+	 * 
+	 * @param extractResponse
+	 * @return
+	 * @throws IOException 
+	 */
+	public InputStream fetchImagePreviewData(String ImageURL) throws IOException
+	{
+		InputStream is = null;
+		
+		URL url = new URL(ImageURL);      
+          
+		is = url.openStream();      
+		
+		return is;
+              
 	}
 }

@@ -428,7 +428,15 @@ public class WebScrapper extends JFrame
 		btnPreview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{				
-				executePreviewOperation();
+				try 
+				{
+					executePreviewOperation();
+				} 
+				catch (Exception e1) 
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}	
 		});
 		
@@ -863,19 +871,14 @@ public class WebScrapper extends JFrame
 		disableHeaderArea();
 	}
 	
-	public void executePreviewOperation()
+	public void executePreviewOperation() throws Exception
 	{
 		String slectedOptionValue = extractDataTypeComboBox.getSelectedItem().toString();
 		
 		if(slectedOptionValue.equals(ContentType.IMAGE.getType()))
-    	{
-			String imgStr = "images/avatar-wallpaper.jpg";
-			
-			ClassLoader cl = getClass().getClassLoader();
-			InputStream stream = cl.getResourceAsStream(imgStr);
-			if( stream == null ) System.err.println( "resource not found" );
+    	{			
+			InputStream stream = frame.wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(imageList).get(0).toString());
 			BufferedImage bufferedImage = null;
-			
 			try 
 			{
 				bufferedImage = ImageIO.read( stream );

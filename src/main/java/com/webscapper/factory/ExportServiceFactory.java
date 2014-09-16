@@ -6,7 +6,7 @@ import java.util.Map;
 import com.webscapper.service.impl.ExportToCSVService;
 import com.webscapper.service.impl.ExportToDBService;
 import com.webscapper.service.impl.ExportToDocService;
-import com.webscapper.service.impl.ExportToTextService;
+import com.webscapper.service.impl.ExportToImageService;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
 
@@ -39,8 +39,12 @@ public abstract class ExportServiceFactory {
                     }
                     else if (ExportType.DOC.equals(type)) {
                         instanceMap.put(type, new ExportToDocService());
-                    } else {
-                        instanceMap.put(type, new ExportToTextService());
+                    }
+                    else if (ExportType.TEXT.equals(type)) {
+                      instanceMap.put(type, new ExportToDocService());
+                    }
+                    else {
+                        instanceMap.put(type, new ExportToImageService());
                     }
                 }
             }

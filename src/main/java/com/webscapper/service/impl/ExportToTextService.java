@@ -1,7 +1,14 @@
 package com.webscapper.service.impl;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.List;
+import java.util.Map;
+
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
+import com.webscapper.response.ExtractResponse;
+import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
 public class ExportToTextService  implements ExportService{

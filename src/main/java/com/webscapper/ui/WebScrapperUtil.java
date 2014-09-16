@@ -55,6 +55,33 @@ public class WebScrapperUtil
 		return selectedListItems;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
+	public static List<String> getSelectedListItemValues(JList list)
+	{
+		ListModel<JList> dlm = (ListModel<JList>) list.getModel();
+		
+		List<String> selectedListItems = new ArrayList<String>();
+		for (int i = 0; i < dlm.getSize(); ++i) 
+		{
+			CheckListItem checkListItem = (CheckListItem)list.getModel().getElementAt(i);
+		      
+		      if (checkListItem.isSelected()) 
+		      {	    	  
+		    	  selectedListItems.add(checkListItem.toString());
+		      }		   
+		 }		
+		
+		return selectedListItems;
+	}
+	
+	/**
+	 * 
+	 * @param list
+	 * @return
+	 */
 	public static List<String> getSelectedListValues(JList list)
 	{
 		ListModel<JList> dlm = (ListModel<JList>) list.getModel();
@@ -72,4 +99,24 @@ public class WebScrapperUtil
 		
 		return selectedListItems;
 	}
+	
+	/**
+	 * 
+	 * @param list
+	 * @return
+	 */
+	public static CheckListItem[] getCheckListItemArray(List<String> list)
+	{
+		CheckListItem[] checkListItems = new CheckListItem[list.size()];
+		
+		if(list.size() > 0)
+		{	
+			for(int i = 0 ; i < list.size() ; i++)
+			{
+				checkListItems[i] = new CheckListItem(list.get(i));
+			}
+		}	
+		
+		return checkListItems;
+	}	
 }

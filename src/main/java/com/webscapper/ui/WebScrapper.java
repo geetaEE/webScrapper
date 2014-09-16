@@ -20,7 +20,9 @@ import java.io.InputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.net.ssl.HostnameVerifier;
@@ -61,6 +63,7 @@ import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.StructuredExtractDocType;
+import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
 
@@ -486,7 +489,7 @@ public class WebScrapper extends JFrame
 				resetExtractProcessPanel();
 			}
 		});
-		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.values()));
+		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
 		extractButton = new JButton("Extract");
 		extractButton.addActionListener(new ActionListener() {
@@ -731,18 +734,11 @@ public class WebScrapper extends JFrame
 	 */
 	public void populateImageList()
 	{
-		imageList.setListData(new CheckListItem[] {
-	            new CheckListItem("aImg.jpg"), 
-	            new CheckListItem("bImg.jpg"), 
-	            new CheckListItem("cImg.jpg"), 
-	            new CheckListItem("dImg.jpg"), 
-	            new CheckListItem("eImg.jpg"),
-	            new CheckListItem("fImg.jpg"),
-	            new CheckListItem("gImg.jpg"),
-	            new CheckListItem("hImg.jpg"),
-	            new CheckListItem("iImg.jpg"),
-	            new CheckListItem("jImg.jpg")
-				});
+		Set<String> imageUrls = frame.extractResponse.getImageUrls();
+		
+		List<String> imageURLList = new ArrayList<String>(imageUrls);	
+		
+		imageList.setListData(WebScrapperUtil.getCheckListItemArray(imageURLList));
 	}
 	
 	/**
@@ -750,13 +746,16 @@ public class WebScrapper extends JFrame
 	 */
 	public void populateHtmlControlList()
 	{
-		htmlControlList.setListData(new CheckListItem[] {
-	            new CheckListItem("Div"), 
-	            new CheckListItem("Paragraph"), 
-	            new CheckListItem("Span"), 
-	            new CheckListItem("Bold Text"), 
-	            new CheckListItem("Hyperlink")
-				});
+		Set<TagType> tagValues = frame.extractResponse.getTagDataMap().keySet();
+		
+		List<String> tagList = new ArrayList<String>();
+		
+		for(TagType tagType : tagValues)
+		{
+			tagList.add(tagType.getDisplayName());
+		}
+		
+		htmlControlList.setListData(WebScrapperUtil.getCheckListItemArray(tagList));
 	}	
 	
 	/**
@@ -775,7 +774,7 @@ public class WebScrapper extends JFrame
 		urlTextField.setEditable(true);
 		titleTextField.setEditable(true);
 		extractDataTypeComboBox.setEnabled(true);
-		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.values()));
+		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		extractButton.setEnabled(true);
 	}
 	
@@ -918,11 +917,7 @@ public class WebScrapper extends JFrame
 			}
 			else
 			{	
-				String content = "Swing is the primary Java GUI widget toolkit. It is part of Oracle's Java Foundation Classes (JFC) � an API for providing a graphical user interface (GUI) for Java programs. " +
-
-								" Swing was developed to provide a more sophisticated set of GUI components than the earlier Abstract Window Toolkit (AWT). Swing provides a native look and feel that emulates the look and feel of several platforms, and also supports a pluggable look and feel that allows applications to have a look and feel unrelated to the underlying platform. It has more powerful and flexible components than AWT. In addition to familiar components such as buttons, check boxes and labels, Swing provides several advanced components such as tabbed panel, scroll panes, trees, tables, and lists. "+
-
-								" Unlike AWT components, Swing components are not implemented by platform-specific code. Instead they are written entirely in Java and therefore are platform-independent. The term lightweight is used to describe such an element.[1]";
+				String content = frame.wsServiceProvider.fetchNonTabularPreviewData(frame.extractResponse);
 				
 				JTextArea textArea = new JTextArea(10, 25);
 				textArea.setLineWrap(true);
@@ -1004,7 +999,19 @@ public class WebScrapper extends JFrame
         {	                
         	if("Export".equals(optionValue))
             {               	            	
-        		executeExportOperation(extractToOptionValue, selectedOptionValue);        		
+        		List<String> selectedImageURLList = new ArrayList<String>();
+        		List<String> selectedHTMLControlList = new ArrayList<String>();
+        		
+        		if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
+				{
+        			selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(imageList);
+				}
+        		else
+        		{
+        			selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);
+        		}
+        		
+        		executeExportOperation(extractToOptionValue, selectedOptionValue, selectedImageURLList, selectedHTMLControlList);        		
             }
             else
             {
@@ -1032,7 +1039,7 @@ public class WebScrapper extends JFrame
 	 * 
 	 * @param extractToOptionValue
 	 */
-	private void executeExportOperation(String extractToOptionValue, String selectedOptionValue) 
+	private void executeExportOperation(String extractToOptionValue, String selectedOptionValue, List<String> selectedImageURLList, List<String> selectedHTMLControlList) 
 	{
 		String msg = "All data exported successfully.";
     	
@@ -1058,8 +1065,9 @@ public class WebScrapper extends JFrame
 																							frame.title, 
 																							frame.extractResponse, 
 																							ExportType.getExportType(extractToOptionValue), 
-																							null, 
-																							selectedFile.getAbsolutePath());
+																							selectedHTMLControlList, 
+																							selectedFile.getAbsolutePath(),
+																							selectedImageURLList);
 
             	ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
             	
@@ -1089,6 +1097,7 @@ public class WebScrapper extends JFrame
     																						frame.extractResponse, 
     																						ExportType.getExportType(extractToOptionValue), 
     																						null, 
+    																						null,
     																						null);
     		
     		ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);

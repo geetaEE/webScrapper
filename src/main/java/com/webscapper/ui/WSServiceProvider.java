@@ -16,6 +16,12 @@ import com.webscrapper.constants.ExportType;
 
 public class WSServiceProvider 
 {
+	/**
+	 * 
+	 * @param url
+	 * @param contentType
+	 * @return
+	 */
 	public ExtractRequest buildExtractRequest(String url, ContentType contentType)
 	{
 		ExtractRequest extractRequest = new ExtractRequest();
@@ -24,7 +30,17 @@ public class WSServiceProvider
 		return extractRequest;
 	}
 	
-	public ExportRequest buildExportRequest(String url, String title, ExtractResponse extractResponse, ExportType exportType, List<String> tagsList, String location)
+	/**
+	 * 
+	 * @param url
+	 * @param title
+	 * @param extractResponse
+	 * @param exportType
+	 * @param tagsList
+	 * @param location
+	 * @return
+	 */
+	public ExportRequest buildExportRequest(String url, String title, ExtractResponse extractResponse, ExportType exportType, List<String> tagsList, String location, List<String> selectedImageURLList)
 	{
 		ExportRequest exportRequest = new ExportRequest();
 		exportRequest.setUrl(url);
@@ -33,22 +49,38 @@ public class WSServiceProvider
 		exportRequest.setExportType(exportType);
 		exportRequest.setTagsList(tagsList);
 		exportRequest.setLocation(location);
+		exportRequest.setImageURLList(selectedImageURLList);
 		
 		return exportRequest;
 	}
 	
+	/**
+	 * 
+	 * @param extractRequest
+	 * @return
+	 */
 	public ExtractResponse executeExtractOperation(ExtractRequest extractRequest)
 	{
 		ExtractResponse extractResponse = ExtractServiceFactory.getInstance(extractRequest.getContentType()).extract(extractRequest);
 		return extractResponse;
 	}
 	
+	/**
+	 * 
+	 * @param exportRequest
+	 * @return
+	 */
 	public ExportResponse executeExportOperation(ExportRequest exportRequest)
 	{
 		ExportResponse exportResponse = ExportServiceFactory.getInstance(exportRequest.getExportType()).export(exportRequest);
 		return exportResponse;
 	}	
 	
+	/**
+	 * 
+	 * @param extractResponse
+	 * @return
+	 */
 	public String[][] fetchTabularPreviewData(ExtractResponse extractResponse)
 	{
 		String[][] columnArray = new String[4][4];
@@ -99,6 +131,11 @@ public class WSServiceProvider
         return columnArray;
 	}
 	
+	/**
+	 * 
+	 * @param extractResponse
+	 * @return
+	 */
 	public String[] fetchColumnNameForPreview(ExtractResponse extractResponse)
 	{		
         String[] columnArray = new String[4];
@@ -107,5 +144,16 @@ public class WSServiceProvider
         columnArray[2] = "Column_3";
         columnArray[3] = "Column_4";
         return columnArray;
+	}
+	
+	
+	/**
+	 * 
+	 * @param extractResponse
+	 * @return
+	 */
+	public String fetchNonTabularPreviewData(ExtractResponse extractResponse)
+	{
+		return null;       
 	}
 }

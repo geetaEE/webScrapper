@@ -19,7 +19,9 @@ public class ExportRequest {
     private List<String> tagsList;
     /** The location. */
     private String location;
-
+    /** image URL List **/
+    private List<String> imageURLList;
+    
     public String getUrl() {
         return url;
     }
@@ -67,4 +69,12 @@ public class ExportRequest {
     public void setLocation(String location) {
         this.location = location;
     }
+
+	public List<String> getImageURLList() {
+		return imageURLList;
+	}
+
+	public void setImageURLList(List<String> imageURLList) {
+		this.imageURLList = imageURLList;
+	}    
 }

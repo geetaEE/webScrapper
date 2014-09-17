@@ -382,8 +382,12 @@ public class WebScrapper extends JFrame
 	            	btnRunQuery.setEnabled(false);
 	            }
 	            else
-	            {
-	            	extractTocomboBox.setModel(new DefaultComboBoxModel(UnStructuredExtractDocType.values()));
+	            {	            	
+	            	if(null != extractTocomboBox && null == extractTocomboBox.getSelectedItem())
+	        		{	
+	            		extractTocomboBox.setModel(new DefaultComboBoxModel(UnStructuredExtractDocType.values()));
+	        		}
+	            	
 	            	btnRunQuery.setEnabled(true);	            	
 	            }
 	         }
@@ -877,30 +881,39 @@ public class WebScrapper extends JFrame
 		
 		if(slectedOptionValue.equals(ContentType.IMAGE.getType()))
     	{			
-			InputStream stream = frame.wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(imageList).get(0).toString());
-			BufferedImage bufferedImage = null;
-			try 
-			{
-				bufferedImage = ImageIO.read( stream );
-			} 
-			catch (IOException e1) 
-			{						
-				e1.printStackTrace();
+			List<CheckListItem> lists = WebScrapperUtil.getSelectedListItems(imageList);
+			
+			if(lists.size() >0)
+			{	
+				InputStream stream = frame.wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(imageList).get(0).toString());
+				BufferedImage bufferedImage = null;
+				try 
+				{
+					bufferedImage = ImageIO.read( stream );
+				} 
+				catch (IOException e1) 
+				{						
+					e1.printStackTrace();
+				}
+				
+				ImageIcon image = new ImageIcon( bufferedImage );					
+				
+				Image scaleImage = image.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+				
+				image = new ImageIcon(scaleImage);
+				
+				JLabel lbl = new JLabel(image);
+				
+				JOptionPane.showMessageDialog(frame, lbl,"Image Preview", -1);	
 			}
-			
-			ImageIcon image = new ImageIcon( bufferedImage );					
-			
-			Image scaleImage = image.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-			
-			image = new ImageIcon(scaleImage);
-			
-			JLabel lbl = new JLabel(image);
-			
-			JOptionPane.showMessageDialog(frame, lbl,"Image Preview", -1);					
+			else
+			{
+				JOptionPane.showMessageDialog(frame, "No Image Preview available, kindly select image.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+				return;
+			}
     	}
 		else
-		{
-			JScrollPane scrollPane = null;
+		{	JScrollPane scrollPane = null;
 			
 			if(structedRadioButton.isSelected())
 			{
@@ -920,14 +933,24 @@ public class WebScrapper extends JFrame
 			}
 			else
 			{	
-				String content = frame.wsServiceProvider.fetchNonTabularPreviewData(frame.extractResponse);
-				
-				JTextArea textArea = new JTextArea(10, 25);
-				textArea.setLineWrap(true);
-			    textArea.setText(content);
-			    textArea.setEditable(false);
-			    
-			    scrollPane = new JScrollPane(textArea);
+				List<String> selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);
+						
+				if(selectedHTMLControlList.size() >0)
+				{	
+					String content = frame.wsServiceProvider.fetchNonTabularPreviewData(frame.extractResponse, selectedHTMLControlList);				
+					
+					JTextArea textArea = new JTextArea(10, 25);
+					textArea.setLineWrap(true);
+				    textArea.setText(content);
+				    textArea.setEditable(false);
+				    
+				    scrollPane = new JScrollPane(textArea);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "No Data Preview available, kindly select HTML Control.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
 			}							
 			
 			JOptionPane.showMessageDialog(frame, scrollPane,"Data Preview", -1);

@@ -17,7 +17,7 @@ public class ExportToImageService implements ExportService
   @Override
   public ExportResponse export(ExportRequest request)
   {
-    String dirLocation = request.getLocation()+File.separator+ request.getTitle();
+    String dirLocation = request.getLocation();
     ExportResponse exportResponse = new ExportResponse();    
     List<String> imageList = request.getImageURLList();
     exportResponse.setSuccess(saveImages(imageList, dirLocation));
@@ -57,8 +57,10 @@ public class ExportToImageService implements ExportService
     {
       try
       {
-        is.close();
-        os.close();
+    	if(null!=is)
+    		is.close();
+    	if(null!=os)
+    		os.close();
       }
       catch (IOException e1)
       {

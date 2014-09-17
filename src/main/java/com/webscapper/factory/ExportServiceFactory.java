@@ -7,6 +7,7 @@ import com.webscapper.service.impl.ExportToCSVService;
 import com.webscapper.service.impl.ExportToDBService;
 import com.webscapper.service.impl.ExportToDocService;
 import com.webscapper.service.impl.ExportToImageService;
+import com.webscapper.service.impl.ExportToTextService;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
 
@@ -41,7 +42,7 @@ public abstract class ExportServiceFactory {
                         instanceMap.put(type, new ExportToDocService());
                     }
                     else if (ExportType.TEXT.equals(type)) {
-                      instanceMap.put(type, new ExportToDocService());
+                      instanceMap.put(type, new ExportToTextService());
                     }
                     else {
                         instanceMap.put(type, new ExportToImageService());

@@ -25,18 +25,16 @@ public class TextExtractService extends BaseExtractService {
                 ExtractResponse response = new ExtractResponse();
                 // Non tabular data
                 Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
-                StringBuilder textB = new StringBuilder();
                 TagType[] tags = TagType.values();
                 for (TagType tagType : tags) {
+                    StringBuilder textB = new StringBuilder();
                     for (Element element : doc.select(tagType.getName())) {
-                        String elemTxt = element.text();
+                        String elemTxt = element.text().trim();
                         if (!textB.toString().contains(elemTxt)) {
-                            if (textB.toString().isEmpty()) {
-                                textB.append(elemTxt);
-                            } else {
+                            if (!textB.toString().isEmpty()) {
                                 textB.append(" ");
-                                textB.append(elemTxt);
                             }
+                            textB.append(elemTxt);
                         }
                     }
                     String text = textB.toString();

@@ -24,7 +24,7 @@ public class TestExtractService {
         request.setContentType(ContentType.TEXT);
         ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
         Map<TagType, String> tagDataMap = response.getTagDataMap();
-        Assert.assertTrue(tagDataMap.get(TagType.BOLD).contains("A joint project of EFF"));
+        Assert.assertTrue(tagDataMap.get(TagType.ANCHOR).contains("How does our website work"));
         Assert.assertTrue(tagDataMap.get(TagType.PARAGRAPH).contains("HTTPS Now"));
     }
 
@@ -52,7 +52,7 @@ public class TestExtractService {
         Map<TagType, String> tagDataMap = response.getTagDataMap();
         Assert.assertTrue(tagDataMap.get(TagType.DIV).contains(
                 "Enter any website URL address HTTPS Now allows users to contribute information about how websites use HTTPS"));
-        Assert.assertTrue(tagDataMap.get(TagType.BOLD).contains("A joint project of EFF"));
+        Assert.assertTrue(tagDataMap.get(TagType.ANCHOR).contains("How does our website work"));
     }
 
     /** Test table extraction. */

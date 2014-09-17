@@ -14,27 +14,33 @@ import com.webscrapper.service.ExportService;
 
 public class ExportToImageService implements ExportService
 {
-  /* (non-Javadoc)
+/* (non-Javadoc)
  * @see com.webscrapper.service.ExportService#export(com.webscapper.request.ExportRequest)
  * Export Image Functionality.
  */
 @Override
   public ExportResponse export(ExportRequest request)
   {
-    String dirLocation = request.getLocation();
     ExportResponse exportResponse = new ExportResponse();    
-    List<String> imageList = request.getImageURLList();
-    exportResponse.setSuccess(saveImages(imageList, dirLocation));
+    if(null!=request)
+    {
+      String dirLocation = request.getLocation();    
+      List<String> imageList = request.getImageURLList();
+      if(null!=imageList && !imageList.isEmpty() && null!=dirLocation && ""!=dirLocation)
+      {
+        exportResponse.setSuccess(saveImages(imageList, dirLocation));
+      }
+    }
     return exportResponse;
   }
   
-  /**
+/**
  * @param imageUrlList
  * @param imageStorePath
  * @return
  * Save the Images to Directory selected via UI.
  */
-public boolean saveImages(List<String> imageUrlList, String imageStorePath)
+  public boolean saveImages(List<String> imageUrlList, String imageStorePath)
   {
     InputStream is = null;
     OutputStream os = null;
@@ -48,7 +54,6 @@ public boolean saveImages(List<String> imageUrlList, String imageStorePath)
         {
           fileName = fileName.substring(fileName.lastIndexOf("/")).split("/")[1];
           String destName = imageStorePath + File.separator + fileName;
-          
           is = url.openStream();
           os = new FileOutputStream(destName);
           byte[] img = new byte[2048];
@@ -62,23 +67,22 @@ public boolean saveImages(List<String> imageUrlList, String imageStorePath)
       is.close();
       os.close();
       return true;
-    }    
+    }
     catch (Exception e)
     {
       try
       {
-    	if(null!=is)
-    		is.close();
-    	if(null!=os)
-    		os.close();
+        if (null != is)
+          is.close();
+        if (null != os)
+          os.close();
       }
       catch (IOException e1)
       {
-    	  return false;
+        return false;
       }
       return false;
     }
-   
   }   
 }
 

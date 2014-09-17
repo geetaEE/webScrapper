@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.runners.JUnit4;
 
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.request.ExportRequest;
@@ -23,7 +23,7 @@ import com.webscrapper.service.ExportService;
  * @author gaurav.bhattacharya
  * JUnit class to test the Export To Image Functionality.
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(JUnit4.class)
 public class TestExportToImageService
 {
   private List<String> imageUrlsList;

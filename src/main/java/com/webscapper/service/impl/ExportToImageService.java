@@ -40,7 +40,7 @@ public class ExportToImageService implements ExportService
  * @return
  * Save the Images to Directory selected via UI.
  */
-  public boolean saveImages(List<String> imageUrlList, String imageStorePath)
+  private boolean saveImages(List<String> imageUrlList, String imageStorePath)
   {
     InputStream is = null;
     OutputStream os = null;

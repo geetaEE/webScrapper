@@ -857,6 +857,11 @@ public class WebScrapper extends JFrame
 		frame.extractRequest = frame.wsServiceProvider.buildExtractRequest(frame.url, frame.contentType);
 		frame.extractResponse = frame.wsServiceProvider.executeExtractOperation(frame.extractRequest);
 		
+		if(null == frame.extractResponse)
+		{
+			JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		//3. show waiting dialog
 		WebScrapperUtil.showWaitingDialog(frame);
 		

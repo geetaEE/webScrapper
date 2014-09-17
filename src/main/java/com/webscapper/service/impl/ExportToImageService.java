@@ -14,7 +14,11 @@ import com.webscrapper.service.ExportService;
 
 public class ExportToImageService implements ExportService
 {
-  @Override
+  /* (non-Javadoc)
+ * @see com.webscrapper.service.ExportService#export(com.webscapper.request.ExportRequest)
+ * Export Image Functionality.
+ */
+@Override
   public ExportResponse export(ExportRequest request)
   {
     String dirLocation = request.getLocation();
@@ -24,7 +28,13 @@ public class ExportToImageService implements ExportService
     return exportResponse;
   }
   
-  public boolean saveImages(List<String> imageUrlList, String imageStorePath)
+  /**
+ * @param imageUrlList
+ * @param imageStorePath
+ * @return
+ * Save the Images to Directory selected via UI.
+ */
+public boolean saveImages(List<String> imageUrlList, String imageStorePath)
   {
     InputStream is = null;
     OutputStream os = null;

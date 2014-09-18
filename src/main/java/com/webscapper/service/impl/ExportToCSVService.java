@@ -1,6 +1,5 @@
 package com.webscapper.service.impl;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.util.Iterator;
 import java.util.List;
@@ -8,19 +7,22 @@ import java.util.List;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
+import com.webscapper.util.CommonUtil;
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 public class ExportToCSVService implements ExportService {
 
     @Override
     public ExportResponse export(ExportRequest request) 
-    {
-        String s = request.getLocation()+File.separator+ request.getTitle() + ".csv";
+    {        
         ExportResponse exportResponse = new ExportResponse();
-        
+        String fileName = null;
         try 
         {
-            FileWriter writer = new FileWriter(s);
+        	fileName = CommonUtil.getFileName(request.getLocation(),
+					request.getTitle(), CommonConstants.EXT_CSV);
+            FileWriter writer = new FileWriter(fileName);
             ExtractResponse response = request.getExtractResponse();
             List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
             if (tablesList != null) {

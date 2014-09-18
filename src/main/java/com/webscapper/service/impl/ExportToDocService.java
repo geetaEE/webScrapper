@@ -1,15 +1,14 @@
 package com.webscapper.service.impl;
 
-import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
+import com.webscapper.util.CommonUtil;
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
@@ -18,16 +17,25 @@ public class ExportToDocService implements ExportService {
 	/**This method will export non tabular data into doc. 
 	This will take file name, tagsList from the UI.**/
 	@Override
-	public ExportResponse export(ExportRequest request) 
+	public ExportResponse export(ExportRequest request)
 	{
-		String fileName = request.getLocation() + File.separator + request.getTitle()
-				+ ".doc";
-		ExportResponse exportResponse = new ExportResponse();
+		String fileName = null;
+		ExportResponse exportResponse = null;
+		ExtractResponse response = null;
+		FileWriter writer = null;
+		List<String> tagsList = null;
 		try
 			{
-			FileWriter writer = new FileWriter(fileName);
-			ExtractResponse response = request.getExtractResponse();
-			List<String> tagsList = request.getTagsList();
+			exportResponse = new ExportResponse();
+			if (request != null) 
+			{
+				fileName = CommonUtil.getFileName(request.getLocation(),
+						request.getTitle(), CommonConstants.EXT_DOC);
+				response = request.getExtractResponse();
+				tagsList = request.getTagsList();
+			}
+			writer = new FileWriter(fileName);
+			
 			Map<TagType, String> tagData = response != null ? response
 					.getTagDataMap() : null;
 	
@@ -52,6 +60,7 @@ public class ExportToDocService implements ExportService {
 			
 		} catch (Exception e) {
 			exportResponse.setSuccess(false);
+			e.printStackTrace();
 		}
 		return exportResponse;
 	}

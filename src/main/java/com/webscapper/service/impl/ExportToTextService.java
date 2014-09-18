@@ -1,6 +1,5 @@
 package com.webscapper.service.impl;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +7,8 @@ import java.util.Map;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
+import com.webscapper.util.CommonUtil;
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
@@ -15,11 +16,12 @@ public class ExportToTextService  implements ExportService{
 
 	@Override
 	public ExportResponse export(ExportRequest request) {
-		String fileName = request.getLocation() + File.separator + request.getTitle()
-				+ ".txt";
+		String fileName = null;
 		ExportResponse exportResponse = new ExportResponse();
 		try
 			{
+			fileName = CommonUtil.getFileName(request.getLocation(),
+					request.getTitle(), CommonConstants.EXT_TEXT);
 			FileWriter writer = new FileWriter(fileName);
 			ExtractResponse response = request.getExtractResponse();
 			List<String> tagsList = request.getTagsList();

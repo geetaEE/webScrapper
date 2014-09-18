@@ -6,7 +6,7 @@ import org.junit.runners.JUnit4;
 import com.webscapper.ui.URLUtil;
 
 @RunWith(JUnit4.class)
-public class URLUtilTest 
+public class TestURLUtil 
 {
 	@Test
     public void testIsValidURL() 

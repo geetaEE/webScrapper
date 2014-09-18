@@ -75,30 +75,7 @@ public class WebScrapperUtil
 		 }		
 		
 		return selectedListItems;
-	}
-	
-	/**
-	 * 
-	 * @param list
-	 * @return
-	 */
-	public static List<String> getSelectedListValues(JList list)
-	{
-		ListModel<JList> dlm = (ListModel<JList>) list.getModel();
-		
-		List<String> selectedListItems = new ArrayList<String>();
-		for (int i = 0; i < dlm.getSize(); ++i) 
-		{
-			CheckListItem checkListItem = (CheckListItem)list.getModel().getElementAt(i);
-		      
-		      if (checkListItem.isSelected()) 
-		      {	    	  
-		    	  selectedListItems.add(checkListItem.toString());
-		      }		   
-		 }		
-		
-		return selectedListItems;
-	}
+	}	
 	
 	/**
 	 * 

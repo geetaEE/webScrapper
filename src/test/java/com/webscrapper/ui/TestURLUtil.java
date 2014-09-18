@@ -17,7 +17,7 @@ public class TestURLUtil
 		Assert.assertTrue("URL validaton result should be true.",result);
 		
 		//Scenario 2 : Negative Scenario.
-		url = "http://www.vivekyadav.com";
+		url = "testtesttest123";
 		result = URLUtil.isValidURL(url);
 		Assert.assertFalse("URL validaton result should be false.",result);
     }
@@ -31,7 +31,7 @@ public class TestURLUtil
 		Assert.assertTrue("URL connection validaton result should be true.",result);
 		
 		//Scenario 2 : Negative Scenario.
-		url = "http://www.vivekyadav.com";
+		url = "http://www.testtesttest123.com/";
 		result = URLUtil.isValidURLForConnection(url);
 		Assert.assertFalse("URL connection validaton result should be false.",result);
     }

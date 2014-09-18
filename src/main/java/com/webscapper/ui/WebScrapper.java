@@ -23,7 +23,6 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -55,7 +54,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
-
 import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExportResponse;
@@ -66,23 +64,15 @@ import com.webscrapper.constants.StructuredExtractDocType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
-
-
-public class WebScrapper extends JFrame 
-{
-
+public class WebScrapper extends JFrame {
 	static {
         // Initialize for ssl communication.
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                 return null;
             }
-
-            public void checkClientTrusted(X509Certificate[] certs, String authType) {
-            }
-
-            public void checkServerTrusted(X509Certificate[] certs, String authType) {
-            }
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {}
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {}
         } };
 
         try {
@@ -121,12 +111,10 @@ public class WebScrapper extends JFrame
 	JFileChooser fc;
 	private JScrollPane scrollPane;
 	private JList imageList;
-	private JButton btnPreview;
-	//JPanel htmlControlPanel;
+	private JButton btnPreview;	
 	JCheckBox chckbxDiv;
 	JCheckBox chckbxSpan;
-	JCheckBox chckbxParagraph;
-	//JCheckBox chckbxTable;
+	JCheckBox chckbxParagraph;	
 	private JPanel previewRunQueryPanel;
 	JComboBox extractTocomboBox;
 	JLabel lblExtractTo;
@@ -144,10 +132,8 @@ public class WebScrapper extends JFrame
 	private JButton btnProcess;
 	private JPanel headerPanel;
 	private JLabel lblExtractProcess;
-	private JPanel queryRunnerControlBoxPanel ;
-	
-	private JButton btnRunQuery;
-	
+	private JPanel queryRunnerControlBoxPanel ;	
+	private JButton btnRunQuery;	
 	private JScrollPane htmlControlScrollPanel;
 	private JList htmlControlList;
 	JButton extractButton;
@@ -167,29 +153,18 @@ public class WebScrapper extends JFrame
 		JFrame.setDefaultLookAndFeelDecorated(true);
 	    JDialog.setDefaultLookAndFeelDecorated(true);
 	    
-		EventQueue.invokeLater(new Runnable() 
-										{
-											public void run() 
-											{
-												try 
-												{
-													frame = new WebScrapper();
-													frame.setVisible(true);
-													frame.setLocationRelativeTo( null );
-													frame.resetAllExtractProcessPanel();				
-												} 
-												catch (Exception e) 
+		EventQueue.invokeLater(new Runnable(){public void run(){
+												try {
+													frame = new WebScrapper();frame.setVisible(true);frame.setLocationRelativeTo( null );frame.resetAllExtractProcessPanel();				
+												}catch (Exception e) 
 												{
 													System.exit(1);
-												}
-											}
-										}
-								);		
+												}}});		
 	}
 
 
 	/**
-	 * 
+	 * Method for creating the UI components.
 	 * @throws Exception
 	 */
 	public WebScrapper() throws Exception 
@@ -201,56 +176,44 @@ public class WebScrapper extends JFrame
 		setBounds(100, 100, 652, 792);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
-		contentPane.setLayout(null);	
-		
-		fc = new JFileChooser();
-		
-		dataTypeRadioButtonGroup = new ButtonGroup();
-		
-		createMenus();	
-		
-		createExtrctProcessPanel();
-		
+		contentPane.setLayout(null);		
+		fc = new JFileChooser();		
+		dataTypeRadioButtonGroup = new ButtonGroup();		
+		createMenus();			
+		createExtrctProcessPanel();		
 		createBatchProcessPanel();		
 	}
 	
 	/**
-	 * 
+	 * Method for crating the Menus.
 	 */
 	public void createMenus()
 	{
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 651, 21);
-		contentPane.add(menuBar);
-		
+		contentPane.add(menuBar);		
 		JMenu mnNewMenu = new JMenu("Process   |");
-		menuBar.add(mnNewMenu);
-		
+		menuBar.add(mnNewMenu);		
 		mntmExtractProcess = new JMenuItem("Extract Process");
 		mntmExtractProcess.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)			
-			{
+			public void actionPerformed(ActionEvent e){
 				batchProcessPanel.setVisible(false);
 				extractProcessPanel.setVisible(true);
 				resetAllExtractProcessPanel();
-			}
-		});
-		mnNewMenu.add(mntmExtractProcess);
-		
+			}});
+		mnNewMenu.add(mntmExtractProcess);		
 		mntmBatchProcess = new JMenuItem("Batch Process");
 		mntmBatchProcess.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) 
-			{			
+			public void actionPerformed(ActionEvent arg0){			
 				batchProcessPanel.setVisible(true);
 				extractProcessPanel.setVisible(false);	
 				resetBatchProcessPanel();
-			}
-		});
+			}});
 		mnNewMenu.add(mntmBatchProcess);
 	}
 	
 	/**
-	 * 
+	 * Method for creating extract process panel.
 	 * @throws Exception
 	 */
 	public void createExtrctProcessPanel() throws Exception
@@ -259,403 +222,276 @@ public class WebScrapper extends JFrame
 		extractProcessPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		extractProcessPanel.setBounds(10, 32, 629, 470);
 		contentPane.add(extractProcessPanel);
-		extractProcessPanel.setLayout(null);
-		
+		extractProcessPanel.setLayout(null);		
 		queryRunnerControlBoxPanel = new JPanel();
 		queryRunnerControlBoxPanel.setBounds(10, 200, 609, 194);
 		extractProcessPanel.add(queryRunnerControlBoxPanel);
 		queryRunnerControlBoxPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		queryRunnerControlBoxPanel.setLayout(null);
-		
+		queryRunnerControlBoxPanel.setLayout(null);		
 		extractDataTypeSelectionpanel = new JPanel();
 		extractDataTypeSelectionpanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		extractDataTypeSelectionpanel.setBounds(10, 11, 141, 61);
 		queryRunnerControlBoxPanel.add(extractDataTypeSelectionpanel);
-		extractDataTypeSelectionpanel.setLayout(null);
-		
+		extractDataTypeSelectionpanel.setLayout(null);		
 		unStructedRadioButton = new JRadioButton("Non-Tabular");
 		unStructedRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) 
-			{				
+			public void actionPerformed(ActionEvent event){				
 				extractTocomboBox.setModel(new DefaultComboBoxModel(new String[]{}));
 				populateHtmlControlList();
 				btnRunQuery.setEnabled(false);
 				btnPreview.setEnabled(true);
 				htmlControlScrollPanel.setVisible(true);
-			}
-		});		
-		
+			}});		
 		unStructedRadioButton.setBounds(6, 5, 129, 23);	
-		unStructedRadioButton.setEnabled(false);
-		
+		unStructedRadioButton.setEnabled(false);		
 		structedRadioButton = new JRadioButton("Tabular");
 		structedRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) 
-			{
+			public void actionPerformed(ActionEvent event){
 				extractTocomboBox.setModel(new DefaultComboBoxModel(StructuredExtractDocType.values()));
 				htmlControlList.setListData(new CheckListItem[] {});
 				btnRunQuery.setEnabled(true);
 				btnPreview.setEnabled(true);
 				htmlControlScrollPanel.setVisible(false);
-			}
-		});		
+			}});		
 		structedRadioButton.setBounds(6, 31, 92, 23);	
 		structedRadioButton.setEnabled(false);
 		dataTypeRadioButtonGroup.add(unStructedRadioButton);
-		dataTypeRadioButtonGroup.add(structedRadioButton);
-		
+		dataTypeRadioButtonGroup.add(structedRadioButton);		
 		extractDataTypeSelectionpanel.add(unStructedRadioButton);
-		extractDataTypeSelectionpanel.add(structedRadioButton);
-		
-		
-		
-		imageList = new JList(new CheckListItem[]{});
-		
-		imageList.setCellRenderer(new CheckListRenderer());
-		
-		imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		imageList.addMouseListener(new MouseAdapter()
-	      {
-	         public void mouseClicked(MouseEvent event)
-	         {
+		extractDataTypeSelectionpanel.add(structedRadioButton);		
+		imageList = new JList(new CheckListItem[]{});		
+		imageList.setCellRenderer(new CheckListRenderer());	
+		imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
+		imageList.addMouseListener(new MouseAdapter(){
+	         public void mouseClicked(MouseEvent event) {
 	            JList list = (JList) event.getSource();
-	            
-	            // Get index of item clicked
-	            
 	            int index = list.locationToIndex(event.getPoint());
-	            CheckListItem item = (CheckListItem)
-	               list.getModel().getElementAt(index);
-	            
-	            // Toggle selected state
-	            
+	            CheckListItem item = (CheckListItem)list.getModel().getElementAt(index);	            
 	            item.setSelected(! item.isSelected());
-	            
-	            // Repaint cell
-	            
 	            list.repaint(list.getCellBounds(index, index));
-	            
 	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(imageList);
-	            
-	            if(selectedList.size() <= 0)
-	            {
-	            	btnRunQuery.setEnabled(false);
-	            }
-	            else
-	            {
-	            	btnRunQuery.setEnabled(true);
-	            }
-	         }
-	      });
-		
-		htmlControlList = new JList(new CheckListItem[]{});
-		
-		htmlControlList.setCellRenderer(new CheckListRenderer());
-		
-		htmlControlList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		htmlControlList.addMouseListener(new MouseAdapter()
-	      {
-	         public void mouseClicked(MouseEvent event)
-	         {
-	            JList list = (JList) event.getSource();
-	            
-	            // Get index of item clicked
-	            
+	            if(selectedList.size() <= 0) btnRunQuery.setEnabled(false);
+	            else btnRunQuery.setEnabled(true);
+	         }});		
+		htmlControlList = new JList(new CheckListItem[]{});		
+		htmlControlList.setCellRenderer(new CheckListRenderer());		
+		htmlControlList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
+		htmlControlList.addMouseListener(new MouseAdapter(){
+	         public void mouseClicked(MouseEvent event){
+	            JList list = (JList) event.getSource();	            
 	            int index = list.locationToIndex(event.getPoint());
 	            CheckListItem item = (CheckListItem)
-	               list.getModel().getElementAt(index);
-	            
-	            // Toggle selected state
-	            
+	            list.getModel().getElementAt(index);
 	            item.setSelected(! item.isSelected());
-	            
-	            // Repaint cell
-	            
-	            list.repaint(list.getCellBounds(index, index));
-	            
-	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(htmlControlList);
-	            
-	            if(selectedList.size() <= 0)
-	            {
+	            list.repaint(list.getCellBounds(index, index));	            
+	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(htmlControlList);	            
+	            if(selectedList.size() <= 0){
 	            	extractTocomboBox.setModel(new DefaultComboBoxModel(new String[]{}));
 	            	btnRunQuery.setEnabled(false);
 	            }
-	            else
-	            {	            	
-	            	if(null != extractTocomboBox && null == extractTocomboBox.getSelectedItem())
-	        		{	
+	            else{	            	
+	            	if(null != extractTocomboBox && null == extractTocomboBox.getSelectedItem()){	
 	            		extractTocomboBox.setModel(new DefaultComboBoxModel(UnStructuredExtractDocType.values()));
-	        		}
-	            	
+	        		}	            	
 	            	btnRunQuery.setEnabled(true);	            	
 	            }
-	         }
-	      });
-		
-		scrollPane = new JScrollPane(imageList);
-		//scrollPane.setBounds(20, 11, 150, 124);
+	         }});		
+		scrollPane = new JScrollPane(imageList);		
 		scrollPane.setBounds(210, 11, 200, 124);
-		
 		htmlControlScrollPanel = new JScrollPane(htmlControlList);
 		htmlControlScrollPanel.setBounds(210, 11, 150, 124);
-		
 		queryRunnerControlBoxPanel.add(htmlControlScrollPanel);
 		htmlControlScrollPanel.setVisible(false);
 		queryRunnerControlBoxPanel.add(scrollPane);
-				
 		lblExtractTo = new JLabel("Export To : ");
 		lblExtractTo.setBounds(412, 11, 71, 28);
 		queryRunnerControlBoxPanel.add(lblExtractTo);
-		
 		extractTocomboBox = new JComboBox();
 		extractTocomboBox.setBounds(480, 13, 99, 24);
 		queryRunnerControlBoxPanel.add(extractTocomboBox);
-		
 		btnPreview = new JButton("Preview");
 		btnPreview.setBounds(134, 146, 123, 28);
 		queryRunnerControlBoxPanel.add(btnPreview);
-		
 		btnRunQuery = new JButton("Run Query");
-		
 		btnRunQuery.setBounds(322, 146, 123, 28);
 		queryRunnerControlBoxPanel.add(btnRunQuery);
 		btnRunQuery.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{			
+			public void actionPerformed(ActionEvent e){			
 				executeRunQueryOperation();				
-			}	
-		});
+			}});
 		btnRunQuery.setEnabled(false);
-		
-		
 		btnPreview.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{				
-				try 
-				{
+			public void actionPerformed(ActionEvent e){				
+				try {
 					executePreviewOperation();
-				} 
-				catch (Exception e1) 
-				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}	
-		});
-		
-		btnPreview.setEnabled(false);
-		
+				}catch (Exception e1) 
+				{}
+			}});		
+		btnPreview.setEnabled(false);		
 		previewRunQueryPanel = new JPanel();
 		previewRunQueryPanel.setBounds(10, 405, 609, 54);
 		extractProcessPanel.add(previewRunQueryPanel);
 		previewRunQueryPanel.setLayout(null);
 		
 		btnReset = new JButton("Reset");
-		btnReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
+		btnReset.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
 				resetAllExtractProcessPanel();
 			}
 		});
 		btnReset.setBounds(413, 11, 78, 28);
-		previewRunQueryPanel.add(btnReset);
-		
+		previewRunQueryPanel.add(btnReset);		
 		exitButton = new JButton("Exit");
 		exitButton.setBounds(501, 11, 78, 28);
-		previewRunQueryPanel.add(exitButton);
-		
+		previewRunQueryPanel.add(exitButton);		
 		headerPanel = new JPanel();
 		headerPanel.setBounds(10, 11, 609, 178);
 		extractProcessPanel.add(headerPanel);
-		headerPanel.setLayout(null);
-		
+		headerPanel.setLayout(null);		
 		urlTextField = new JTextField();
 		urlTextField.setBounds(122, 29, 471, 28);
 		headerPanel.add(urlTextField);
-		urlTextField.setColumns(10);
-		
+		urlTextField.setColumns(10);		
 		JLabel lblUrl = new JLabel("URL*");
 		lblUrl.setBounds(10, 29, 31, 28);
-		headerPanel.add(lblUrl);
-		
+		headerPanel.add(lblUrl);		
 		titleTextField = new JTextField();
 		titleTextField.setBounds(122, 68, 471, 28);
 		headerPanel.add(titleTextField);
-		titleTextField.setColumns(10);
-		
+		titleTextField.setColumns(10);		
 		JLabel lblKeyword = new JLabel("Title*");
 		lblKeyword.setBounds(10, 68, 31, 28);
-		headerPanel.add(lblKeyword);
-		
+		headerPanel.add(lblKeyword);		
 		JLabel lblExtracatDataType = new JLabel("Extract Data Type");
 		lblExtracatDataType.setBounds(10, 107, 123, 28);
-		headerPanel.add(lblExtracatDataType);
-		
+		headerPanel.add(lblExtracatDataType);		
 		extractDataTypeComboBox = new JComboBox();
 		extractDataTypeComboBox.setBounds(122, 108, 78, 26);
 		headerPanel.add(extractDataTypeComboBox);
 		extractDataTypeComboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) 
-			{
+			public void itemStateChanged(ItemEvent arg0){
 				resetExtractProcessPanel();
-			}
-		});
+			}});
 		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
 		extractButton = new JButton("Extract");
 		extractButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{			
+			public void actionPerformed(ActionEvent e){			
 				executeExtractOpertion();
-			}
-		});
+			}});
 		extractButton.setBounds(256, 139, 123, 28);
-		headerPanel.add(extractButton);
-		
+		headerPanel.add(extractButton);		
 		lblExtractProcess = new JLabel("Extract Process");
 		lblExtractProcess.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblExtractProcess.setBounds(10, 0, 123, 28);
-		headerPanel.add(lblExtractProcess);
-		
+		headerPanel.add(lblExtractProcess);		
 		exitButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
 				System.exit(1);
 			}
-		});
-		
+		});		
 		scrollPane.setVisible(false);	
 	}	
 	
 	/**
-	 * 
+	 * Method for crating the batch process panel.
 	 */
-	public void createBatchProcessPanel()
-	{	
+	public void createBatchProcessPanel(){	
 		batchProcessPanel = new JPanel();
 		batchProcessPanel.setBounds(10, 542, 629, 211);
 		contentPane.add(batchProcessPanel);
 		batchProcessPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		batchProcessPanel.setLayout(null);
-		
+		batchProcessPanel.setLayout(null);		
 		button = new JButton("Reset");
 		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
+			public void actionPerformed(ActionEvent e){
 				disableBatchProessPanelControls();
 			}
 		});
 		button.setBounds(427, 183, 78, 28);
-		batchProcessPanel.add(button);
-		
+		batchProcessPanel.add(button);		
 		button_1 = new JButton("Exit");
 		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
+			public void actionPerformed(ActionEvent e){
 				System.exit(1);
 			}
 		});
 		button_1.setBounds(515, 183, 78, 28);
-		batchProcessPanel.add(button_1);
-		
+		batchProcessPanel.add(button_1);		
 		lblNewLabel = new JLabel("Batch Process");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(10, 11, 102, 28);
-		batchProcessPanel.add(lblNewLabel);
-		
+		batchProcessPanel.add(lblNewLabel);		
 		batchProcessBrowsePanel = new JPanel();
 		batchProcessBrowsePanel.setBounds(10, 40, 609, 121);
 		batchProcessPanel.add(batchProcessBrowsePanel);
-		batchProcessBrowsePanel.setLayout(null);
-		
+		batchProcessBrowsePanel.setLayout(null);		
 		JLabel lblOpen = new JLabel("Open : ");
 		lblOpen.setBounds(10, 19, 49, 28);
 		batchProcessBrowsePanel.add(lblOpen);
-		
 		pathtextField = new JTextField();
-		
-		pathtextField.addKeyListener(new KeyAdapter() 
-		{				
+		pathtextField.addKeyListener(new KeyAdapter(){				
 			@Override
-			public void keyReleased(KeyEvent e) 
-			{
+			public void keyReleased(KeyEvent e) {
 				String value = pathtextField.getText();
-				if(!"".equals(value.trim()))
-				{	
+				if(!"".equals(value.trim())){	
 					btnProcess.setEnabled(true);
-				}
-				else
-				{
+				}else{
 					btnProcess.setEnabled(false);
 				}	
-			}
-		});
-		
+			}});		
 		pathtextField.setBounds(69, 19, 408, 28);
 		batchProcessBrowsePanel.add(pathtextField);
-		pathtextField.setColumns(10);
-		
+		pathtextField.setColumns(10);		
 		JButton btnBrowse = new JButton("Browse..");
 		btnBrowse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
+			public void actionPerformed(ActionEvent e){
 				fc = new JFileChooser();				
 				int result = fc.showOpenDialog(WebScrapper.this);
-				if (result == JFileChooser.APPROVE_OPTION) 
-				{
+				if (result == JFileChooser.APPROVE_OPTION){
 				    File selectedFile = fc.getSelectedFile();
 				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 				    pathtextField.setText(selectedFile.getAbsolutePath());
 				    enableBatchProessPanelControls();
 				}
-			}
-		});
+			}});
 		btnBrowse.setBounds(487, 19, 96, 28);
-		batchProcessBrowsePanel.add(btnBrowse);
-		
+		batchProcessBrowsePanel.add(btnBrowse);		
 		btnProcess = new JButton("Process");
 		btnProcess.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
+			public void actionPerformed(ActionEvent e){
 				String fileName = pathtextField.getText();
 				System.out.println("File Name : "+fileName);
-				File f = new File(fileName);
-				 
-				if(f.exists())
-				{
+				File f = new File(fileName);				 
+				if(f.exists()){
 					JOptionPane.showMessageDialog(frame, "Batch Process exported data successfully.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
 					disableBatchProessPanelControls();
-				}
-				else
-				{
+				}else{
 					JOptionPane.showMessageDialog(frame, "File path is incorrect.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 					return;
 				}				
 			}
 		});
 		btnProcess.setBounds(414, 80, 169, 30);
-		batchProcessBrowsePanel.add(btnProcess);
-		
+		batchProcessBrowsePanel.add(btnProcess);		
 		disableBatchProessPanelControls();
 		batchProcessPanel.setVisible(false);
 	}
 	
 	/**
-	 * 
+	 * Method for Disabling Batch Process Panel.
 	 */
-	public void disableBatchProessPanelControls()
-	{
+	public void disableBatchProessPanelControls(){
 		btnProcess.setEnabled(false);	
 		pathtextField.setText("");
 	}
 	
 	/**
-	 * 
+	 * Method for reset Batch Process Panel.
 	 */
-	public void resetBatchProcessPanel()
-	{		
+	public void resetBatchProcessPanel(){		
 		batchProcessPanel.setBounds(10, 32, 629, 243);
 		setBounds(10, 32, 657, 320);
 		disableBatchProessPanelControls();
@@ -663,19 +499,17 @@ public class WebScrapper extends JFrame
 	}
 	
 	/**
-	 * 
+	 * Method for enabling batch process panel.
 	 */
-	public void enableBatchProessPanelControls()
-	{
+	public void enableBatchProessPanelControls(){
 		btnProcess.setEnabled(true);
 		pathtextField.setEnabled(true);
 	}
 	
 	/**
-	 * 
+	 * Method for reset all controls of extract process panel.
 	 */
-	public void resetAllExtractProcessPanel()
-	{
+	public void resetAllExtractProcessPanel(){
 		resetHeaderValuesValue();
 		queryRunnerControlBoxPanel.setVisible(false);
 		previewRunQueryPanel.setBounds(10, 180, 609, 54);
@@ -689,10 +523,9 @@ public class WebScrapper extends JFrame
 	}
 	
 	/**
-	 * 
+	 * Method for reset extract process panel.
 	 */
-	public void resetExtractProcessPanel()
-	{		
+	public void resetExtractProcessPanel(){		
 		queryRunnerControlBoxPanel.setVisible(false);
 		previewRunQueryPanel.setBounds(10, 180, 609, 54);
 		extractProcessPanel.setBounds(10, 32, 629, 243);
@@ -703,29 +536,24 @@ public class WebScrapper extends JFrame
 	}
 	
 	/**
-	 * 
+	 * Method for expand extract process panel
 	 */
-	public void expandExtractProcessPanel()
-	{	
+	public void expandExtractProcessPanel()	{	
 		setBounds(100, 100, 652, 541);
 		queryRunnerControlBoxPanel.setVisible(true);
 		previewRunQueryPanel.setVisible(true);
 		previewRunQueryPanel.setBounds(10, 405, 609, 54);
 		extractProcessPanel.setBounds(10, 32, 629, 470);
-		frame.setLocationRelativeTo( null );
-		
+		frame.setLocationRelativeTo( null );		
 		String slectedValue = extractDataTypeComboBox.getSelectedItem().toString();
-		if(slectedValue.equals(ContentType.IMAGE.getType()))
-		{					
+		if(slectedValue.equals(ContentType.IMAGE.getType())){					
 			extractDataTypeSelectionpanel.setVisible(false);
 			scrollPane.setVisible(true);						
 			extractTocomboBox.setVisible(false);
 			lblExtractTo.setVisible(false);
 			htmlControlScrollPanel.setVisible(false);			
 			btnRunQuery.setEnabled(false);
-		}
-		else
-		{				
+		}else{				
 			extractDataTypeSelectionpanel.setVisible(true);
 			scrollPane.setVisible(false);			
 			extractTocomboBox.setVisible(true);
@@ -742,39 +570,30 @@ public class WebScrapper extends JFrame
 	}
 	
 	/**
-	 * 
+	 * Method for populate image list.
 	 */
-	public void populateImageList()
-	{
-		Set<String> imageUrls = frame.extractResponse.getImageUrls();
-		
-		List<String> imageURLList = new ArrayList<String>(imageUrls);	
-		
+	public void populateImageList()	{
+		Set<String> imageUrls = frame.extractResponse.getImageUrls();		
+		List<String> imageURLList = new ArrayList<String>(imageUrls);		
 		imageList.setListData(WebScrapperUtil.getCheckListItemArray(imageURLList));
 	}
 	
 	/**
-	 * 
+	 * Method for populate html control list.
 	 */
-	public void populateHtmlControlList()
-	{
-		Set<TagType> tagValues = frame.extractResponse.getTagDataMap().keySet();
-		
-		List<String> tagList = new ArrayList<String>();
-		
-		for(TagType tagType : tagValues)
-		{
+	public void populateHtmlControlList(){
+		Set<TagType> tagValues = frame.extractResponse.getTagDataMap().keySet();		
+		List<String> tagList = new ArrayList<String>();		
+		for(TagType tagType : tagValues){
 			tagList.add(tagType.getDisplayName());
-		}
-		
+		}		
 		htmlControlList.setListData(WebScrapperUtil.getCheckListItemArray(tagList));
 	}	
 	
 	/**
-	 * 
+	 * Method for reset Headers.
 	 */
-	public void resetHeaderValuesValue()
-	{		
+	public void resetHeaderValuesValue(){		
 		frame.url = null;
 		frame.title = null;
 		frame.contentType = null;
@@ -791,10 +610,9 @@ public class WebScrapper extends JFrame
 	}
 	
 	/**
-	 * 
+	 * Method for disable header ares.
 	 */
-	public void disableHeaderArea()
-	{		
+	public void disableHeaderArea()	{		
 		urlTextField.setEditable(false);
 		titleTextField.setEditable(false);
 		extractDataTypeComboBox.setEnabled(false);
@@ -802,38 +620,26 @@ public class WebScrapper extends JFrame
 	}
 	
 	/**
-	 * 
+	 * Method for start the extract operation.
 	 */
-	public void executeExtractOpertion()
-	{
-		//1 . Validation
+	public void executeExtractOpertion(){		
 		String url = urlTextField.getText().trim();
-		String keyword = titleTextField.getText().trim();				
-		
-		if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword))						
-		{
+		String keyword = titleTextField.getText().trim();		
+		if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)){
 			JOptionPane.showMessageDialog(frame, "URL and title is required.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 			return;
-		}
-		else
-		{
-			if(url.startsWith("http:") || url.startsWith("https:"))
-			{
+		}else{
+			if(url.startsWith("http:") || url.startsWith("https:")){
 				boolean isValidURL = URLUtil.isValidURL(url);
-				if(!isValidURL)
-				{
+				if(!isValidURL){
 					JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 					return;
 				}						
-			}
-			else
-			{
+			}else{
 				url = "http://"+url;
-				if(!URLUtil.isValidURL("http://"+url))
-				{
+				if(!URLUtil.isValidURL("http://"+url)){
 					url = "https://"+url; 
-					if(!URLUtil.isValidURL(url))
-					{	
+					if(!URLUtil.isValidURL(url)){	
 						JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 						return;
 					}						
@@ -841,225 +647,136 @@ public class WebScrapper extends JFrame
 			}
 			
 			boolean isValid = URLUtil.isValidURLForConnection(url);
-			if(!isValid)
-			{
+			if(!isValid){
 				JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-		}
-		
+		}		
 		String slectedValue = extractDataTypeComboBox.getSelectedItem().toString();
 		frame.url = url;
 		frame.title = keyword;
 		frame.contentType = ContentType.getContentType(slectedValue);		
-		
 		frame.wsServiceProvider = new WSServiceProvider();
 		frame.extractRequest = frame.wsServiceProvider.buildExtractRequest(frame.url, frame.contentType);
-		frame.extractResponse = frame.wsServiceProvider.executeExtractOperation(frame.extractRequest);
-		
-		if(null == frame.extractResponse)
-		{
+		frame.extractResponse = frame.wsServiceProvider.executeExtractOperation(frame.extractRequest);		
+		if(null == frame.extractResponse){
 			JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
 			return;
-		}
-		//3. show waiting dialog
-		WebScrapperUtil.showWaitingDialog(frame);
-		
-		
-		//2. Populate Check Box List				
-		if(slectedValue.equals(ContentType.IMAGE.getType()))
-		{				
+		}		
+		WebScrapperUtil.showWaitingDialog(frame);				
+		if(slectedValue.equals(ContentType.IMAGE.getType())){				
 			populateImageList();
 			btnPreview.setEnabled(true);
-		}						
-				
-		//3. Expand Panel Based On selection
-		expandExtractProcessPanel();	
-		
-		//4. Disable the text box.
+		}
+		expandExtractProcessPanel();
 		disableHeaderArea();
 	}
 	
-	public void executePreviewOperation() throws Exception
-	{
-		String slectedOptionValue = extractDataTypeComboBox.getSelectedItem().toString();
-		
-		if(slectedOptionValue.equals(ContentType.IMAGE.getType()))
-    	{			
-			List<CheckListItem> lists = WebScrapperUtil.getSelectedListItems(imageList);
-			
-			if(lists.size() >0)
-			{	
+	/**
+	 * Method for preview operation.
+	 * @throws Exception
+	 */
+	public void executePreviewOperation() throws Exception{
+		String slectedOptionValue = extractDataTypeComboBox.getSelectedItem().toString();		
+		if(slectedOptionValue.equals(ContentType.IMAGE.getType())){			
+			List<CheckListItem> lists = WebScrapperUtil.getSelectedListItems(imageList);			
+			if(lists.size() >0){	
 				InputStream stream = frame.wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(imageList).get(0).toString());
 				BufferedImage bufferedImage = null;
-				try 
-				{
+				try{
 					bufferedImage = ImageIO.read( stream );
-				} 
-				catch (IOException e1) 
-				{						
-					e1.printStackTrace();
-				}
-				
-				ImageIcon image = new ImageIcon( bufferedImage );					
-				
-				Image scaleImage = image.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-				
-				image = new ImageIcon(scaleImage);
-				
-				JLabel lbl = new JLabel(image);
-				
+				}catch (IOException e1)	{}				
+				ImageIcon image = new ImageIcon( bufferedImage );				
+				Image scaleImage = image.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);				
+				image = new ImageIcon(scaleImage);				
+				JLabel lbl = new JLabel(image);				
 				JOptionPane.showMessageDialog(frame, lbl,"Image Preview", -1);	
-			}
-			else
-			{
+			}else{
 				JOptionPane.showMessageDialog(frame, "No Image Preview available, kindly select image.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
-    	}
-		else
-		{	JScrollPane scrollPane = null;
-			
-			if(structedRadioButton.isSelected())
-			{
+    	}else{	
+    		JScrollPane scrollPane = null;			
+			if(structedRadioButton.isSelected()){
 				String columnNames[] = frame.wsServiceProvider.fetchColumnNameForPreview(frame.extractResponse);
-				String dataValues[][] = frame.wsServiceProvider.fetchTabularPreviewData(frame.extractResponse);
-				
-				
+				String dataValues[][] = frame.wsServiceProvider.fetchTabularPreviewData(frame.extractResponse);				
 				JTable table = new JTable( dataValues, columnNames );
 				table.setTableHeader(null);
 				table.setGridColor(Color.YELLOW);
 		        table.setBackground(Color.CYAN);
-		        table.setEnabled(false);
-				
-		        table.setPreferredScrollableViewportSize(new Dimension(200, 200));
-		        
+		        table.setEnabled(false);				
+		        table.setPreferredScrollableViewportSize(new Dimension(200, 200));		        
 				scrollPane = new JScrollPane( table );
-			}
-			else
-			{	
-				List<String> selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);
-						
-				if(selectedHTMLControlList.size() >0)
-				{	
-					String content = frame.wsServiceProvider.fetchNonTabularPreviewData(frame.extractResponse, selectedHTMLControlList);				
-					
+			}else{	
+				List<String> selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);						
+				if(selectedHTMLControlList.size() >0)				{	
+					String content = frame.wsServiceProvider.fetchNonTabularPreviewData(frame.extractResponse, selectedHTMLControlList);					
 					JTextArea textArea = new JTextArea(10, 25);
 					textArea.setLineWrap(true);
 				    textArea.setText(content);
-				    textArea.setEditable(false);
-				    
+				    textArea.setEditable(false);				    
 				    scrollPane = new JScrollPane(textArea);
-				}
-				else
-				{
+				}else{
 					JOptionPane.showMessageDialog(frame, "No Data Preview available, kindly select HTML Control.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-			}							
-			
+			}
 			JOptionPane.showMessageDialog(frame, scrollPane,"Data Preview", -1);
 		}	
 	}
 	
-	public void executeRunQueryOperation()
-	{
+	/**
+	 * Method for perform the run query operation.
+	 */
+	public void executeRunQueryOperation(){
 		String selectedOptionValue = extractDataTypeComboBox.getSelectedItem().toString();
-		String extractToOptionValue = "";
-		
-		if(null != extractTocomboBox && null != extractTocomboBox.getSelectedItem())
-		{	
+		String extractToOptionValue = "";		
+		if(null != extractTocomboBox && null != extractTocomboBox.getSelectedItem()){	
 			extractToOptionValue = extractTocomboBox.getSelectedItem().toString();				
-		}
-		
-		JLabel queryLabel = new JLabel(" Result Query : ");
-		
+		}		
+		JLabel queryLabel = new JLabel(" Result Query : ");		
 		JTextField queryTextField = new JTextField();
 		Font font = new Font("Verdana", Font.BOLD, 12);				
 		queryTextField.setEditable(false);
-		queryTextField.setFont(font);
-		
+		queryTextField.setFont(font);		
 		String url = urlTextField.getText();
 		String title = titleTextField.getText();
-		String selectedTabularOption = "";
-		
-		if(structedRadioButton.isSelected())
-		{
-			selectedTabularOption = "Tabular";
-		}
-		else
-		{
-			selectedTabularOption = "Non-Tabular";
-		}
-		
-		if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
-    	{
+		String selectedTabularOption = "";		
+		if(structedRadioButton.isSelected()) selectedTabularOption = "Tabular";
+		else selectedTabularOption = "Non-Tabular";		
+		if(selectedOptionValue.equals(ContentType.IMAGE.getType())){
 			queryTextField.setText(url + "," +title+","+selectedOptionValue+","+ WebScrapperUtil.getSelectedListItems(imageList).toString());
-    	}
-		else
-		{
-			if(structedRadioButton.isSelected())
-			{	
-				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+extractToOptionValue);						
-			}
-			else
-			{
-				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+WebScrapperUtil.getSelectedListItems(htmlControlList).toString()+","+extractToOptionValue);
-			}
-		}
-		
-		queryTextField.setColumns(14);
-		
+    	}else{
+			if(structedRadioButton.isSelected()) queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+extractToOptionValue);						
+			else queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+WebScrapperUtil.getSelectedListItems(htmlControlList).toString()+","+extractToOptionValue);			
+		}		
+		queryTextField.setColumns(14);		
 		JComboBox comboBox = new JComboBox();				
-		comboBox.setModel(new DefaultComboBoxModel(new String[]{"Export","Save Query For Batch"}));
-		
-		
+		comboBox.setModel(new DefaultComboBoxModel(new String[]{"Export","Save Query For Batch"}));		
 		JPanel message = new JPanel();
         message.add(queryLabel);              
         message.add(queryTextField);
         message.add(comboBox);
-
         Object[] options = new String[]{"Process","Cancel"};
-        int returnvalue = JOptionPane.showOptionDialog(frame, message, "Web Scrapper", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, 
-                null, options, options[0]);  
-        
-        
-        String optionValue = comboBox.getSelectedItem().toString();                
-        
-        if(returnvalue == 0)
-        {	                
-        	if("Export".equals(optionValue))
-            {               	            	
+        int returnvalue = JOptionPane.showOptionDialog(frame, message, "Web Scrapper", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        String optionValue = comboBox.getSelectedItem().toString();
+        if(returnvalue == 0){	                
+        	if("Export".equals(optionValue)){               	            	
         		List<String> selectedImageURLList = new ArrayList<String>();
-        		List<String> selectedHTMLControlList = new ArrayList<String>();
-        		
-        		if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
-				{
-        			selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(imageList);
-				}
-        		else
-        		{
-        			selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);
-        		}
-        		
-        		executeExportOperation(extractToOptionValue, selectedOptionValue, selectedImageURLList, selectedHTMLControlList);        		
-            }
-            else
-            {
+        		List<String> selectedHTMLControlList = new ArrayList<String>();        		
+        		if(selectedOptionValue.equals(ContentType.IMAGE.getType())) selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(imageList);
+				else selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);        		
+        		boolean result = executeExportOperation(extractToOptionValue, selectedOptionValue, selectedImageURLList, selectedHTMLControlList);
+        		if(!result) return;        			
+            }else{
             	fc = new JFileChooser();
 				fc.setDialogTitle("Save");
 				int result = fc.showSaveDialog(WebScrapper.this);
-				if (result == JFileChooser.APPROVE_OPTION) 
-				{
+				if (result == JFileChooser.APPROVE_OPTION){
 				    File selectedFile = fc.getSelectedFile();
-				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-				    
+				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());				    
 				    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else
-				{
-					return;
-				}
+				}else return;				
             }
             resetAllExtractProcessPanel();
         }	
@@ -1067,85 +784,51 @@ public class WebScrapper extends JFrame
 
 
 	/**
-	 * 
+	 * Method for export operation.
 	 * @param extractToOptionValue
 	 */
-	private void executeExportOperation(String extractToOptionValue, String selectedOptionValue, List<String> selectedImageURLList, List<String> selectedHTMLControlList) 
-	{
-		String msg = "All data exported successfully.";
-    	
-    	if(!"DB".equals(extractToOptionValue))
-    	{	
+	private boolean executeExportOperation(String extractToOptionValue, String selectedOptionValue, List<String> selectedImageURLList, List<String> selectedHTMLControlList){
+		String msg = "All data exported successfully.";    	
+    	if(!"DB".equals(extractToOptionValue)){	
         	fc = new JFileChooser();
 			fc.setDialogTitle("Open");
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int result = fc.showSaveDialog(WebScrapper.this);
-			if (result == JFileChooser.APPROVE_OPTION) 
-			{
+			if (result == JFileChooser.APPROVE_OPTION){
 			    File selectedFile = fc.getSelectedFile();
-			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-			    
-			    
-            	
+			    System.out.println("Selected file: " + selectedFile.getAbsolutePath()); 
             	if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
             	{
             		msg = "All Images exported successfully.";
-            	}
-            	
-            	ExportRequest exportRequest = frame.wsServiceProvider.buildExportRequest(frame.url, 
-																							frame.title, 
-																							frame.extractResponse, 
-																							ExportType.getExportType(extractToOptionValue), 
-																							selectedHTMLControlList, 
-																							selectedFile.getAbsolutePath(),
-																							selectedImageURLList);
-
-            	ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
-            	
-            	WebScrapperUtil.showWaitingDialog(frame);
-            	
-            	if(exportResponse.isSuccess())
-        		{
+            	}            	
+            	ExportRequest exportRequest = frame.wsServiceProvider.buildExportRequest(frame.url,frame.title,frame.extractResponse,ExportType.getExportType(extractToOptionValue),selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
+            	ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);            	
+            	WebScrapperUtil.showWaitingDialog(frame);            	
+            	if(exportResponse.isSuccess()){
             		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
-        		}
-            	else
-            	{
+            		return true;
+        		}else{
             		msg = "Issue in data export operation, kinldy check settings.";
             		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
-            		return;
-            	}
-            	
+            		return false;
+            	}           	
 			}
 			else
 			{
-				return;
+				return false;
 			} 
-    	}
-    	else
-    	{    		
-    		ExportRequest exportRequest = frame.wsServiceProvider.buildExportRequest(frame.url, 
-    																						frame.title, 
-    																						frame.extractResponse, 
-    																						ExportType.getExportType(extractToOptionValue), 
-    																						null, 
-    																						null,
-    																						null);
-    		
-    		ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);
-    		
-    		WebScrapperUtil.showWaitingDialog(frame);
-    		
-    		if(exportResponse.isSuccess())
-    		{	
+    	}else{    		
+    		ExportRequest exportRequest = frame.wsServiceProvider.buildExportRequest(frame.url,frame.title,frame.extractResponse,ExportType.getExportType(extractToOptionValue),null,null,null);    		
+    		ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);    		
+    		WebScrapperUtil.showWaitingDialog(frame);    		
+    		if(exportResponse.isSuccess()){	
     			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
-    		}
-    		else
-    		{
+    			return true;
+    		}else{
     			msg = "Database connection is not available, kindly check MongoDB connection on your machine and then choose export to DB option.";
     			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
-    			return;
+    			return false;
     		}
-    	}
-		
+    	}	
 	}
 }

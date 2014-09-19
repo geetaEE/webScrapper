@@ -64,8 +64,7 @@ public class ExportToDocService implements ExportService {
 
 			
 		} catch (Exception e) {
-			exportResponse.setSuccess(false);
-			e.printStackTrace();
+			exportResponse.setSuccess(false);			
 		}
 		return exportResponse;
 	}

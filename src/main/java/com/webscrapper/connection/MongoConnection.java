@@ -64,8 +64,8 @@ public class MongoConnection {
 				e.printStackTrace();
 			}
 			if (auth) {
-				System.out
-						.println("Successfully Authenticated to Mongo Server");
+				/*System.out
+						.println("Successfully Authenticated to Mongo Server");*/
 			} else {
 				throw new AuthenticationException("Authentication Fail");
 			}

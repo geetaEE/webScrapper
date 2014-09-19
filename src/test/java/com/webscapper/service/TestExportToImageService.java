@@ -45,7 +45,7 @@ public class TestExportToImageService
     ExportRequest exportRequest = new ExportRequest();
     exportRequest.setTitle("Test");
     exportRequest.setUrl("https://www.httpsnow.org/");
-    exportRequest.setLocation("C:\\temp\\");
+    exportRequest.setLocation(System.getProperty("user.dir"));
     exportRequest.setImageURLList(imageUrlsList);    
     
     ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());

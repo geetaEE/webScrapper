@@ -2,6 +2,10 @@ package com.webscrapper.constants;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * @author ruby.jha
+ * Common Constants
+ */
 public class CommonConstants {
 	public static final String TITLE = "TITLE";
 	public static final String URL = "URL";

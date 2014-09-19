@@ -1,5 +1,9 @@
 package com.webscrapper.connection;
 
+/**
+ * @author ruby.jha
+ * Mongo Connection Manager
+ */
 public class MongoConnectionManager{
 	/** The connection. */
     private MongoConnection connection;

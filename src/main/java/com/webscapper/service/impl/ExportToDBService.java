@@ -1,6 +1,5 @@
 package com.webscapper.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,7 +14,10 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.DataAccessService;
 import com.webscrapper.service.ExportService;
 
-/** Export to DB service. */
+/**
+ * @author ruby.jha
+ * Export to DB service.
+ */
 public class ExportToDBService implements ExportService {
 
     /*
@@ -37,12 +39,12 @@ public class ExportToDBService implements ExportService {
                     List<Map<String, List<String>>> rowList = new ArrayList<Map<String, List<String>>>();
                     for (List<String> row : table) {
                         Map<String, List<String>> colMap = new HashMap<String, List<String>>();
-                        colMap.put("Columns", row);
+                        colMap.put(CommonConstants.COLUMNS, row);
                         rowList.add(colMap);
                     }
 
                     Map<String, List<Map<String, List<String>>>> rowMap = new HashMap<String, List<Map<String, List<String>>>>();
-                    rowMap.put("Rows", rowList);
+                    rowMap.put(CommonConstants.ROWS, rowList);
                     tableList.add(rowMap);
                 }
                 map.put(CommonConstants.TITLE, request.getTitle() + CommonConstants.DATE_FORMATTER.format(new Date()));

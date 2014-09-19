@@ -5,76 +5,128 @@ import java.util.List;
 import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ExportType;
 
-/** Export request. */
+/**
+ * @author ruby.jha
+ * Export request.
+ */
 public class ExportRequest {
-    /** The url. */
-    private String url;
-    /** The title. */
-    private String title;
-    /** The extractResponse. */
-    private ExtractResponse extractResponse;
-    /** The exportType. */
-    private ExportType exportType;
-    /** The tagsList. */
-    private List<String> tagsList;
-    /** The location. */
-    private String location;
-    /** image URL List **/
-    private List<String> imageURLList;
-    
-    public String getUrl() {
-        return url;
-    }
+	/** The url. */
+	private String url;
+	/** The title. */
+	private String title;
+	/** The extractResponse. */
+	private ExtractResponse extractResponse;
+	/** The exportType. */
+	private ExportType exportType;
+	/** The tagsList. */
+	private List<String> tagsList;
+	/** The location. */
+	private String location;
+	/** image URL List **/
+	private List<String> imageURLList;
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	/**
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
 
-    public String getTitle() {
-        return title;
-    }
+	/**
+	 * @param url
+	 *            the url to set
+	 */
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
 
-    public ExtractResponse getExtractResponse() {
-        return extractResponse;
-    }
+	/**
+	 * @param title
+	 *            the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setExtractResponse(ExtractResponse extractResponse) {
-        this.extractResponse = extractResponse;
-    }
+	/**
+	 * @return the extractResponse
+	 */
+	public ExtractResponse getExtractResponse() {
+		return extractResponse;
+	}
 
-    public ExportType getExportType() {
-        return exportType;
-    }
+	/**
+	 * @param extractResponse
+	 *            the extractResponse to set
+	 */
+	public void setExtractResponse(ExtractResponse extractResponse) {
+		this.extractResponse = extractResponse;
+	}
 
-    public void setExportType(ExportType exportType) {
-        this.exportType = exportType;
-    }
+	/**
+	 * @return the exportType
+	 */
+	public ExportType getExportType() {
+		return exportType;
+	}
 
-    public List<String> getTagsList() {
-        return tagsList;
-    }
+	/**
+	 * @param exportType
+	 *            the exportType to set
+	 */
+	public void setExportType(ExportType exportType) {
+		this.exportType = exportType;
+	}
 
-    public void setTagsList(List<String> tagsList) {
-        this.tagsList = tagsList;
-    }
+	/**
+	 * @return the tagsList
+	 */
+	public List<String> getTagsList() {
+		return tagsList;
+	}
 
-    public String getLocation() {
-        return location;
-    }
+	/**
+	 * @param tagsList
+	 *            the tagsList to set
+	 */
+	public void setTagsList(List<String> tagsList) {
+		this.tagsList = tagsList;
+	}
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
+	/**
+	 * @return the location
+	 */
+	public String getLocation() {
+		return location;
+	}
 
+	/**
+	 * @param location
+	 *            the location to set
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	/**
+	 * @return the imageURLList
+	 */
 	public List<String> getImageURLList() {
 		return imageURLList;
 	}
 
+	/**
+	 * @param imageURLList
+	 *            the imageURLList to set
+	 */
 	public void setImageURLList(List<String> imageURLList) {
 		this.imageURLList = imageURLList;
-	}    
+	}
 }

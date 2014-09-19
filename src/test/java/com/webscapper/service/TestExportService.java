@@ -1,6 +1,5 @@
 package com.webscapper.service;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,7 +16,10 @@ import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
-/** Test export service. */
+/**
+ * @author ruby.jha
+ * Test export service.
+ */
 public class TestExportService {
     /** Test DB export. */
     @Test

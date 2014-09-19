@@ -9,9 +9,15 @@ import com.webscrapper.connection.MongoConnectionManager;
 import com.webscrapper.constants.DBConstants;
 import com.webscrapper.service.DataAccessService;
 
+/**
+ * @author ruby.jha
+ * DataAccessServiceImpl
+ */
 public class DataAccessServiceImpl implements DataAccessService {
 
-	/*This method is used to insert the tabular data into DB*/
+	/**
+	 * This method is used to insert the tabular data into DB
+	 */	
 	@Override
 	public DBCollection insertData(Map<String, Object> map) {
 		DB db = null;

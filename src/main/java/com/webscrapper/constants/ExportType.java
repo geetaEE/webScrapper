@@ -1,6 +1,9 @@
 package com.webscrapper.constants;
 
-/** Defines Content types. */
+/**
+ * @author ruby.jha
+ * Defines Content types.
+ */
 public enum ExportType {
     /** The Text. */
     DB("DB"),

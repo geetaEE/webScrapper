@@ -12,10 +12,15 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
+/**
+ * @author ruby.jha
+ * Export To Doc Service
+ */
 public class ExportToDocService implements ExportService {
-
-	/**This method will export non tabular data into doc. 
-	This will take file name, tagsList from the UI.**/
+	/* 
+	 * This method will export non tabular data into doc. 
+	   This will take file name, tagsList from the UI and return ExportResponse
+	 */
 	@Override
 	public ExportResponse export(ExportRequest request)
 	{

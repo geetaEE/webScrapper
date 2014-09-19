@@ -1,10 +1,12 @@
 package com.webscrapper.connection;
 
 public class MongoConnectionManager{
-   
+	/** The connection. */
     private MongoConnection connection;
+    /** The connectionManager. */
     private static MongoConnectionManager connectionManager;
     
+    /** Prohibits direct instantiation of a new mongo connection from another class. */
     private MongoConnectionManager()
     {
 
@@ -22,7 +24,9 @@ public class MongoConnectionManager{
         }
         return connectionManager;
     }
- 
+    /**
+	 * @return the connection
+	 */
     public MongoConnection getConnection() {
         if (connection == null) {
             connection = new MongoConnection();
@@ -30,6 +34,9 @@ public class MongoConnectionManager{
         return connection;
     }
 
+    /**
+	 * Release connection
+	 */
     public void releaseConnection() {
         if (connection != null) {
             connection.closeConnection();

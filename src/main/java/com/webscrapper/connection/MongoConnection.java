@@ -9,11 +9,18 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.webscrapper.constants.DBConstants;
 
-public class MongoConnection {
 
+/**
+ * @author ruby.jha
+ * MongoConnection
+ */
+public class MongoConnection {
+	/** The db. */
 	private DB db;
+	/** The client. */
 	private MongoClient client;
 
+	/** Instantiates a new mongo connection. */
 	public MongoConnection() {
 		try {
 			this.db = getDbConnection();
@@ -21,17 +28,23 @@ public class MongoConnection {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Close connection
+	 */
 	public void closeConnection() {
 		if (client != null) {
 			closeClient();
 		}
 	}
-
+	/**
+	 * @return the db
+	 */
 	public DB getDb() {
 		return db;
 	}
-
+	/**
+	 * @return the db connection
+	 */
 	public DB getDbConnection() throws AuthenticationException {
 		if (db == null) {
 			try {
@@ -59,7 +72,9 @@ public class MongoConnection {
 		}
 		return db;
 	}
-
+	/**
+	 * @Close client
+	 */
 	public void closeClient() {
 		if (client != null) {
 			db = null;

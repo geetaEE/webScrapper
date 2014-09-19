@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import com.webscapper.factory.ExtractServiceFactory;
 import com.webscapper.request.ExtractRequest;
@@ -14,6 +16,7 @@ import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.TagType;
 
 /** Test extract service. */
+@RunWith(JUnit4.class)
 public class TestExtractService {
     /** Test https extraction. */
     @Test

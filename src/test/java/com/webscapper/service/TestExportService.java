@@ -127,6 +127,66 @@ public class TestExportService {
       assertFalse(exportService.export(exportRequest).isSuccess());
     }
     
+    /**
+     * Method under test: export()
+     * Scenario: Verifying the behavior when Tag Data Map and tags list are not null.    
+     * Expectation: Data should be exported to text file successfully.
+     */
+    @Test
+	public void testExportToText() {		
+		Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
+		tagDataMap.put(TagType.DIV, "Div Text");
+		tagDataMap.put(TagType.SPAN, "Span Text");
+		tagDataMap.put(TagType.ANCHOR, "Anchor Text");
+		tagDataMap.put(TagType.BOLD, "Bold");
+		tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
+		extractResponse.setTagDataMap(tagDataMap);
+		List<String> tagsList = new ArrayList<String>();
+		tagsList.add("Div");
+		tagsList.add("Span");
+		tagsList.add("Hyper Link");
+		tagsList.add("Bold Text");
+		tagsList.add("Paragraph");		
+		exportRequest.setExportType(ExportType.TEXT);
+		exportRequest.setTagsList(tagsList);
+		ExportService exportService = ExportServiceFactory
+				.getInstance(exportRequest.getExportType());
+		ExportResponse exportResponse = exportService.export(exportRequest);
+		Assert.assertTrue(exportResponse.isSuccess() == true);
+		Assert.assertNotNull(tagDataMap);
+		Assert.assertNotNull(tagsList);
+	}
+    
+    /**
+     * Method under test: export()
+     * Scenario: Verifying the behavior when Tag Data Map and tags list are not null.    
+     * Expectation: Data should be exported to csv successfully.
+     */
+    @Test
+	public void testExportToCSV() {		
+		Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
+		tagDataMap.put(TagType.DIV, "Div Text");
+		tagDataMap.put(TagType.SPAN, "Span Text");
+		tagDataMap.put(TagType.ANCHOR, "Anchor Text");
+		tagDataMap.put(TagType.BOLD, "Bold");
+		tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
+		extractResponse.setTagDataMap(tagDataMap);
+		List<String> tagsList = new ArrayList<String>();
+		tagsList.add("Div");
+		tagsList.add("Span");
+		tagsList.add("Hyper Link");
+		tagsList.add("Bold Text");
+		tagsList.add("Paragraph");		
+		exportRequest.setExportType(ExportType.CSV);
+		exportRequest.setTagsList(tagsList);
+		ExportService exportService = ExportServiceFactory
+				.getInstance(exportRequest.getExportType());
+		ExportResponse exportResponse = exportService.export(exportRequest);
+		Assert.assertTrue(exportResponse.isSuccess() == true);
+		Assert.assertNotNull(tagDataMap);
+		Assert.assertNotNull(tagsList);
+	}
+    
     @After
     public void destroy()
     {

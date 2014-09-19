@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.request.ExportRequest;
@@ -24,6 +26,7 @@ import com.webscrapper.service.ExportService;
  * @author ruby.jha
  * Test export service.
  */
+@RunWith(JUnit4.class)
 public class TestExportService { 
 	
 	/** The exportRequest. */

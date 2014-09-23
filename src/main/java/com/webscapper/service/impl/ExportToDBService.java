@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.mongodb.DBCollection;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
@@ -19,7 +21,7 @@ import com.webscrapper.service.ExportService;
  * Export to DB service.
  */
 public class ExportToDBService implements ExportService {
-
+	private static Logger logger = Logger.getLogger(ExportToDBService.class);
     /*
      * This method is used to insert the tabular data into DB based on the ExportType
      */

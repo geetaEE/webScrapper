@@ -9,13 +9,16 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 public class ExportToImageService implements ExportService {
-    /*
+	private static Logger logger = Logger.getLogger(ExportToImageService.class);
+	/*
      * (non-Javadoc)
      * @see com.webscrapper.service.ExportService#export(com.webscapper.request.ExportRequest) Export Image Functionality.
      */

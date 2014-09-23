@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,7 +17,8 @@ import com.webscrapper.constants.TagType;
 
 /** The extract text content service. */
 public class TextExtractService extends BaseExtractService {
-    @Override
+	private static Logger logger = Logger.getLogger(TextExtractService.class);
+	@Override
     public ExtractResponse extract(ExtractRequest request) {
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());

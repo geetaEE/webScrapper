@@ -3,14 +3,19 @@ package com.webscapper.factory;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.webscapper.service.impl.ImageExtractService;
 import com.webscapper.service.impl.TextExtractService;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.service.ExtractService;
 
 /** A factory for creating extract service objects. */
-public abstract class ExtractServiceFactory {
-    /** The instance map. */
+public abstract class ExtractServiceFactory 
+{
+	private static Logger logger = Logger.getLogger(ExtractServiceFactory.class);
+	
+	/** The instance map. */
     private static Map<ContentType, ExtractService> instanceMap;
 
     /** Get extract service instance.

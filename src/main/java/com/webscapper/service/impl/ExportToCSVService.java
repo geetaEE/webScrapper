@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
@@ -12,7 +14,7 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 public class ExportToCSVService implements ExportService {
-
+	private static Logger logger = Logger.getLogger(ExportToCSVService.class);
     @Override
     public ExportResponse export(ExportRequest request) 
     {        

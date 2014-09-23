@@ -9,8 +9,11 @@ import javax.swing.JList;
 import javax.swing.JRootPane;
 import javax.swing.ListModel;
 
+import org.apache.log4j.Logger;
+
 public class WebScrapperUtil 
 {
+	private static Logger logger = Logger.getLogger(WebScrapperUtil.class);
 	/**
 	 * 
 	 * @param frame

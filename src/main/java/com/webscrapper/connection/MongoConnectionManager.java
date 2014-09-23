@@ -1,10 +1,13 @@
 package com.webscrapper.connection;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author ruby.jha
  * Mongo Connection Manager
  */
 public class MongoConnectionManager{
+	private static Logger logger = Logger.getLogger(MongoConnectionManager.class);
 	/** The connection. */
     private MongoConnection connection;
     /** The connectionManager. */

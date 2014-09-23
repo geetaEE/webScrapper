@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
@@ -17,6 +19,7 @@ import com.webscrapper.service.ExportService;
  * Export To Doc Service
  */
 public class ExportToDocService implements ExportService {
+	private static Logger logger = Logger.getLogger(ExportToDocService.class);	
 	/* 
 	 * This method will export non tabular data into doc. 
 	   This will take file name, tagsList from the UI and return ExportResponse

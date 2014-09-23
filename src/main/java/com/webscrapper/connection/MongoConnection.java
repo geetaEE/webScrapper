@@ -4,6 +4,8 @@ import java.net.UnknownHostException;
 
 import javax.naming.AuthenticationException;
 
+import org.apache.log4j.Logger;
+
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
@@ -15,6 +17,8 @@ import com.webscrapper.constants.DBConstants;
  * MongoConnection
  */
 public class MongoConnection {
+	private static Logger logger = Logger.getLogger(MongoConnection.class);
+	
 	/** The db. */
 	private DB db;
 	/** The client. */

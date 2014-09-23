@@ -2,6 +2,8 @@ package com.webscapper.service.impl;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -14,7 +16,7 @@ import com.webscrapper.service.DataAccessService;
  * DataAccessServiceImpl
  */
 public class DataAccessServiceImpl implements DataAccessService {
-
+	private static Logger logger = Logger.getLogger(DataAccessServiceImpl.class);
 	/**
 	 * This method is used to insert the tabular data into DB
 	 */	

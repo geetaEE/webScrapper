@@ -23,6 +23,7 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
 import javax.imageio.ImageIO;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -54,6 +55,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
+
+import org.apache.log4j.Logger;
+
 import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExportResponse;
@@ -65,6 +69,7 @@ import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
 public class WebScrapper extends JFrame {
+	private static Logger logger = Logger.getLogger(WebScrapper.class);
 	static {
         // Initialize for ssl communication.
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {

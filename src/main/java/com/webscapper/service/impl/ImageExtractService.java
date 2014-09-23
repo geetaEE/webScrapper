@@ -3,6 +3,7 @@ package com.webscapper.service.impl;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -11,7 +12,8 @@ import com.webscapper.response.ExtractResponse;
 
 /** The extract image content service. */
 public class ImageExtractService extends BaseExtractService {
-    @Override
+	private static Logger logger = Logger.getLogger(ImageExtractService.class);
+	@Override
     public ExtractResponse extract(ExtractRequest request) {
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());

@@ -16,6 +16,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -23,7 +24,9 @@ import com.webscrapper.service.ExtractService;
 
 /** The base extract service. */
 public abstract class BaseExtractService implements ExtractService {
-    static {
+	private static Logger logger = Logger.getLogger(BaseExtractService.class);
+	
+	static {
         // Initialize for ssl communication.
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {

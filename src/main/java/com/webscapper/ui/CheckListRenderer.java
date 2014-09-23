@@ -6,8 +6,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
+import org.apache.log4j.Logger;
+
 class CheckListRenderer extends JCheckBox implements ListCellRenderer
 {
+	private static Logger logger = Logger.getLogger(CheckListRenderer.class);
+	
 	/**
 	 * 
 	 */

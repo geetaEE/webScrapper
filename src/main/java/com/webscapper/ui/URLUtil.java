@@ -6,8 +6,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.apache.log4j.Logger;
+
 public class URLUtil 
 {
+	private static Logger logger = Logger.getLogger(URLUtil.class);
 	/**
 	 * 
 	 * @param url

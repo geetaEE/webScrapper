@@ -3,6 +3,8 @@ package com.webscapper.factory;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.webscapper.service.impl.ExportToCSVService;
 import com.webscapper.service.impl.ExportToDBService;
 import com.webscapper.service.impl.ExportToDocService;
@@ -15,8 +17,11 @@ import com.webscrapper.service.ExportService;
  * @author ruby.jha
  * A factory for creating export service objects.
  */
-public abstract class ExportServiceFactory {
-    /** The instance map. */
+public abstract class ExportServiceFactory 
+{
+	private static Logger logger = Logger.getLogger(ExportServiceFactory.class);
+	
+	/** The instance map. */
     private static Map<ExportType, ExportService> instanceMap;
 
     /** Get export service instance.

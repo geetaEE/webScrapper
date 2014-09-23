@@ -2,10 +2,11 @@ package com.webscapper.ui;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.factory.ExtractServiceFactory;
@@ -19,6 +20,7 @@ import com.webscrapper.constants.TagType;
 
 public class WSServiceProvider 
 {
+	private static Logger logger = Logger.getLogger(WSServiceProvider.class);
 	/**
 	 * 
 	 * @param url

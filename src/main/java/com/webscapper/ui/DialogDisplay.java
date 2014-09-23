@@ -13,8 +13,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.border.LineBorder;
 
+import org.apache.log4j.Logger;
+
 public class DialogDisplay 
 {
+	  private static Logger logger = Logger.getLogger(DialogDisplay.class);
 	  private JPanel mainPanel = new JPanel();
 	  private JProgressBar progressBar = new JProgressBar(0, 100);	 
 	  private JLabel statusLabel = new JLabel("Processing....", SwingConstants.CENTER);

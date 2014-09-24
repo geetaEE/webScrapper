@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.webscapper.ui.CheckListItem;
+import com.webscapper.ui.WSUIControlsManager;
 import com.webscapper.ui.WebScrapper;
 import com.webscrapper.constants.ContentType;
 
@@ -21,7 +21,7 @@ import com.webscrapper.constants.ContentType;
  * The Class TestWebScrapper.
  */
 @RunWith(JUnit4.class)
-public class TestWebScrapper 
+public class TestWSUIControlsManager 
 {
 	
 	/**
@@ -45,9 +45,12 @@ public class TestWebScrapper
 	public void testDisableBatchProessPanelControls() throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper(); 
-		webScrapper.disableBatchProessPanelControls();
+		WSUIControlsManager WSUIControlsManager = new WSUIControlsManager(webScrapper);
+		webScrapper.setFrame(webScrapper);
 		
-		JTextField pathtextField = webScrapper.getPathtextField();
+		WSUIControlsManager.disableBatchProessPanelControls();
+		
+		JTextField pathtextField = WSUIControlsManager.getPathtextField();
 		
 		Assert.assertEquals("", pathtextField.getText());
 	}
@@ -61,12 +64,12 @@ public class TestWebScrapper
 	public void testResetBatchProcessPanel() throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
 		
-		webScrapper.resetBatchProcessPanel();
+		wsUIControlsManager.resetBatchProcessPanel();
 		
-		JTextField pathtextField = webScrapper.getPathtextField();
+		JTextField pathtextField = wsUIControlsManager.getPathtextField();
 		
 		Assert.assertEquals("", pathtextField.getText());
 	}
@@ -80,12 +83,12 @@ public class TestWebScrapper
 	public void testEnableBatchProessPanelControls() throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);		
 		webScrapper.setFrame(webScrapper);
 		
-		webScrapper.enableBatchProessPanelControls();
+		wsUIControlsManager.enableBatchProessPanelControls();
 		
-		JTextField pathtextField = webScrapper.getPathtextField();
+		JTextField pathtextField = wsUIControlsManager.getPathtextField();
 		
 		Assert.assertTrue(pathtextField.isEnabled());
 	}
@@ -99,12 +102,12 @@ public class TestWebScrapper
 	public void testResetAllExtractProcessPanel()throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);		
 		webScrapper.setFrame(webScrapper);
 		
-		webScrapper.resetAllExtractProcessPanel();
+		wsUIControlsManager.resetAllExtractProcessPanel();
 		
-		JButton btnPreview = webScrapper.getBtnPreview();
+		JButton btnPreview = wsUIControlsManager.getBtnPreview();
 		
 		Assert.assertFalse(btnPreview.isEnabled());
 	}
@@ -118,12 +121,12 @@ public class TestWebScrapper
 	public void testResetExtractProcessPanel()throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
 		
-		webScrapper.resetExtractProcessPanel();
+		wsUIControlsManager.resetExtractProcessPanel();
 		
-		JButton btnPreview = webScrapper.getBtnPreview();
+		JButton btnPreview = wsUIControlsManager.getBtnPreview();
 		
 		Assert.assertFalse(btnPreview.isEnabled());
 	}
@@ -137,12 +140,12 @@ public class TestWebScrapper
 	public void testExpandExtractProcessPanel()throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);		
 		webScrapper.setFrame(webScrapper);
 		
-		webScrapper.expandExtractProcessPanel();
+		wsUIControlsManager.expandExtractProcessPanel();
 		
-		JPanel panel = webScrapper.getPreviewRunQueryPanel();
+		JPanel panel = wsUIControlsManager.getPreviewRunQueryPanel();
 		
 		Assert.assertTrue(panel.isVisible());
 	}
@@ -156,16 +159,16 @@ public class TestWebScrapper
 	public void testResetHeaderValuesValue()throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
 		
-		webScrapper.resetHeaderValuesValue();
+		wsUIControlsManager.resetHeaderValuesValue();
 		
-		JTextField textField = webScrapper.getURLtextField();
+		JTextField textField = wsUIControlsManager.getURLtextField();
 		
 		Assert.assertEquals("", textField.getText());
 		
-		textField = webScrapper.getTitletextField();
+		textField = wsUIControlsManager.getTitletextField();
 		
 		Assert.assertEquals("", textField.getText());
 	}
@@ -179,16 +182,16 @@ public class TestWebScrapper
 	public void testDisableHeaderArea()throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
 		
-		webScrapper.disableHeaderArea();
+		wsUIControlsManager.disableHeaderArea();
 		
-		JTextField textField = webScrapper.getURLtextField();
+		JTextField textField = wsUIControlsManager.getURLtextField();
 		
 		Assert.assertFalse(textField.isEditable());
 		
-		textField = webScrapper.getTitletextField();
+		textField = wsUIControlsManager.getTitletextField();
 		
 		Assert.assertFalse(textField.isEditable());
 	}
@@ -202,28 +205,29 @@ public class TestWebScrapper
 	public void testExecuteExtractOpertion()throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);		
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
 		
-		JTextField textField = webScrapper.getURLtextField();		
+		JTextField textField = wsUIControlsManager.getURLtextField();		
 		
 		textField.setText("www.google.com");
 		
-		textField = webScrapper.getTitletextField();
+		textField = wsUIControlsManager.getTitletextField();
 		
 		textField.setText("TestTitle");
 		
-		JComboBox combo = webScrapper.getExtractDataTypeComboBox();
+		JComboBox combo = wsUIControlsManager.getExtractDataTypeComboBox();
 		
 		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
 		webScrapper.executeExtractOpertion();
 		
-		textField = webScrapper.getURLtextField();
+		textField = wsUIControlsManager.getURLtextField();
 		
 		Assert.assertFalse(textField.isEditable());
 		
-		textField = webScrapper.getTitletextField();
+		textField = wsUIControlsManager.getTitletextField();
 		
 		Assert.assertFalse(textField.isEditable());
 	}
@@ -237,18 +241,19 @@ public class TestWebScrapper
 	public void testpopulateImageList() throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
+		webScrapper.setFrame(webScrapper);	
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
 		
-		webScrapper.setFrame(webScrapper);		
-		
-		JTextField textField = webScrapper.getURLtextField();		
+		JTextField textField = wsUIControlsManager.getURLtextField();		
 		
 		textField.setText("http://www.w3schools.com/html/html_tables.asp");
 		
-		textField = webScrapper.getTitletextField();
+		textField = wsUIControlsManager.getTitletextField();
 		
 		textField.setText("TestTitle");
 		
-		JComboBox combo = webScrapper.getExtractDataTypeComboBox();
+		JComboBox combo = wsUIControlsManager.getExtractDataTypeComboBox();
 		
 		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
@@ -256,9 +261,9 @@ public class TestWebScrapper
 		
 		webScrapper.executeExtractOpertion();
 		
-		webScrapper.populateImageList();
+		wsUIControlsManager.populateImageList();
 		
-		JList imageList = webScrapper.getImageList();
+		JList imageList = wsUIControlsManager.getImageList();
 		
 		ListModel<JList> dlm = (ListModel<JList>) imageList.getModel();
 		
@@ -274,18 +279,19 @@ public class TestWebScrapper
 	public void testPopulateHtmlControlList() throws Exception
 	{
 		WebScrapper webScrapper = new WebScrapper();
-		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);		
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
 		
-		JTextField textField = webScrapper.getURLtextField();		
+		JTextField textField = wsUIControlsManager.getURLtextField();		
 		
 		textField.setText("http://www.w3schools.com/html/html_tables.asp");
 		
-		textField = webScrapper.getTitletextField();
+		textField = wsUIControlsManager.getTitletextField();
 		
 		textField.setText("TestTitle");
 		
-		JComboBox combo = webScrapper.getExtractDataTypeComboBox();
+		JComboBox combo = wsUIControlsManager.getExtractDataTypeComboBox();
 		
 		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
@@ -293,9 +299,9 @@ public class TestWebScrapper
 		
 		webScrapper.executeExtractOpertion();
 		
-		webScrapper.populateHtmlControlList();
+		wsUIControlsManager.populateHtmlControlList();
 		
-		JList imageList = webScrapper.getHtmlControlList();
+		JList imageList = wsUIControlsManager.getHtmlControlList();
 		
 		ListModel<JList> dlm = (ListModel<JList>) imageList.getModel();
 		

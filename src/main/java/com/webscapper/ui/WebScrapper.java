@@ -221,6 +221,7 @@ public class WebScrapper extends JFrame {
 				resetBatchProcessPanel();
 			}});
 		mnNewMenu.add(mntmBatchProcess);
+		logger.info("Exiting from createMenus()");
 	}
 	
 	/**
@@ -405,6 +406,7 @@ public class WebScrapper extends JFrame {
 			}
 		});		
 		scrollPane.setVisible(false);	
+		logger.info("Exiting from createExtrctProcessPanel()");
 	}	
 	
 	/**
@@ -491,6 +493,7 @@ public class WebScrapper extends JFrame {
 		batchProcessBrowsePanel.add(btnProcess);		
 		disableBatchProessPanelControls();
 		batchProcessPanel.setVisible(false);
+		logger.info("Exiting from createBatchProcessPanel()");
 	}
 	
 	/**
@@ -500,6 +503,7 @@ public class WebScrapper extends JFrame {
 		logger.info("Entering in disableBatchProessPanelControls()");
 		btnProcess.setEnabled(false);	
 		pathtextField.setText("");
+		logger.info("Exiting from disableBatchProessPanelControls()");
 	}
 	
 	/**
@@ -511,6 +515,7 @@ public class WebScrapper extends JFrame {
 		setBounds(10, 32, 657, 320);
 		disableBatchProessPanelControls();
 		frame.setLocationRelativeTo( null );
+		logger.info("Exiting from resetBatchProcessPanel()");
 	}
 	
 	/**
@@ -520,6 +525,7 @@ public class WebScrapper extends JFrame {
 		logger.info("Entering in enableBatchProessPanelControls()");
 		btnProcess.setEnabled(true);
 		pathtextField.setEnabled(true);
+		logger.info("Exiting from enableBatchProessPanelControls()");
 	}
 	
 	/**
@@ -537,6 +543,7 @@ public class WebScrapper extends JFrame {
 		unStructedRadioButton.setSelected(false);
 		structedRadioButton.setSelected(false);
 		htmlControlScrollPanel.setVisible(false);
+		logger.info("Exiting from resetAllExtractProcessPanel()");
 	}
 	
 	/**
@@ -551,6 +558,7 @@ public class WebScrapper extends JFrame {
 		frame.setLocationRelativeTo( null );
 		btnPreview.setEnabled(false);		
 		dataTypeRadioButtonGroup.clearSelection();
+		logger.info("Exiting from resetExtractProcessPanel()");
 	}
 	
 	/**
@@ -586,6 +594,7 @@ public class WebScrapper extends JFrame {
 			btnRunQuery.setEnabled(false);
 			extractTocomboBox.setModel(new DefaultComboBoxModel(new String[]{}));			
 		}
+		logger.info("Exiting from expandExtractProcessPanel()");
 	}
 	
 	/**
@@ -596,6 +605,7 @@ public class WebScrapper extends JFrame {
 		Set<String> imageUrls = frame.extractResponse.getImageUrls();		
 		List<String> imageURLList = new ArrayList<String>(imageUrls);		
 		imageList.setListData(WebScrapperUtil.getCheckListItemArray(imageURLList));
+		logger.info("Exiting from populateImageList()");
 	}
 	
 	/**
@@ -609,6 +619,7 @@ public class WebScrapper extends JFrame {
 			tagList.add(tagType.getDisplayName());
 		}		
 		htmlControlList.setListData(WebScrapperUtil.getCheckListItemArray(tagList));
+		logger.info("Exiting from populateHtmlControlList()");
 	}	
 	
 	/**
@@ -629,6 +640,7 @@ public class WebScrapper extends JFrame {
 		extractDataTypeComboBox.setEnabled(true);
 		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		extractButton.setEnabled(true);
+		logger.info("Exiting from resetHeaderValuesValue()");
 	}
 	
 	/**
@@ -640,6 +652,7 @@ public class WebScrapper extends JFrame {
 		titleTextField.setEditable(false);
 		extractDataTypeComboBox.setEnabled(false);
 		extractButton.setEnabled(false);
+		logger.info("Exiting from disableHeaderArea()");
 	}
 	
 	/**
@@ -694,6 +707,7 @@ public class WebScrapper extends JFrame {
 		}
 		expandExtractProcessPanel();
 		disableHeaderArea();
+		logger.info("Exiting from executeExtractOpertion()");
 	}
 	
 	/**
@@ -747,7 +761,8 @@ public class WebScrapper extends JFrame {
 				}
 			}
 			JOptionPane.showMessageDialog(frame, scrollPane,"Data Preview", -1);
-		}	
+		}
+		logger.info("Exiting from executePreviewOperation()");
 	}
 	
 	/**
@@ -805,7 +820,8 @@ public class WebScrapper extends JFrame {
 				}else return;				
             }
             resetAllExtractProcessPanel();
-        }	
+        }
+        logger.info("Exiting from executeRunQueryOperation()");
 	}
 
 

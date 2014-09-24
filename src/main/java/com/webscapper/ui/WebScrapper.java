@@ -836,4 +836,94 @@ public class WebScrapper extends JFrame {
     		}
     	}	
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JTextField getPathtextField()
+	{
+		return this.pathtextField;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JTextField getURLtextField()
+	{
+		return this.urlTextField;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JTextField getTitletextField()
+	{
+		return this.titleTextField;
+	}
+	
+	/**
+	 * 
+	 * @param frame
+	 */
+	public void setFrame(WebScrapper frame)
+	{
+		this.frame = frame;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public WebScrapper getFrame()
+	{
+		return this.frame;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JButton getBtnPreview()
+	{
+		return this.btnPreview;	
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JPanel getPreviewRunQueryPanel()
+	{
+		return this.previewRunQueryPanel;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JComboBox getExtractDataTypeComboBox()
+	{
+		return this.extractDataTypeComboBox;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JList getImageList()
+	{
+		return this.imageList;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public JList getHtmlControlList()
+	{
+		return this.htmlControlList;
+	}
 }

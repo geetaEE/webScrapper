@@ -11,12 +11,19 @@ import javax.swing.ListModel;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class WebScrapperUtil.
+ */
 public class WebScrapperUtil 
 {
+	
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(WebScrapperUtil.class);
+	
 	/**
-	 * 
-	 * @param frame
+	 * Show waiting dialog.
+	 *
+	 * @param frame the frame
 	 */
 	public static void showWaitingDialog(WebScrapper frame)
 	{
@@ -36,9 +43,10 @@ public class WebScrapperUtil
 	}
 	
 	/**
-	 * 
-	 * @param list
-	 * @return
+	 * Gets the selected list items.
+	 *
+	 * @param list the list
+	 * @return the selected list items
 	 */
 	public static List<CheckListItem> getSelectedListItems(JList list)
 	{	
@@ -59,8 +67,10 @@ public class WebScrapperUtil
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the selected list item values.
+	 *
+	 * @param list the list
+	 * @return the selected list item values
 	 */
 	public static List<String> getSelectedListItemValues(JList list)
 	{
@@ -81,9 +91,10 @@ public class WebScrapperUtil
 	}	
 	
 	/**
-	 * 
-	 * @param list
-	 * @return
+	 * Gets the check list item array.
+	 *
+	 * @param list the list
+	 * @return the check list item array
 	 */
 	public static CheckListItem[] getCheckListItemArray(List<String> list)
 	{

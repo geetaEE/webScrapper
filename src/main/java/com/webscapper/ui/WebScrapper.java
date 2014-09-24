@@ -155,6 +155,7 @@ public class WebScrapper extends JFrame {
 	 */
 	public static void main(String[] args) throws InterruptedException 
 	{
+		logger.info("Entring in main()");
 		JFrame.setDefaultLookAndFeelDecorated(true);
 	    JDialog.setDefaultLookAndFeelDecorated(true);
 	    
@@ -163,8 +164,10 @@ public class WebScrapper extends JFrame {
 													frame = new WebScrapper();frame.setVisible(true);frame.setLocationRelativeTo( null );frame.resetAllExtractProcessPanel();				
 												}catch (Exception e) 
 												{
+													logger.warn(e);													
 													System.exit(1);
-												}}});		
+												}}});
+		logger.info("Exit from main()");
 	}
 
 
@@ -174,6 +177,7 @@ public class WebScrapper extends JFrame {
 	 */
 	public WebScrapper() throws Exception 
 	{
+		logger.info("Entering in WebScrapper()");		
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setTitle("Web Scrapper");	
@@ -186,7 +190,8 @@ public class WebScrapper extends JFrame {
 		dataTypeRadioButtonGroup = new ButtonGroup();		
 		createMenus();			
 		createExtrctProcessPanel();		
-		createBatchProcessPanel();		
+		createBatchProcessPanel();
+		logger.info("Exiting from WebScrapper()");
 	}
 	
 	/**
@@ -194,6 +199,7 @@ public class WebScrapper extends JFrame {
 	 */
 	public void createMenus()
 	{
+		logger.info("Entering in createMenus()");
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 651, 21);
 		contentPane.add(menuBar);		
@@ -223,6 +229,7 @@ public class WebScrapper extends JFrame {
 	 */
 	public void createExtrctProcessPanel() throws Exception
 	{
+		logger.info("Entering in createExtrctProcessPanel()");
 		extractProcessPanel = new JPanel();
 		extractProcessPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		extractProcessPanel.setBounds(10, 32, 629, 470);
@@ -404,6 +411,7 @@ public class WebScrapper extends JFrame {
 	 * Method for crating the batch process panel.
 	 */
 	public void createBatchProcessPanel(){	
+		logger.info("Entering in createBatchProcessPanel()");
 		batchProcessPanel = new JPanel();
 		batchProcessPanel.setBounds(10, 542, 629, 211);
 		contentPane.add(batchProcessPanel);
@@ -489,6 +497,7 @@ public class WebScrapper extends JFrame {
 	 * Method for Disabling Batch Process Panel.
 	 */
 	public void disableBatchProessPanelControls(){
+		logger.info("Entering in disableBatchProessPanelControls()");
 		btnProcess.setEnabled(false);	
 		pathtextField.setText("");
 	}
@@ -497,6 +506,7 @@ public class WebScrapper extends JFrame {
 	 * Method for reset Batch Process Panel.
 	 */
 	public void resetBatchProcessPanel(){		
+		logger.info("Entering in resetBatchProcessPanel()");
 		batchProcessPanel.setBounds(10, 32, 629, 243);
 		setBounds(10, 32, 657, 320);
 		disableBatchProessPanelControls();
@@ -507,6 +517,7 @@ public class WebScrapper extends JFrame {
 	 * Method for enabling batch process panel.
 	 */
 	public void enableBatchProessPanelControls(){
+		logger.info("Entering in enableBatchProessPanelControls()");
 		btnProcess.setEnabled(true);
 		pathtextField.setEnabled(true);
 	}
@@ -515,6 +526,7 @@ public class WebScrapper extends JFrame {
 	 * Method for reset all controls of extract process panel.
 	 */
 	public void resetAllExtractProcessPanel(){
+		logger.info("Entering in resetAllExtractProcessPanel()");
 		resetHeaderValuesValue();
 		queryRunnerControlBoxPanel.setVisible(false);
 		previewRunQueryPanel.setBounds(10, 180, 609, 54);
@@ -531,6 +543,7 @@ public class WebScrapper extends JFrame {
 	 * Method for reset extract process panel.
 	 */
 	public void resetExtractProcessPanel(){		
+		logger.info("Entering in resetExtractProcessPanel()");
 		queryRunnerControlBoxPanel.setVisible(false);
 		previewRunQueryPanel.setBounds(10, 180, 609, 54);
 		extractProcessPanel.setBounds(10, 32, 629, 243);
@@ -544,6 +557,7 @@ public class WebScrapper extends JFrame {
 	 * Method for expand extract process panel
 	 */
 	public void expandExtractProcessPanel()	{	
+		logger.info("Entering in expandExtractProcessPanel()");
 		setBounds(100, 100, 652, 541);
 		queryRunnerControlBoxPanel.setVisible(true);
 		previewRunQueryPanel.setVisible(true);
@@ -578,6 +592,7 @@ public class WebScrapper extends JFrame {
 	 * Method for populate image list.
 	 */
 	public void populateImageList()	{
+		logger.info("Entering in populateImageList()");
 		Set<String> imageUrls = frame.extractResponse.getImageUrls();		
 		List<String> imageURLList = new ArrayList<String>(imageUrls);		
 		imageList.setListData(WebScrapperUtil.getCheckListItemArray(imageURLList));
@@ -587,6 +602,7 @@ public class WebScrapper extends JFrame {
 	 * Method for populate html control list.
 	 */
 	public void populateHtmlControlList(){
+		logger.info("Entering in populateHtmlControlList()");
 		Set<TagType> tagValues = frame.extractResponse.getTagDataMap().keySet();		
 		List<String> tagList = new ArrayList<String>();		
 		for(TagType tagType : tagValues){
@@ -599,6 +615,7 @@ public class WebScrapper extends JFrame {
 	 * Method for reset Headers.
 	 */
 	public void resetHeaderValuesValue(){		
+		logger.info("Entering in resetHeaderValuesValue()");
 		frame.url = null;
 		frame.title = null;
 		frame.contentType = null;
@@ -618,6 +635,7 @@ public class WebScrapper extends JFrame {
 	 * Method for disable header ares.
 	 */
 	public void disableHeaderArea()	{		
+		logger.info("Entering in disableHeaderArea()");
 		urlTextField.setEditable(false);
 		titleTextField.setEditable(false);
 		extractDataTypeComboBox.setEnabled(false);
@@ -628,6 +646,7 @@ public class WebScrapper extends JFrame {
 	 * Method for start the extract operation.
 	 */
 	public void executeExtractOpertion(){		
+		logger.info("Entering in executeExtractOpertion()");
 		String url = urlTextField.getText().trim();
 		String keyword = titleTextField.getText().trim();		
 		if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)){
@@ -682,6 +701,7 @@ public class WebScrapper extends JFrame {
 	 * @throws Exception
 	 */
 	public void executePreviewOperation() throws Exception{
+		logger.info("Entering in executePreviewOperation()");
 		String slectedOptionValue = extractDataTypeComboBox.getSelectedItem().toString();		
 		if(slectedOptionValue.equals(ContentType.IMAGE.getType())){			
 			List<CheckListItem> lists = WebScrapperUtil.getSelectedListItems(imageList);			
@@ -734,6 +754,7 @@ public class WebScrapper extends JFrame {
 	 * Method for perform the run query operation.
 	 */
 	public void executeRunQueryOperation(){
+		logger.info("Entering in executeRunQueryOperation()");
 		String selectedOptionValue = extractDataTypeComboBox.getSelectedItem().toString();
 		String extractToOptionValue = "";		
 		if(null != extractTocomboBox && null != extractTocomboBox.getSelectedItem()){	
@@ -793,6 +814,7 @@ public class WebScrapper extends JFrame {
 	 * @param extractToOptionValue
 	 */
 	private boolean executeExportOperation(String extractToOptionValue, String selectedOptionValue, List<String> selectedImageURLList, List<String> selectedHTMLControlList){
+		logger.info("Entering in executeExportOperation()");
 		String msg = "All data exported successfully.";    	
     	if(!"DB".equals(extractToOptionValue)){	
         	fc = new JFileChooser();
@@ -841,8 +863,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JTextField getPathtextField()
-	{
+	public JTextField getPathtextField(){
 		return this.pathtextField;
 	}
 	
@@ -850,8 +871,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JTextField getURLtextField()
-	{
+	public JTextField getURLtextField(){
 		return this.urlTextField;
 	}
 	
@@ -859,8 +879,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JTextField getTitletextField()
-	{
+	public JTextField getTitletextField(){
 		return this.titleTextField;
 	}
 	
@@ -877,8 +896,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public WebScrapper getFrame()
-	{
+	public WebScrapper getFrame(){
 		return this.frame;
 	}
 	
@@ -886,8 +904,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JButton getBtnPreview()
-	{
+	public JButton getBtnPreview(){
 		return this.btnPreview;	
 	}
 	
@@ -895,8 +912,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JPanel getPreviewRunQueryPanel()
-	{
+	public JPanel getPreviewRunQueryPanel(){
 		return this.previewRunQueryPanel;
 	}
 	
@@ -904,8 +920,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JComboBox getExtractDataTypeComboBox()
-	{
+	public JComboBox getExtractDataTypeComboBox(){
 		return this.extractDataTypeComboBox;
 	}
 	
@@ -913,8 +928,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JList getImageList()
-	{
+	public JList getImageList(){
 		return this.imageList;
 	}
 	
@@ -922,8 +936,7 @@ public class WebScrapper extends JFrame {
 	 * 
 	 * @return
 	 */
-	public JList getHtmlControlList()
-	{
+	public JList getHtmlControlList(){
 		return this.htmlControlList;
 	}
 }

@@ -15,14 +15,28 @@ import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
+/**
+ * The Class DialogDisplay.
+ */
 public class DialogDisplay 
 {
-	  private static Logger logger = Logger.getLogger(DialogDisplay.class);
-	  private JPanel mainPanel = new JPanel();
-	  private JProgressBar progressBar = new JProgressBar(0, 100);	 
-	  private JLabel statusLabel = new JLabel("Processing....", SwingConstants.CENTER);
+	  
+  	/** The logger. */
+  	private static Logger logger = Logger.getLogger(DialogDisplay.class);
+	  
+  	/** The main panel. */
+  	private JPanel mainPanel = new JPanel();
+	  
+  	/** The progress bar. */
+  	private JProgressBar progressBar = new JProgressBar(0, 100);	 
+	  
+  	/** The status label. */
+  	private JLabel statusLabel = new JLabel("Processing....", SwingConstants.CENTER);
 	   
-	  public DialogDisplay() 
+	  /**
+  	 * Instantiates a new dialog display.
+  	 */
+  	public DialogDisplay() 
 	  {		    
 		    mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));    
 		    
@@ -56,7 +70,12 @@ public class DialogDisplay
 		    task.execute();
 	  }
 	 
-	  public JComponent getComponent() {
+	  /**
+  	 * Gets the component.
+  	 *
+  	 * @return the component
+  	 */
+  	public JComponent getComponent() {
 	    return mainPanel;
 	  }
 }

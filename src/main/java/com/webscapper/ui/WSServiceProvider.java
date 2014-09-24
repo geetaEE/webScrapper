@@ -18,14 +18,22 @@ import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 
+
+/**
+ * The Class WSServiceProvider.
+ */
 public class WSServiceProvider 
 {
+	
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(WSServiceProvider.class);
+	
 	/**
-	 * 
-	 * @param url
-	 * @param contentType
-	 * @return
+	 * Builds the extract request.
+	 *
+	 * @param url the url
+	 * @param contentType the content type
+	 * @return the extract request
 	 */
 	public ExtractRequest buildExtractRequest(String url, ContentType contentType)
 	{
@@ -36,14 +44,16 @@ public class WSServiceProvider
 	}
 	
 	/**
-	 * 
-	 * @param url
-	 * @param title
-	 * @param extractResponse
-	 * @param exportType
-	 * @param tagsList
-	 * @param location
-	 * @return
+	 * Builds the export request.
+	 *
+	 * @param url the url
+	 * @param title the title
+	 * @param extractResponse the extract response
+	 * @param exportType the export type
+	 * @param tagsList the tags list
+	 * @param location the location
+	 * @param selectedImageURLList the selected image url list
+	 * @return the export request
 	 */
 	public ExportRequest buildExportRequest(String url, String title, ExtractResponse extractResponse, ExportType exportType, List<String> tagsList, String location, List<String> selectedImageURLList)
 	{
@@ -60,9 +70,10 @@ public class WSServiceProvider
 	}
 	
 	/**
-	 * 
-	 * @param extractRequest
-	 * @return
+	 * Execute extract operation.
+	 *
+	 * @param extractRequest the extract request
+	 * @return the extract response
 	 */
 	public ExtractResponse executeExtractOperation(ExtractRequest extractRequest)
 	{
@@ -71,9 +82,10 @@ public class WSServiceProvider
 	}
 	
 	/**
-	 * 
-	 * @param exportRequest
-	 * @return
+	 * Execute export operation.
+	 *
+	 * @param exportRequest the export request
+	 * @return the export response
 	 */
 	public ExportResponse executeExportOperation(ExportRequest exportRequest)
 	{
@@ -82,9 +94,10 @@ public class WSServiceProvider
 	}	
 	
 	/**
-	 * 
-	 * @param extractResponse
-	 * @return
+	 * Fetch tabular preview data.
+	 *
+	 * @param extractResponse the extract response
+	 * @return the string[][]
 	 */
 	public String[][] fetchTabularPreviewData(ExtractResponse extractResponse)
 	{
@@ -137,9 +150,10 @@ public class WSServiceProvider
 	}
 	
 	/**
-	 * 
-	 * @param extractResponse
-	 * @return
+	 * Fetch column name for preview.
+	 *
+	 * @param extractResponse the extract response
+	 * @return the string[]
 	 */
 	public String[] fetchColumnNameForPreview(ExtractResponse extractResponse)
 	{		
@@ -153,9 +167,11 @@ public class WSServiceProvider
 	
 	
 	/**
-	 * 
-	 * @param extractResponse
-	 * @return
+	 * Fetch non tabular preview data.
+	 *
+	 * @param response the response
+	 * @param tagsList the tags list
+	 * @return the string
 	 */
 	public String fetchNonTabularPreviewData(ExtractResponse response, List<String> tagsList)
 	{		
@@ -187,10 +203,11 @@ public class WSServiceProvider
 	}
 	
 	/**
-	 * 
-	 * @param extractResponse
-	 * @return
-	 * @throws IOException 
+	 * Fetch image preview data.
+	 *
+	 * @param ImageURL the image url
+	 * @return the input stream
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public InputStream fetchImagePreviewData(String ImageURL) throws IOException
 	{

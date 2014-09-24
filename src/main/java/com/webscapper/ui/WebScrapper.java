@@ -84,10 +84,10 @@ public class WebScrapper extends JFrame {
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (KeyManagementException e) {
-            e.printStackTrace();
+        } catch (KeyManagementException e) {  
+        	logger.warn(e);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        	logger.warn(e);
         }
         // Create all-trusting host name verifier
         HostnameVerifier allHostsValid = new HostnameVerifier() {
@@ -100,8 +100,8 @@ public class WebScrapper extends JFrame {
     }
 	
 	private JPanel contentPane;
-	static WebScrapper frame = null;
-	static JProgressBar progressBar;
+	private static WebScrapper frame = null;
+	private static JProgressBar progressBar;
 	private JTextField urlTextField;
 	private JTextField titleTextField;
 	private JButton exitButton;
@@ -110,19 +110,19 @@ public class WebScrapper extends JFrame {
 	private JRadioButton structedRadioButton;
 	private ButtonGroup dataTypeRadioButtonGroup;
 	private JPanel extractDataTypeSelectionpanel;
-	String[] columnNames = {UIConstants.TYPE, UIConstants.FOUND_PLACES};
-	String[][] data = {{UIConstants.TYPE, UIConstants.FOUND_PLACES},{"Structured", "0"},{"UnStructured", "0"}};
+	private String[] columnNames = {UIConstants.TYPE, UIConstants.FOUND_PLACES};
+	private String[][] data = {{UIConstants.TYPE, UIConstants.FOUND_PLACES},{"Structured", "0"},{"UnStructured", "0"}};
 	private boolean isExtractDone = false;
-	JFileChooser fc;
+	private JFileChooser fc;
 	private JScrollPane scrollPane;
 	private JList imageList;
 	private JButton btnPreview;	
-	JCheckBox chckbxDiv;
-	JCheckBox chckbxSpan;
-	JCheckBox chckbxParagraph;	
+	private JCheckBox chckbxDiv;
+	private JCheckBox chckbxSpan;
+	private JCheckBox chckbxParagraph;	
 	private JPanel previewRunQueryPanel;
-	JComboBox extractTocomboBox;
-	JLabel lblExtractTo;
+	private JComboBox extractTocomboBox;
+	private JLabel lblExtractTo;
 	private JButton btnReset;
 	private JCheckBox chckbxAll;
 	private JMenuItem mntmExtractProcess;
@@ -141,7 +141,7 @@ public class WebScrapper extends JFrame {
 	private JButton btnRunQuery;	
 	private JScrollPane htmlControlScrollPanel;
 	private JList htmlControlList;
-	JButton extractButton;
+	private JButton extractButton;
 	private String url;
 	private String title;
 	private ContentType contentType;
@@ -180,7 +180,7 @@ public class WebScrapper extends JFrame {
 		logger.info("Entering in WebScrapper()");		
 		setAlwaysOnTop(true);
 		setResizable(false);
-		setTitle("Web Scrapper");	
+		setTitle(UIConstants.WEB_SCRAPPER);	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 652, 792);
 		contentPane = new JPanel();
@@ -228,7 +228,7 @@ public class WebScrapper extends JFrame {
 	 * Method for creating extract process panel.
 	 * @throws Exception
 	 */
-	public void createExtrctProcessPanel() throws Exception
+	public void createExtrctProcessPanel()
 	{
 		logger.info("Entering in createExtrctProcessPanel()");
 		extractProcessPanel = new JPanel();
@@ -283,8 +283,11 @@ public class WebScrapper extends JFrame {
 	            item.setSelected(! item.isSelected());
 	            list.repaint(list.getCellBounds(index, index));
 	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(imageList);
-	            if(selectedList.size() <= 0) btnRunQuery.setEnabled(false);
-	            else btnRunQuery.setEnabled(true);
+	            if(selectedList.size() <= 0){	
+	            	btnRunQuery.setEnabled(false);
+	            }else{ 
+	            	btnRunQuery.setEnabled(true);
+	            }	
 	         }});		
 		htmlControlList = new JList(new CheckListItem[]{});		
 		htmlControlList.setCellRenderer(new CheckListRenderer());		
@@ -466,8 +469,7 @@ public class WebScrapper extends JFrame {
 				fc = new JFileChooser();				
 				int result = fc.showOpenDialog(WebScrapper.this);
 				if (result == JFileChooser.APPROVE_OPTION){
-				    File selectedFile = fc.getSelectedFile();
-				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				    File selectedFile = fc.getSelectedFile();				    
 				    pathtextField.setText(selectedFile.getAbsolutePath());
 				    enableBatchProessPanelControls();
 				}
@@ -477,14 +479,13 @@ public class WebScrapper extends JFrame {
 		btnProcess = new JButton("Process");
 		btnProcess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				String fileName = pathtextField.getText();
-				System.out.println("File Name : "+fileName);
+				String fileName = pathtextField.getText();				
 				File f = new File(fileName);				 
 				if(f.exists()){
-					JOptionPane.showMessageDialog(frame, "Batch Process exported data successfully.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "Batch Process exported data successfully.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 					disableBatchProessPanelControls();
 				}else{
-					JOptionPane.showMessageDialog(frame, "File path is incorrect.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "File path is incorrect.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 					return;
 				}				
 			}
@@ -663,13 +664,13 @@ public class WebScrapper extends JFrame {
 		String url = urlTextField.getText().trim();
 		String keyword = titleTextField.getText().trim();		
 		if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)){
-			JOptionPane.showMessageDialog(frame, "URL and title is required.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "URL and title is required.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 			return;
 		}else{
 			if(url.startsWith("http:") || url.startsWith("https:")){
 				boolean isValidURL = URLUtil.isValidURL(url);
 				if(!isValidURL){
-					JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "URL is invalid.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 					return;
 				}						
 			}else{
@@ -677,7 +678,7 @@ public class WebScrapper extends JFrame {
 				if(!URLUtil.isValidURL("http://"+url)){
 					url = "https://"+url; 
 					if(!URLUtil.isValidURL(url)){	
-						JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(frame, "URL is invalid.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 						return;
 					}						
 				}					
@@ -685,7 +686,7 @@ public class WebScrapper extends JFrame {
 			
 			boolean isValid = URLUtil.isValidURLForConnection(url);
 			if(!isValid){
-				JOptionPane.showMessageDialog(frame, "URL is invalid.", "Web Scrapper", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "URL is invalid.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 		}		
@@ -697,7 +698,7 @@ public class WebScrapper extends JFrame {
 		frame.extractRequest = frame.wsServiceProvider.buildExtractRequest(frame.url, frame.contentType);
 		frame.extractResponse = frame.wsServiceProvider.executeExtractOperation(frame.extractRequest);		
 		if(null == frame.extractResponse){
-			JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}		
 		WebScrapperUtil.showWaitingDialog(frame);				
@@ -712,9 +713,10 @@ public class WebScrapper extends JFrame {
 	
 	/**
 	 * Method for preview operation.
+	 * @throws IOException 
 	 * @throws Exception
 	 */
-	public void executePreviewOperation() throws Exception{
+	public void executePreviewOperation() throws IOException{
 		logger.info("Entering in executePreviewOperation()");
 		String slectedOptionValue = extractDataTypeComboBox.getSelectedItem().toString();		
 		if(slectedOptionValue.equals(ContentType.IMAGE.getType())){			
@@ -731,7 +733,7 @@ public class WebScrapper extends JFrame {
 				JLabel lbl = new JLabel(image);				
 				JOptionPane.showMessageDialog(frame, lbl,"Image Preview", -1);	
 			}else{
-				JOptionPane.showMessageDialog(frame, "No Image Preview available, kindly select image.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "No Image Preview available, kindly select image.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 				return;
 			}
     	}else{	
@@ -756,7 +758,7 @@ public class WebScrapper extends JFrame {
 				    textArea.setEditable(false);				    
 				    scrollPane = new JScrollPane(textArea);
 				}else{
-					JOptionPane.showMessageDialog(frame, "No Data Preview available, kindly select HTML Control.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "No Data Preview available, kindly select HTML Control.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
 			}
@@ -783,13 +785,19 @@ public class WebScrapper extends JFrame {
 		String url = urlTextField.getText();
 		String title = titleTextField.getText();
 		String selectedTabularOption = "";		
-		if(structedRadioButton.isSelected()) selectedTabularOption = "Tabular";
-		else selectedTabularOption = "Non-Tabular";		
+		if(structedRadioButton.isSelected()){ 
+			selectedTabularOption = "Tabular";
+		}else{
+			selectedTabularOption = "Non-Tabular";		
+		}
 		if(selectedOptionValue.equals(ContentType.IMAGE.getType())){
 			queryTextField.setText(url + "," +title+","+selectedOptionValue+","+ WebScrapperUtil.getSelectedListItems(imageList).toString());
     	}else{
-			if(structedRadioButton.isSelected()) queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+extractToOptionValue);						
-			else queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+WebScrapperUtil.getSelectedListItems(htmlControlList).toString()+","+extractToOptionValue);			
+			if(structedRadioButton.isSelected()) {
+				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+extractToOptionValue);						
+			}else{
+				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+WebScrapperUtil.getSelectedListItems(htmlControlList).toString()+","+extractToOptionValue);			
+			}
 		}		
 		queryTextField.setColumns(14);		
 		JComboBox comboBox = new JComboBox();				
@@ -799,7 +807,7 @@ public class WebScrapper extends JFrame {
         message.add(queryTextField);
         message.add(comboBox);
         Object[] options = new String[]{"Process","Cancel"};
-        int returnvalue = JOptionPane.showOptionDialog(frame, message, "Web Scrapper", JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        int returnvalue = JOptionPane.showOptionDialog(frame, message, UIConstants.WEB_SCRAPPER, JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         String optionValue = comboBox.getSelectedItem().toString();
         if(returnvalue == 0){	                
         	if("Export".equals(optionValue)){               	            	
@@ -814,9 +822,8 @@ public class WebScrapper extends JFrame {
 				fc.setDialogTitle("Save");
 				int result = fc.showSaveDialog(WebScrapper.this);
 				if (result == JFileChooser.APPROVE_OPTION){
-				    File selectedFile = fc.getSelectedFile();
-				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());				    
-				    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+				    File selectedFile = fc.getSelectedFile();				    				    
+				    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 				}else return;				
             }
             resetAllExtractProcessPanel();
@@ -838,8 +845,7 @@ public class WebScrapper extends JFrame {
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int result = fc.showSaveDialog(WebScrapper.this);
 			if (result == JFileChooser.APPROVE_OPTION){
-			    File selectedFile = fc.getSelectedFile();
-			    System.out.println("Selected file: " + selectedFile.getAbsolutePath()); 
+			    File selectedFile = fc.getSelectedFile();			     
             	if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
             	{
             		msg = "All Images exported successfully.";
@@ -848,11 +854,11 @@ public class WebScrapper extends JFrame {
             	ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);            	
             	WebScrapperUtil.showWaitingDialog(frame);            	
             	if(exportResponse.isSuccess()){
-            		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+            		JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
             		return true;
         		}else{
             		msg = "Issue in data export operation, kinldy check settings.";
-            		JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+            		JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
             		return false;
             	}           	
 			}
@@ -865,11 +871,11 @@ public class WebScrapper extends JFrame {
     		ExportResponse exportResponse = frame.wsServiceProvider.executeExportOperation(exportRequest);    		
     		WebScrapperUtil.showWaitingDialog(frame);    		
     		if(exportResponse.isSuccess()){	
-    			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+    			JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
     			return true;
     		}else{
     			msg = "Database connection is not available, kindly check MongoDB connection on your machine and then choose export to DB option.";
-    			JOptionPane.showMessageDialog(frame, msg, "Web Scrapper", JOptionPane.INFORMATION_MESSAGE);
+    			JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
     			return false;
     		}
     	}	

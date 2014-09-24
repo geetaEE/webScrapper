@@ -23,9 +23,9 @@ import com.webscrapper.constants.TagType;
 
 
 /**
- * 
- * @author vivek.yadav
+ * The Class TestWSServiceProvider.
  *
+ * @author vivek.yadav
  */
 @RunWith(JUnit4.class)
 public class TestWSServiceProvider {
@@ -205,6 +205,8 @@ public class TestWSServiceProvider {
 
     /**
      * Unit test for fetchImagePreviewData().
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
     public void testFetchImagePreviewData() throws IOException

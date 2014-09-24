@@ -17,12 +17,17 @@ import com.webscapper.ui.CheckListItem;
 import com.webscapper.ui.WebScrapper;
 import com.webscrapper.constants.ContentType;
 
+/**
+ * The Class TestWebScrapper.
+ */
 @RunWith(JUnit4.class)
 public class TestWebScrapper 
 {
+	
 	/**
-	 * 
 	 * Unit test for WebScrapper() method.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testWebScrapper() throws Exception
@@ -32,9 +37,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * 
-	 * Unit Test for disableBatchProessPanelControls()
-	 * 
+	 * Unit Test for disableBatchProessPanelControls().
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testDisableBatchProessPanelControls() throws Exception
@@ -49,8 +54,8 @@ public class TestWebScrapper
 	
 	/**
 	 * Unit Test for resetBatchProcessPanel().
-	 * 
-	 * @throws Exception
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testResetBatchProcessPanel() throws Exception
@@ -68,8 +73,8 @@ public class TestWebScrapper
 	
 	/**
 	 * Unit Test for enableBatchProessPanelControls().
-	 * 
-	 * @throws Exception
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testEnableBatchProessPanelControls() throws Exception
@@ -86,9 +91,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * 
 	 * Unit test for resetAllExtractProcessPanel().
-	 * 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testResetAllExtractProcessPanel()throws Exception
@@ -105,9 +110,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * 
 	 * Unit test for resetExtractProcessPanel().
-	 * 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testResetExtractProcessPanel()throws Exception
@@ -124,9 +129,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * 
 	 * Unit test for expandExtractProcessPanel().
-	 * 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testExpandExtractProcessPanel()throws Exception
@@ -143,9 +148,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * 
 	 * Unit test for resetHeaderValuesValue().
-	 * 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testResetHeaderValuesValue()throws Exception
@@ -166,9 +171,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * 
 	 * Unit test for disableHeaderArea().
-	 * 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testDisableHeaderArea()throws Exception
@@ -189,9 +194,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * 
 	 * Unit test for executeExtractOpertion().
-	 * 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testExecuteExtractOpertion()throws Exception
@@ -224,9 +229,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * Unit for populateImageList()
-	 * 
-	 * @throws Exception
+	 * Unit for populateImageList().
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testpopulateImageList() throws Exception
@@ -261,9 +266,9 @@ public class TestWebScrapper
 	}
 	
 	/**
-	 * Unit for populateHtmlControlList()
-	 * 
-	 * @throws Exception
+	 * Unit for populateHtmlControlList().
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testPopulateHtmlControlList() throws Exception

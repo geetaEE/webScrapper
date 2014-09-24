@@ -17,18 +17,17 @@ import java.util.List;
 
 import javax.swing.JList;
 
-
 /**
- * 
- * @author vivek.yadav
+ * The Class TestWebScrapperUtil.
  *
+ * @author vivek.yadav
  */
 @RunWith(JUnit4.class)
 public class TestWebScrapperUtil {
     //~ Methods ------------------------------------------------------------------------------------------------------
 
     /**
-     * Unit Test for getSelectedListItems()
+     * Unit Test for getSelectedListItems().
      */
     @Test
     public void testGetSelectedListItems() {
@@ -59,7 +58,7 @@ public class TestWebScrapperUtil {
 
 
     /**
-     * Unit Test for getSelectedListItemValues()
+     * Unit Test for getSelectedListItemValues().
      */
     @Test
     public void testGetSelectedListItemValues() {
@@ -85,7 +84,7 @@ public class TestWebScrapperUtil {
 
 
     /**
-     * Unit Test for getCheckListItemArray()
+     * Unit Test for getCheckListItemArray().
      */
     @Test
     public void testGetCheckListItemArray() {

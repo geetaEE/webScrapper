@@ -9,16 +9,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 /**
- * 
- * @author vivek.yadav
+ * The Class TestURLUtil.
  *
+ * @author vivek.yadav
  */
 @RunWith(JUnit4.class)
 public class TestURLUtil {
     //~ Methods ------------------------------------------------------------------------------------------------------
 
     /**
-     * Unit test for isValidURL()
+     * Unit test for isValidURL().
      */
     @Test
     public void testIsValidURL() {
@@ -35,7 +35,7 @@ public class TestURLUtil {
 
 
     /**
-     * Unit test for isValidURLForConnection()
+     * Unit test for isValidURLForConnection().
      */
     @Test
     public void testIsValidURLForConnection() {

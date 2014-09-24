@@ -17,9 +17,12 @@ import com.webscrapper.constants.TagType;
 
 /** The extract text content service. */
 public class TextExtractService extends BaseExtractService {
-	private static Logger logger = Logger.getLogger(TextExtractService.class);
-	@Override
+    /** Logger. */
+    private static Logger logger = Logger.getLogger(TextExtractService.class);
+
+    @Override
     public ExtractResponse extract(ExtractRequest request) {
+        logger.info("Method extract for Text is executing");
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());
             if (doc != null) {

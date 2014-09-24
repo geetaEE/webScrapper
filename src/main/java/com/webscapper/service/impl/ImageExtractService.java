@@ -12,9 +12,12 @@ import com.webscapper.response.ExtractResponse;
 
 /** The extract image content service. */
 public class ImageExtractService extends BaseExtractService {
-	private static Logger logger = Logger.getLogger(ImageExtractService.class);
-	@Override
+    /** Logger. */
+    private static Logger logger = Logger.getLogger(ImageExtractService.class);
+
+    @Override
     public ExtractResponse extract(ExtractRequest request) {
+        logger.info("Method extract for Image is executing");
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());
             if (doc != null) {

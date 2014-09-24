@@ -11,11 +11,10 @@ import com.webscrapper.constants.ContentType;
 import com.webscrapper.service.ExtractService;
 
 /** A factory for creating extract service objects. */
-public abstract class ExtractServiceFactory 
-{
-	private static Logger logger = Logger.getLogger(ExtractServiceFactory.class);
-	
-	/** The instance map. */
+public abstract class ExtractServiceFactory {
+    /** Logger. */
+    private static Logger logger = Logger.getLogger(ExtractServiceFactory.class);
+    /** The instance map. */
     private static Map<ContentType, ExtractService> instanceMap;
 
     /** Get extract service instance.
@@ -36,8 +35,10 @@ public abstract class ExtractServiceFactory
                 if (!instanceMap.containsKey(type)) {
                     if (ContentType.IMAGE.equals(type)) {
                         instanceMap.put(type, new ImageExtractService());
+                        logger.info("Singleton ImageExtractService created");
                     } else {
                         instanceMap.put(type, new TextExtractService());
+                        logger.info("Singleton TextExtractService created");
                     }
                 }
             }

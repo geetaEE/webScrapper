@@ -20,13 +20,14 @@ import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.webscrapper.exception.ExtractException;
 import com.webscrapper.service.ExtractService;
 
 /** The base extract service. */
 public abstract class BaseExtractService implements ExtractService {
-	private static Logger logger = Logger.getLogger(BaseExtractService.class);
-	
-	static {
+    private static Logger logger = Logger.getLogger(BaseExtractService.class);
+
+    static {
         // Initialize for ssl communication.
         TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
@@ -45,9 +46,11 @@ public abstract class BaseExtractService implements ExtractService {
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (KeyManagementException e) {
-        	logger.warn(e);
+            logger.error("Security key error occurred" + e);
+            throw new ExtractException("Security key error", e);
         } catch (NoSuchAlgorithmException e) {
-        	logger.warn(e);
+            logger.error("Security algorithm error occurred" + e);
+            throw new ExtractException("Security algorithm error", e);
         }
         // Create all-trusting host name verifier
         HostnameVerifier allHostsValid = new HostnameVerifier() {
@@ -65,6 +68,7 @@ public abstract class BaseExtractService implements ExtractService {
      *            the url
      * @return html document */
     protected Document extractDocument(String url) {
+        logger.info("Method extractDocument is executing");
         Document doc = null;
         try {
             doc = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(30000).get();
@@ -80,13 +84,15 @@ public abstract class BaseExtractService implements ExtractService {
                     htmlB.append(input);
                 }
             } catch (IOException ie) {
-                ie.printStackTrace();
+                logger.error("Document process error occurred" + ie);
+                throw new ExtractException("Document process error", ie);
             } finally {
                 if (br != null) {
                     try {
                         br.close();
                     } catch (IOException e1) {
-                    	logger.warn(e1);
+                        logger.error("Connection close error occurred" + e1);
+                        throw new ExtractException("Connection close error", e1);
                     }
                 }
             }

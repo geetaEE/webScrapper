@@ -13,12 +13,17 @@ import com.webscapper.service.impl.ExportToTextService;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
 
+
 /**
+ * A factory for creating ExportService objects.
+ *
  * @author ruby.jha
  * A factory for creating export service objects.
  */
 public abstract class ExportServiceFactory 
 {
+	
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(ExportServiceFactory.class);
 	
 	/** The instance map. */

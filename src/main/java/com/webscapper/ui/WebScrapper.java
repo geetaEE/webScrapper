@@ -100,8 +100,7 @@ public class WebScrapper extends JFrame {
     }
 	
 	private JPanel contentPane;
-	private static WebScrapper frame = null;
-	private static JProgressBar progressBar;
+	private static WebScrapper frame = null;	
 	private JTextField urlTextField;
 	private JTextField titleTextField;
 	private JButton exitButton;
@@ -109,27 +108,20 @@ public class WebScrapper extends JFrame {
 	private JRadioButton unStructedRadioButton;
 	private JRadioButton structedRadioButton;
 	private ButtonGroup dataTypeRadioButtonGroup;
-	private JPanel extractDataTypeSelectionpanel;
-	private String[] columnNames = {UIConstants.TYPE, UIConstants.FOUND_PLACES};
-	private String[][] data = {{UIConstants.TYPE, UIConstants.FOUND_PLACES},{"Structured", "0"},{"UnStructured", "0"}};
-	private boolean isExtractDone = false;
+	private JPanel extractDataTypeSelectionpanel;	
 	private JFileChooser fc;
 	private JScrollPane scrollPane;
 	private JList imageList;
 	private JButton btnPreview;	
-	private JCheckBox chckbxDiv;
-	private JCheckBox chckbxSpan;
-	private JCheckBox chckbxParagraph;	
 	private JPanel previewRunQueryPanel;
 	private JComboBox extractTocomboBox;
 	private JLabel lblExtractTo;
-	private JButton btnReset;
-	private JCheckBox chckbxAll;
+	private JButton btnReset;	
 	private JMenuItem mntmExtractProcess;
 	private JMenuItem mntmBatchProcess;
 	private JPanel batchProcessPanel;
 	private JButton button;
-	private JButton button_1;
+	private JButton buttonExit;
 	private JLabel lblNewLabel;
 	private JTextField pathtextField;
 	private JPanel batchProcessBrowsePanel;
@@ -175,7 +167,7 @@ public class WebScrapper extends JFrame {
 	 * Method for creating the UI components.
 	 * @throws Exception
 	 */
-	public WebScrapper() throws Exception 
+	public WebScrapper()
 	{
 		logger.info("Entering in WebScrapper()");		
 		setAlwaysOnTop(true);
@@ -430,14 +422,14 @@ public class WebScrapper extends JFrame {
 		});
 		button.setBounds(427, 183, 78, 28);
 		batchProcessPanel.add(button);		
-		button_1 = new JButton("Exit");
-		button_1.addActionListener(new ActionListener() {
+		buttonExit = new JButton("Exit");
+		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				System.exit(1);
 			}
 		});
-		button_1.setBounds(515, 183, 78, 28);
-		batchProcessPanel.add(button_1);		
+		buttonExit.setBounds(515, 183, 78, 28);
+		batchProcessPanel.add(buttonExit);		
 		lblNewLabel = new JLabel("Batch Process");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(10, 11, 102, 28);
@@ -813,10 +805,15 @@ public class WebScrapper extends JFrame {
         	if("Export".equals(optionValue)){               	            	
         		List<String> selectedImageURLList = new ArrayList<String>();
         		List<String> selectedHTMLControlList = new ArrayList<String>();        		
-        		if(selectedOptionValue.equals(ContentType.IMAGE.getType())) selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(imageList);
-				else selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);        		
+        		if(selectedOptionValue.equals(ContentType.IMAGE.getType())){ 
+        			selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(imageList);
+        		}else{
+        			selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(htmlControlList);        		
+        		}
         		boolean result = executeExportOperation(extractToOptionValue, selectedOptionValue, selectedImageURLList, selectedHTMLControlList);
-        		if(!result) return;        			
+        		if(!result){
+        			return;        			
+        		}
             }else{
             	fc = new JFileChooser();
 				fc.setDialogTitle("Save");
@@ -824,7 +821,9 @@ public class WebScrapper extends JFrame {
 				if (result == JFileChooser.APPROVE_OPTION){
 				    File selectedFile = fc.getSelectedFile();				    				    
 				    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
-				}else return;				
+				}else{
+					return;				
+				}
             }
             resetAllExtractProcessPanel();
         }

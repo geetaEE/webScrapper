@@ -27,7 +27,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 			db = MongoConnectionManager.getInstance().getConnection()
 					.getDbConnection();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e);
 		}
 		DBCollection table = db.getCollection(DBConstants.TABLE_NAME);
 		table.insert(new BasicDBObject(map));

@@ -16,6 +16,10 @@ import org.apache.log4j.Logger;
  */
 public final class WebScrapperUtil 
 {	
+	
+	/**
+	 * Instantiates a new web scrapper util.
+	 */
 	private WebScrapperUtil(){}
 	/** The logger. */
 	private static Logger logger = Logger.getLogger(WebScrapperUtil.class);

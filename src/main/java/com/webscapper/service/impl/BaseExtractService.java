@@ -45,9 +45,9 @@ public abstract class BaseExtractService implements ExtractService {
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (KeyManagementException e) {
-            e.printStackTrace();
+        	logger.warn(e);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        	logger.warn(e);
         }
         // Create all-trusting host name verifier
         HostnameVerifier allHostsValid = new HostnameVerifier() {
@@ -86,7 +86,7 @@ public abstract class BaseExtractService implements ExtractService {
                     try {
                         br.close();
                     } catch (IOException e1) {
-                        e1.printStackTrace();
+                    	logger.warn(e1);
                     }
                 }
             }

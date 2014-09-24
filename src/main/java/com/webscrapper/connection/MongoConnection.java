@@ -61,16 +61,16 @@ public class MongoConnection {
 			db.addUser(DBConstants.USER_NAME,
 						DBConstants.PASSWORD.toCharArray());
 			boolean auth = false;
-			try {
+			try 
+			{
 				auth = db.authenticate(DBConstants.USER_NAME,
 						DBConstants.PASSWORD.toCharArray());
-			} catch (MongoException e) {
-				e.printStackTrace();
+			} 
+			catch (MongoException e) 
+			{
+				logger.warn("Authentication Fail.",e);
 			}
-			if (auth) {
-				/*System.out
-						.println("Successfully Authenticated to Mongo Server");*/
-			} else {
+			if (!auth){ 
 				throw new AuthenticationException("Authentication Fail");
 			}
 		}

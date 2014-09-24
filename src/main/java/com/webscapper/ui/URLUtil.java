@@ -28,13 +28,16 @@ public class URLUtil
 	 */
 	public static boolean isValidURL(String url) 
 	{
-        URL u = null;
+		logger.info("Entering isValidURL method.");
+		
+		URL u = null;
         try
         {
             u = new URL(url);
         } 
         catch (MalformedURLException e) 
         {        	
+        	logger.warn(e);
         	return false;
         }
         
@@ -44,8 +47,13 @@ public class URLUtil
         } 
         catch (URISyntaxException e) 
         {        	
+        	logger.warn(e);
+        	
         	return false;
-        }       
+        } 
+        
+        logger.info("Exiting from isValidURL method.");
+        
         return true;
     }
 	
@@ -57,6 +65,8 @@ public class URLUtil
 	 */
 	public static boolean isValidURLForConnection(String url)
 	{
+		logger.info("Entering isValidURLForConnection method.");
+		
 		try 
 		{		   
 			URL webURL = new URL(url);
@@ -65,8 +75,12 @@ public class URLUtil
 		}		
 		catch (IOException ex) 
 		{			
+			logger.warn(ex);
 			return false;			 
-		}
-		return true;		
+		}		
+		
+		logger.info("Exiting from isValidURLForConnection method.");
+		
+		return true;
 	}
 }

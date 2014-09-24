@@ -38,7 +38,9 @@ public class DialogDisplay
   	 */
   	public DialogDisplay() 
 	  {		    
-		    mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));    
+		    logger.info("Start showing processing wizard.");
+		    
+  			mainPanel.setBorder(new LineBorder(new Color(0, 0, 0)));    
 		    
 		    progressBar.setIndeterminate(true);	 
 		    progressBar.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -47,10 +49,9 @@ public class DialogDisplay
 		    mainPanel.add(progressBar, BorderLayout.CENTER);
 		     
 		    final SwingWorker task = new SwingWorker<Void, Void>() {
-		      private int value = 0;
-		       
+		      private int value = 0;		       
 		      @Override
-		      protected Void doInBackground() throws Exception {
+		      protected Void doInBackground() throws InterruptedException {
 		    for (int i = 0; i < 5; i++) {
 		      setProgress(10 * i);
 		      Thread.sleep(1000);
@@ -58,8 +59,7 @@ public class DialogDisplay
 		    setProgress(100);
 		    Thread.sleep(1000);
 		    return null;
-		      }
-		       
+		      }		       
 		      @Override
 		      protected void done() {
 		        Window win = SwingUtilities.getWindowAncestor(mainPanel);
@@ -75,7 +75,9 @@ public class DialogDisplay
   	 *
   	 * @return the component
   	 */
-  	public JComponent getComponent() {
-	    return mainPanel;
-	  }
+  	public JComponent getComponent() 
+  	{
+  		logger.info("Returning main Panel.");
+  		return mainPanel;
+	 }
 }

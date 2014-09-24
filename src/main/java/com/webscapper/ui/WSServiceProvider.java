@@ -37,9 +37,14 @@ public class WSServiceProvider
 	 */
 	public ExtractRequest buildExtractRequest(String url, ContentType contentType)
 	{
+		logger.info("Entering buildExtractRequest method.");
+		
 		ExtractRequest extractRequest = new ExtractRequest();
 		extractRequest.setUrl(url);
 		extractRequest.setContentType(contentType);
+		
+		logger.info("Exiting from buildExtractRequest method.");
+		
 		return extractRequest;
 	}
 	
@@ -57,6 +62,8 @@ public class WSServiceProvider
 	 */
 	public ExportRequest buildExportRequest(String url, String title, ExtractResponse extractResponse, ExportType exportType, List<String> tagsList, String location, List<String> selectedImageURLList)
 	{
+		logger.info("Entering buildExportRequest method.");
+		
 		ExportRequest exportRequest = new ExportRequest();
 		exportRequest.setUrl(url);
 		exportRequest.setTitle(title);
@@ -65,6 +72,8 @@ public class WSServiceProvider
 		exportRequest.setTagsList(tagsList);
 		exportRequest.setLocation(location);
 		exportRequest.setImageURLList(selectedImageURLList);
+		
+		logger.info("Exiting from buildExportRequest method.");
 		
 		return exportRequest;
 	}
@@ -77,7 +86,12 @@ public class WSServiceProvider
 	 */
 	public ExtractResponse executeExtractOperation(ExtractRequest extractRequest)
 	{
+		logger.info("Entering executeExtractOperation method.");
+		
 		ExtractResponse extractResponse = ExtractServiceFactory.getInstance(extractRequest.getContentType()).extract(extractRequest);
+		
+		logger.info("Exiting from executeExtractOperation method.");
+		
 		return extractResponse;
 	}
 	
@@ -89,7 +103,12 @@ public class WSServiceProvider
 	 */
 	public ExportResponse executeExportOperation(ExportRequest exportRequest)
 	{
+		logger.info("Entering executeExportOperation method.");
+		
 		ExportResponse exportResponse = ExportServiceFactory.getInstance(exportRequest.getExportType()).export(exportRequest);
+		
+		logger.info("Exiting from executeExportOperation method.");
+		
 		return exportResponse;
 	}	
 	
@@ -101,6 +120,8 @@ public class WSServiceProvider
 	 */
 	public String[][] fetchTabularPreviewData(ExtractResponse extractResponse)
 	{
+		logger.info("Entering fetchTabularPreviewData method.");
+		
 		String[][] columnArray = new String[4][4];
 		List<List<List<String>>> tablesList = extractResponse != null ? extractResponse.getTables() : null;
         if (tablesList != null && tablesList.size() > 0) 
@@ -146,6 +167,8 @@ public class WSServiceProvider
             }
         }
         
+        logger.info("Exiting from fetchTabularPreviewData method.");
+        
         return columnArray;
 	}
 	
@@ -157,11 +180,16 @@ public class WSServiceProvider
 	 */
 	public String[] fetchColumnNameForPreview(ExtractResponse extractResponse)
 	{		
-        String[] columnArray = new String[4];
+		logger.info("Entering fetchColumnNameForPreview method.");
+		
+		String[] columnArray = new String[4];
         columnArray[0] = "Column_1";
         columnArray[1] = "Column_2";
         columnArray[2] = "Column_3";
         columnArray[3] = "Column_4";
+        
+        logger.info("Exiting from fetchColumnNameForPreview method.");
+        
         return columnArray;
 	}
 	
@@ -175,6 +203,8 @@ public class WSServiceProvider
 	 */
 	public String fetchNonTabularPreviewData(ExtractResponse response, List<String> tagsList)
 	{		
+		logger.info("Entering fetchNonTabularPreviewData method.");
+		
 		String previewData = "";
 		Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
 
@@ -199,6 +229,8 @@ public class WSServiceProvider
 			}		
 		}    
 		
+		logger.info("Exiting from fetchNonTabularPreviewData method.");
+		
 		return previewData;
 	}
 	
@@ -211,11 +243,15 @@ public class WSServiceProvider
 	 */
 	public InputStream fetchImagePreviewData(String ImageURL) throws IOException
 	{
+		logger.info("Entering fetchImagePreviewData method.");
+		
 		InputStream is = null;
 		
 		URL url = new URL(ImageURL);      
           
 		is = url.openStream();      
+		
+		logger.info("Exiting from fetchImagePreviewData method.");
 		
 		return is;
               

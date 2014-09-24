@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
  * The Class WebScrapperUtil.
  */
 public class WebScrapperUtil 
-{
-	
+{	
+	private WebScrapperUtil(){}
 	/** The logger. */
 	private static Logger logger = Logger.getLogger(WebScrapperUtil.class);
 	
@@ -27,6 +27,8 @@ public class WebScrapperUtil
 	 */
 	public static void showWaitingDialog(WebScrapper frame)
 	{
+		logger.info("Entering showWaitingDialog method.");
+		
 		DialogDisplay dlgDisplay = new DialogDisplay();		       
 		
 		JDialog dialog = new JDialog(frame, "Progress Dialog", ModalityType.APPLICATION_MODAL);
@@ -40,6 +42,8 @@ public class WebScrapperUtil
 		dialog.setVisible(true);
 		dialog.dispose();
 		dialog.setUndecorated(false);
+		
+		logger.info("Exiting from showWaitingDialog method.");
 	}
 	
 	/**
@@ -50,6 +54,8 @@ public class WebScrapperUtil
 	 */
 	public static List<CheckListItem> getSelectedListItems(JList list)
 	{	
+		logger.info("Entering getSelectedListItems method.");
+		
 		ListModel<JList> dlm = (ListModel<JList>) list.getModel();
 		
 		List<CheckListItem> selectedListItems = new ArrayList<CheckListItem>();
@@ -63,6 +69,8 @@ public class WebScrapperUtil
 		      }		   
 		 }		
 		
+		logger.info("Exiting from getSelectedListItems method.");
+		
 		return selectedListItems;
 	}
 	
@@ -74,6 +82,8 @@ public class WebScrapperUtil
 	 */
 	public static List<String> getSelectedListItemValues(JList list)
 	{
+		logger.info("Entering getSelectedListItemValues method.");
+		
 		ListModel<JList> dlm = (ListModel<JList>) list.getModel();
 		
 		List<String> selectedListItems = new ArrayList<String>();
@@ -87,6 +97,8 @@ public class WebScrapperUtil
 		      }		   
 		 }		
 		
+		logger.info("Exiting from getSelectedListItemValues method.");
+		
 		return selectedListItems;
 	}	
 	
@@ -98,6 +110,8 @@ public class WebScrapperUtil
 	 */
 	public static CheckListItem[] getCheckListItemArray(List<String> list)
 	{
+		logger.info("Entering getCheckListItemArray method.");
+		
 		CheckListItem[] checkListItems = new CheckListItem[list.size()];
 		
 		if(list.size() > 0)
@@ -107,6 +121,8 @@ public class WebScrapperUtil
 				checkListItems[i] = new CheckListItem(list.get(i));
 			}
 		}	
+		
+		logger.info("Exiting from getCheckListItemArray method.");
 		
 		return checkListItems;
 	}	

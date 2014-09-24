@@ -24,12 +24,17 @@ class CheckListRenderer extends JCheckBox implements ListCellRenderer
 	      JList list, Object value, int index, 
 	      boolean isSelected, boolean hasFocus)
 	{
-	   setEnabled(list.isEnabled());
-	   setSelected(((CheckListItem)value).isSelected());
-	   setFont(list.getFont());
-	   setBackground(list.getBackground());
-	   setForeground(list.getForeground());
-	   setText(value.toString());
-	   return this;
+		logger.info("Entering getListCellRendererComponent()");
+		
+		setEnabled(list.isEnabled());
+		setSelected(((CheckListItem)value).isSelected());
+		setFont(list.getFont());
+		setBackground(list.getBackground());
+		setForeground(list.getForeground());
+		setText(value.toString());
+		
+		logger.info("Exiting from getListCellRendererComponent()");
+		
+		return this;
 	}
 }

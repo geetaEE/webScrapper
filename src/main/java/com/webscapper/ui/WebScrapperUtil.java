@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 /**
  * The Class WebScrapperUtil.
  */
-public class WebScrapperUtil 
+public final class WebScrapperUtil 
 {	
 	private WebScrapperUtil(){}
 	/** The logger. */

@@ -149,7 +149,9 @@ public class WSServiceProvider
             	if(columnCounter < 4)
             	{
             		for(int i = columnCounter ; i<= 3 ; i++)
+            		{	
             				columnArray[rowCounter][i]="";
+            		}		
             	}
             	
             	rowCounter++;
@@ -241,13 +243,13 @@ public class WSServiceProvider
 	 * @return the input stream
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public InputStream fetchImagePreviewData(String ImageURL) throws IOException
+	public InputStream fetchImagePreviewData(String imageURL) throws IOException
 	{
 		logger.info("Entering fetchImagePreviewData method.");
 		
 		InputStream is = null;
 		
-		URL url = new URL(ImageURL);      
+		URL url = new URL(imageURL);      
           
 		is = url.openStream();      
 		

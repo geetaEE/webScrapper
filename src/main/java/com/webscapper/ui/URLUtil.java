@@ -14,9 +14,9 @@ import org.apache.log4j.Logger;
 /**
  * The Class URLUtil.
  */
-public class URLUtil 
+public final class URLUtil 
 {
-	
+	public void URLUtil(){}
 	/** The logger. */
 	private static Logger logger = Logger.getLogger(URLUtil.class);
 	

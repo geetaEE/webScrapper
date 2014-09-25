@@ -20,6 +20,7 @@ import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.exception.ExtractException;
 import com.webscrapper.service.ExtractService;
 
@@ -42,7 +43,7 @@ public abstract class BaseExtractService implements ExtractService {
         } };
 
         try {
-            SSLContext sc = SSLContext.getInstance("SSL");
+            SSLContext sc = SSLContext.getInstance(CommonConstants.SSL_PROTOCOL);
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (KeyManagementException e) {
@@ -71,7 +72,7 @@ public abstract class BaseExtractService implements ExtractService {
         logger.info("Method extractDocument is executing");
         Document doc = null;
         try {
-            doc = Jsoup.connect(url).userAgent("Mozilla/5.0").timeout(30000).get();
+            doc = Jsoup.connect(url).userAgent(CommonConstants.USER_AGENT).timeout(CommonConstants.EXTRACT_TIMEOUT).get();
         } catch (IOException e) {
             BufferedReader br = null;
             StringBuilder htmlB = new StringBuilder();
@@ -102,7 +103,7 @@ public abstract class BaseExtractService implements ExtractService {
             }
         }
         if (doc != null) {
-            doc.select("*[style*=display:none]").remove();
+            doc.select(CommonConstants.HIDDEN_CONTENT_EXPRESSION).remove();
         }
         return doc;
     }

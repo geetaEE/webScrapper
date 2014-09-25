@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.TagType;
 
 /** The extract text content service. */
@@ -26,7 +27,7 @@ public class TextExtractService extends BaseExtractService {
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());
             if (doc != null) {
-                doc = Jsoup.parse(doc.html(), "UTF-8");
+                doc = Jsoup.parse(doc.html());
                 ExtractResponse response = new ExtractResponse();
                 // Non tabular data
                 Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
@@ -52,16 +53,16 @@ public class TextExtractService extends BaseExtractService {
                 }
                 // Tabular data.
                 List<List<List<String>>> tables = new ArrayList<List<List<String>>>();
-                for (Element table : doc.select("table")) {
+                for (Element table : doc.select(CommonConstants.TABLE_TAG)) {
                     List<List<String>> rows = new ArrayList<List<String>>();
-                    for (Element row : table.select("tr")) {
+                    for (Element row : table.select(CommonConstants.TR_TAG)) {
                         List<String> columns = new ArrayList<String>();
                         Elements tds = null;
-                        tds = row.select("th");
+                        tds = row.select(CommonConstants.TH_TAG);
                         for (Element td : tds) {
                             columns.add(td.text());
                         }
-                        tds = row.select("td");
+                        tds = row.select(CommonConstants.TD_TAG);
                         for (Element td : tds) {
                             columns.add(td.text());
                         }

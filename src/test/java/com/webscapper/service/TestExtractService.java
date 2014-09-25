@@ -1,5 +1,7 @@
 package com.webscapper.service;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +14,7 @@ import org.junit.runners.JUnit4;
 import com.webscapper.factory.ExtractServiceFactory;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.TagType;
 
@@ -85,5 +88,38 @@ public class TestExtractService {
         Set<String> imageUrls = response.getImageUrls();
         Assert.assertEquals(3, imageUrls.size());
         Assert.assertEquals("https://www.httpsnow.org/images/httpsnow_banner.png", imageUrls.iterator().next());
+    }
+
+    /** Test extract timeout.
+     * 
+     * @throws Exception */
+    @Test
+    public void testExtractTimeout() throws Exception {
+        String url = "https://www.httpsnow.org/";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.IMAGE);
+        setFinalStatic(CommonConstants.class.getDeclaredField("EXTRACT_TIMEOUT"), 1);
+
+        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+        Assert.assertNull(response);
+    }
+
+    /** FinalStatic.
+     * 
+     * @param field
+     *            field
+     * @param newValue
+     *            newValue
+     * @throws Exception */
+    private static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+
+        // remove final modifier from field
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+        field.set(null, newValue);
     }
 }

@@ -49,4 +49,33 @@ public class CommonConstants {
 	/** The Constant EXT_TEXT. */
 	public static final String EXT_TEXT = ".txt";
 	
+	/** The Constant SSL_PROTOCOL. */
+    public static final String SSL_PROTOCOL = "SSL";
+    
+    /** The Constant USER_AGENT. */
+    public static final String USER_AGENT = "Mozilla/5.0";
+    
+    /** The Constant EXTRACT_TIMEOUT. */
+    public static final int EXTRACT_TIMEOUT = new Integer(30000);
+    
+    /** The Constant HIDDEN_CONTENT_EXPRESSION. */
+    public static final String HIDDEN_CONTENT_EXPRESSION = "*[style*=display:none]";
+    
+    /** The Constant TABLE_TAG. */
+    public static final String TABLE_TAG = "table";
+    
+    /** The Constant TH_TAG. */
+    public static final String TH_TAG = "th";
+    
+    /** The Constant TR_TAG. */
+    public static final String TR_TAG = "tr";
+    
+    /** The Constant TD_TAG. */
+    public static final String TD_TAG = "td";
+    
+    /** The Constant IMAGE_TAG. */
+    public static final String IMAGE_TAG = "img";
+    
+    /** The Constant SRC_ATTR. */
+    public static final String SRC_ATTR = "src";
 }

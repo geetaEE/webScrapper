@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
+import com.webscrapper.constants.CommonConstants;
 
 /** The extract image content service. */
 public class ImageExtractService extends BaseExtractService {
@@ -22,8 +23,8 @@ public class ImageExtractService extends BaseExtractService {
             Document doc = extractDocument(request.getUrl());
             if (doc != null) {
                 Set<String> imgSet = new LinkedHashSet<String>();
-                for (Element imgElem : doc.select("img")) {
-                    String imgUrl = imgElem.absUrl("src");
+                for (Element imgElem : doc.select(CommonConstants.IMAGE_TAG)) {
+                    String imgUrl = imgElem.absUrl(CommonConstants.SRC_ATTR);
                     if (!imgUrl.isEmpty()) {
                         imgSet.add(imgUrl);
                     }

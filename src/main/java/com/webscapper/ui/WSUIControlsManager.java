@@ -14,7 +14,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -33,80 +32,49 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
-
 import org.apache.log4j.Logger;
-
-import com.webscapper.request.ExtractRequest;
-import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.StructuredExtractDocType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
 
+/**
+ * The Class WSUIControlsManager.
+ */
 public class WSUIControlsManager 
 {
-	private static Logger logger = Logger.getLogger(WSUIControlsManager.class);
-	static JPanel contentPane;		
-	static JTextField urlTextField;
-	static JTextField titleTextField;
-	static JButton exitButton;
-	static JComboBox extractDataTypeComboBox;
-	static JRadioButton unStructedRadioButton;
-	static JRadioButton structedRadioButton;
-	static ButtonGroup dataTypeRadioButtonGroup;
-	static JPanel extractDataTypeSelectionpanel;	
-	static JFileChooser fc;
-	static JScrollPane scrollPane;
-	static JList imageList;
-	static JButton btnPreview;	
-	static JPanel previewRunQueryPanel;
-	static JComboBox extractTocomboBox;
-	static JLabel lblExtractTo;
-	static JButton btnReset;	
-	static JMenuItem mntmExtractProcess;
-	static JMenuItem mntmBatchProcess;
-	static JPanel batchProcessPanel;
-	static JButton button;
-	static JButton buttonExit;
-	static JLabel lblNewLabel;
-	static JTextField pathtextField;
-	static JPanel batchProcessBrowsePanel;
-	static JPanel extractProcessPanel;
-	static JButton btnProcess;
-	static JPanel headerPanel;
-	static JLabel lblExtractProcess;
-	static JPanel queryRunnerControlBoxPanel ;	
-	static JButton btnRunQuery;	
-	static JScrollPane htmlControlScrollPanel;
-	static JList htmlControlList;
-	static JButton extractButton;
-	static String url;
-	static String title;
-	static ContentType contentType;
-	static ExtractRequest extractRequest;
-	static ExtractResponse extractResponse = null;
-	static WSServiceProvider wsServiceProvider;
-	static WebScrapper frame = null;	
+	
+	/** The logger. */
+	private static Logger logger = Logger.getLogger(WSUIControlsManager.class);	
+	
+	/** The frame. */
+	private WebScrapper frame = null;
+	
+	/** The ws ui controls. */
+	private WSUIControls wsUIControls = null;
 	
 	/**
 	 * Method for creating the UI components.
-	 * @throws Exception
+	 *
+	 * @param webScrapper the web scrapper
 	 */
 	public WSUIControlsManager(WebScrapper webScrapper)
 	{
 		logger.info("Entering in WebScrapper()");		
 		this.frame = webScrapper;
+		this.wsUIControls = new WSUIControls();		
 		webScrapper.setAlwaysOnTop(true);
 		webScrapper.setResizable(false);
 		webScrapper.setTitle(UIConstants.WEB_SCRAPPER);	
 		webScrapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		webScrapper.setBounds(100, 100, 652, 792);
-		contentPane = new JPanel();
+		webScrapper.setBounds(100, 100, 652, 792);		
+		JPanel contentPane = new JPanel();
 		webScrapper.setContentPane(contentPane);
-		contentPane.setLayout(null);		
-		fc = new JFileChooser();		
-		dataTypeRadioButtonGroup = new ButtonGroup();		
+		contentPane.setLayout(null);
+		wsUIControls.setContentPane(contentPane);		
+		ButtonGroup dataTypeRadioButtonGroup = new ButtonGroup();
+		wsUIControls.setDataTypeRadioButtonGroup(dataTypeRadioButtonGroup);		
 		createMenus();			
 		createExtrctProcessPanel();		
 		createBatchProcessPanel();
@@ -120,78 +88,84 @@ public class WSUIControlsManager
 	{
 		logger.info("Entering in createMenus()");
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 651, 21);
-		contentPane.add(menuBar);		
+		menuBar.setBounds(0, 0, 651, 21);				
+		wsUIControls.getContentPane().add(menuBar);		
 		JMenu mnNewMenu = new JMenu("Process   |");
-		menuBar.add(mnNewMenu);		
-		mntmExtractProcess = new JMenuItem("Extract Process");
+		menuBar.add(mnNewMenu);			
+		JMenuItem mntmExtractProcess = new JMenuItem("Extract Process");
 		mntmExtractProcess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				batchProcessPanel.setVisible(false);
-				extractProcessPanel.setVisible(true);
+				wsUIControls.getBatchProcessBrowsePanel().setVisible(false);
+				wsUIControls.getExtractProcessPanel().setVisible(true);
 				resetAllExtractProcessPanel();
 			}});
-		mnNewMenu.add(mntmExtractProcess);		
-		mntmBatchProcess = new JMenuItem("Batch Process");
+		wsUIControls.setMntmExtractProcess(mntmExtractProcess);		
+		mnNewMenu.add(mntmExtractProcess);			
+		JMenuItem mntmBatchProcess = new JMenuItem("Batch Process");
 		mntmBatchProcess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0){			
-				batchProcessPanel.setVisible(true);
-				extractProcessPanel.setVisible(false);	
+				wsUIControls.getBatchProcessBrowsePanel().setVisible(true);
+				wsUIControls.getExtractProcessPanel().setVisible(false);	
 				resetBatchProcessPanel();
 			}});
+		wsUIControls.setMntmBatchProcess(mntmBatchProcess);
 		mnNewMenu.add(mntmBatchProcess);
 		logger.info("Exiting from createMenus()");
 	}
 	
 	/**
 	 * Method for creating extract process panel.
-	 * @throws Exception
 	 */
 	public void createExtrctProcessPanel()
 	{
 		logger.info("Entering in createExtrctProcessPanel()");
-		extractProcessPanel = new JPanel();
+		JPanel extractProcessPanel = new JPanel();
 		extractProcessPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		extractProcessPanel.setBounds(10, 32, 629, 470);
-		contentPane.add(extractProcessPanel);
-		extractProcessPanel.setLayout(null);		
-		queryRunnerControlBoxPanel = new JPanel();
+		extractProcessPanel.setLayout(null);
+		wsUIControls.setExtractProcessPanel(extractProcessPanel);		
+		wsUIControls.getContentPane().add(extractProcessPanel);		
+		JPanel queryRunnerControlBoxPanel = new JPanel();
 		queryRunnerControlBoxPanel.setBounds(10, 200, 609, 194);
-		extractProcessPanel.add(queryRunnerControlBoxPanel);
+		extractProcessPanel.add(queryRunnerControlBoxPanel);		
 		queryRunnerControlBoxPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		queryRunnerControlBoxPanel.setLayout(null);		
-		extractDataTypeSelectionpanel = new JPanel();
+		queryRunnerControlBoxPanel.setLayout(null);	
+		wsUIControls.setQueryRunnerControlBoxPanel(queryRunnerControlBoxPanel);		
+		JPanel extractDataTypeSelectionpanel = new JPanel();
 		extractDataTypeSelectionpanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		extractDataTypeSelectionpanel.setBounds(10, 11, 141, 61);
 		queryRunnerControlBoxPanel.add(extractDataTypeSelectionpanel);
-		extractDataTypeSelectionpanel.setLayout(null);		
-		unStructedRadioButton = new JRadioButton("Non-Tabular");
+		extractDataTypeSelectionpanel.setLayout(null);
+		wsUIControls.setExtractDataTypeSelectionpanel(extractDataTypeSelectionpanel);		
+		JRadioButton unStructedRadioButton = new JRadioButton("Non-Tabular");
 		unStructedRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event){				
-				extractTocomboBox.setModel(new DefaultComboBoxModel(new String[]{}));
+				wsUIControls.getExtractTocomboBox().setModel(new DefaultComboBoxModel(new String[]{}));
 				populateHtmlControlList();
-				btnRunQuery.setEnabled(false);
-				btnPreview.setEnabled(true);
-				htmlControlScrollPanel.setVisible(true);
+				wsUIControls.getBtnRunQuery().setEnabled(false);
+				wsUIControls.getBtnPreview().setEnabled(true);
+				wsUIControls.getHtmlControlScrollPanel().setVisible(true);
 			}});		
 		unStructedRadioButton.setBounds(6, 5, 129, 23);	
-		unStructedRadioButton.setEnabled(false);		
-		structedRadioButton = new JRadioButton("Tabular");
+		unStructedRadioButton.setEnabled(false);
+		wsUIControls.setUnStructedRadioButton(unStructedRadioButton);		
+		JRadioButton structedRadioButton = new JRadioButton("Tabular");
 		structedRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event){
-				extractTocomboBox.setModel(new DefaultComboBoxModel(StructuredExtractDocType.values()));
-				htmlControlList.setListData(new CheckListItem[] {});
-				btnRunQuery.setEnabled(true);
-				btnPreview.setEnabled(true);
-				htmlControlScrollPanel.setVisible(false);
+				wsUIControls.getExtractTocomboBox().setModel(new DefaultComboBoxModel(StructuredExtractDocType.values()));
+				wsUIControls.getHtmlControlList().setListData(new CheckListItem[] {});
+				wsUIControls.getBtnRunQuery().setEnabled(true);
+				wsUIControls.getBtnPreview().setEnabled(true);
+				wsUIControls.getHtmlControlScrollPanel().setVisible(false);
 			}});		
 		structedRadioButton.setBounds(6, 31, 92, 23);	
 		structedRadioButton.setEnabled(false);
-		dataTypeRadioButtonGroup.add(unStructedRadioButton);
-		dataTypeRadioButtonGroup.add(structedRadioButton);		
+		wsUIControls.setStructedRadioButton(structedRadioButton);		
+		wsUIControls.getDataTypeRadioButtonGroup().add(unStructedRadioButton);
+		wsUIControls.getDataTypeRadioButtonGroup().add(structedRadioButton);		
 		extractDataTypeSelectionpanel.add(unStructedRadioButton);
-		extractDataTypeSelectionpanel.add(structedRadioButton);		
-		imageList = new JList(new CheckListItem[]{});		
+		extractDataTypeSelectionpanel.add(structedRadioButton);			
+		JList imageList = new JList(new CheckListItem[]{});		
 		imageList.setCellRenderer(new CheckListRenderer());	
 		imageList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
 		imageList.addMouseListener(new MouseAdapter(){
@@ -201,14 +175,15 @@ public class WSUIControlsManager
 	            CheckListItem item = (CheckListItem)list.getModel().getElementAt(index);	            
 	            item.setSelected(! item.isSelected());
 	            list.repaint(list.getCellBounds(index, index));
-	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(imageList);
+	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList());
 	            if(selectedList.size() <= 0){	
-	            	btnRunQuery.setEnabled(false);
+	            	wsUIControls.getBtnRunQuery().setEnabled(false);
 	            }else{ 
-	            	btnRunQuery.setEnabled(true);
+	            	wsUIControls.getBtnRunQuery().setEnabled(true);
 	            }	
-	         }});		
-		htmlControlList = new JList(new CheckListItem[]{});		
+	         }});	
+		wsUIControls.setImageList(imageList);		
+		JList htmlControlList = new JList(new CheckListItem[]{});		
 		htmlControlList.setCellRenderer(new CheckListRenderer());		
 		htmlControlList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
 		htmlControlList.addMouseListener(new MouseAdapter(){
@@ -219,35 +194,41 @@ public class WSUIControlsManager
 	            list.getModel().getElementAt(index);
 	            item.setSelected(! item.isSelected());
 	            list.repaint(list.getCellBounds(index, index));	            
-	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(htmlControlList);	            
+	            List<CheckListItem> selectedList = WebScrapperUtil.getSelectedListItems(wsUIControls.getHtmlControlList());	            
 	            if(selectedList.size() <= 0){
-	            	extractTocomboBox.setModel(new DefaultComboBoxModel(new String[]{}));
-	            	btnRunQuery.setEnabled(false);
+	            	wsUIControls.getExtractTocomboBox().setModel(new DefaultComboBoxModel(new String[]{}));
+	            	wsUIControls.getBtnRunQuery().setEnabled(false);
 	            }
 	            else{	            	
-	            	if(null != extractTocomboBox && null == extractTocomboBox.getSelectedItem()){	
-	            		extractTocomboBox.setModel(new DefaultComboBoxModel(UnStructuredExtractDocType.values()));
+	            	if(null != wsUIControls.getExtractTocomboBox() && null == wsUIControls.getExtractTocomboBox().getSelectedItem()){	
+	            		wsUIControls.getExtractTocomboBox().setModel(new DefaultComboBoxModel(UnStructuredExtractDocType.values()));
 	        		}	            	
-	            	btnRunQuery.setEnabled(true);	            	
+	            	wsUIControls.getBtnRunQuery().setEnabled(true);	            	
 	            }
-	         }});		
-		scrollPane = new JScrollPane(imageList);		
+	         }});	
+		wsUIControls.setHtmlControlList(htmlControlList);		
+		JScrollPane scrollPane = new JScrollPane(imageList);		
 		scrollPane.setBounds(210, 11, 200, 124);
-		htmlControlScrollPanel = new JScrollPane(htmlControlList);
+		wsUIControls.setScrollPane(scrollPane);		
+		JScrollPane htmlControlScrollPanel = new JScrollPane(htmlControlList);
 		htmlControlScrollPanel.setBounds(210, 11, 150, 124);
 		queryRunnerControlBoxPanel.add(htmlControlScrollPanel);
 		htmlControlScrollPanel.setVisible(false);
-		queryRunnerControlBoxPanel.add(scrollPane);
-		lblExtractTo = new JLabel("Export To : ");
+		wsUIControls.setHtmlControlScrollPanel(htmlControlScrollPanel);		
+		queryRunnerControlBoxPanel.add(scrollPane);		
+		JLabel lblExtractTo = new JLabel("Export To : ");
 		lblExtractTo.setBounds(412, 11, 71, 28);
 		queryRunnerControlBoxPanel.add(lblExtractTo);
-		extractTocomboBox = new JComboBox();
+		wsUIControls.setLblExtractTo(lblExtractTo);		
+		JComboBox extractTocomboBox = new JComboBox();
 		extractTocomboBox.setBounds(480, 13, 99, 24);
 		queryRunnerControlBoxPanel.add(extractTocomboBox);
-		btnPreview = new JButton("Preview");
+		wsUIControls.setExtractTocomboBox(extractTocomboBox);		
+		JButton btnPreview = new JButton("Preview");
 		btnPreview.setBounds(134, 146, 123, 28);
-		queryRunnerControlBoxPanel.add(btnPreview);
-		btnRunQuery = new JButton("Run Query");
+		wsUIControls.setBtnPreview(btnPreview);
+		queryRunnerControlBoxPanel.add(btnPreview);		
+		JButton btnRunQuery = new JButton("Run Query");
 		btnRunQuery.setBounds(322, 146, 123, 28);
 		queryRunnerControlBoxPanel.add(btnRunQuery);
 		btnRunQuery.addActionListener(new ActionListener() {
@@ -255,6 +236,8 @@ public class WSUIControlsManager
 				frame.executeRunQueryOperation();				
 			}});
 		btnRunQuery.setEnabled(false);
+		wsUIControls.setBtnRunQuery(btnRunQuery);
+		
 		btnPreview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){				
 				try {
@@ -262,45 +245,50 @@ public class WSUIControlsManager
 				}catch (Exception e1) 
 				{}
 			}});		
-		btnPreview.setEnabled(false);		
-		previewRunQueryPanel = new JPanel();
+		btnPreview.setEnabled(false);
+		wsUIControls.setBtnPreview(btnPreview);		
+		JPanel previewRunQueryPanel = new JPanel();
 		previewRunQueryPanel.setBounds(10, 405, 609, 54);
 		extractProcessPanel.add(previewRunQueryPanel);
 		previewRunQueryPanel.setLayout(null);
-		
-		btnReset = new JButton("Reset");
+		wsUIControls.setPreviewRunQueryPanel(previewRunQueryPanel);		
+		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				resetAllExtractProcessPanel();
 			}
 		});
 		btnReset.setBounds(413, 11, 78, 28);
-		previewRunQueryPanel.add(btnReset);		
-		exitButton = new JButton("Exit");
+		previewRunQueryPanel.add(btnReset);
+		wsUIControls.setPreviewRunQueryPanel(previewRunQueryPanel);		
+		JButton exitButton = new JButton("Exit");
 		exitButton.setBounds(501, 11, 78, 28);
 		previewRunQueryPanel.add(exitButton);		
-		headerPanel = new JPanel();
+		JPanel headerPanel = new JPanel();
 		headerPanel.setBounds(10, 11, 609, 178);
 		extractProcessPanel.add(headerPanel);
-		headerPanel.setLayout(null);		
-		urlTextField = new JTextField();
+		headerPanel.setLayout(null);
+		wsUIControls.setHeaderPanel(headerPanel);		
+		JTextField urlTextField = new JTextField();
 		urlTextField.setBounds(122, 29, 471, 28);
 		headerPanel.add(urlTextField);
-		urlTextField.setColumns(10);		
+		urlTextField.setColumns(10);
+		wsUIControls.setUrlTextField(urlTextField);		
 		JLabel lblUrl = new JLabel("URL*");
 		lblUrl.setBounds(10, 29, 31, 28);
-		headerPanel.add(lblUrl);		
-		titleTextField = new JTextField();
+		wsUIControls.getHeaderPanel().add(lblUrl);		
+		JTextField titleTextField = new JTextField();
 		titleTextField.setBounds(122, 68, 471, 28);
 		headerPanel.add(titleTextField);
-		titleTextField.setColumns(10);		
+		titleTextField.setColumns(10);	
+		wsUIControls.setTitleTextField(titleTextField);		
 		JLabel lblKeyword = new JLabel("Title*");
 		lblKeyword.setBounds(10, 68, 31, 28);
 		headerPanel.add(lblKeyword);		
 		JLabel lblExtracatDataType = new JLabel("Extract Data Type");
 		lblExtracatDataType.setBounds(10, 107, 123, 28);
 		headerPanel.add(lblExtracatDataType);		
-		extractDataTypeComboBox = new JComboBox();
+		JComboBox extractDataTypeComboBox = new JComboBox();
 		extractDataTypeComboBox.setBounds(122, 108, 78, 26);
 		headerPanel.add(extractDataTypeComboBox);
 		extractDataTypeComboBox.addItemListener(new ItemListener() {
@@ -308,18 +296,20 @@ public class WSUIControlsManager
 				resetExtractProcessPanel();
 			}});
 		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
-		
-		extractButton = new JButton("Extract");
+		wsUIControls.setExtractDataTypeComboBox(extractDataTypeComboBox);		
+		JButton extractButton = new JButton("Extract");
 		extractButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){			
 				frame.executeExtractOpertion();
 			}});
 		extractButton.setBounds(256, 139, 123, 28);
-		headerPanel.add(extractButton);		
-		lblExtractProcess = new JLabel("Extract Process");
+		headerPanel.add(extractButton);	
+		wsUIControls.setExtractButton(extractButton);		
+		JLabel lblExtractProcess = new JLabel("Extract Process");
 		lblExtractProcess.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblExtractProcess.setBounds(10, 0, 123, 28);
 		headerPanel.add(lblExtractProcess);		
+		wsUIControls.setLblExtractProcess(lblExtractProcess);		
 		exitButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
@@ -335,70 +325,76 @@ public class WSUIControlsManager
 	 * Method for crating the batch process panel.
 	 */
 	public void createBatchProcessPanel(){	
-		logger.info("Entering in createBatchProcessPanel()");
-		batchProcessPanel = new JPanel();
+		logger.info("Entering in createBatchProcessPanel()");		
+		JPanel batchProcessPanel = new JPanel();
 		batchProcessPanel.setBounds(10, 542, 629, 211);
-		contentPane.add(batchProcessPanel);
+		wsUIControls.setBatchProcessPanel(batchProcessPanel);		
+		wsUIControls.getContentPane().add(batchProcessPanel);
 		batchProcessPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		batchProcessPanel.setLayout(null);		
-		button = new JButton("Reset");
+		batchProcessPanel.setLayout(null);	
+		JButton button = new JButton("Reset");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				disableBatchProessPanelControls();
 			}
 		});
 		button.setBounds(427, 183, 78, 28);
-		batchProcessPanel.add(button);		
-		buttonExit = new JButton("Exit");
+		batchProcessPanel.add(button);	
+		wsUIControls.setButton(button);		
+		JButton buttonExit = new JButton("Exit");
 		buttonExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				System.exit(1);
 			}
 		});
 		buttonExit.setBounds(515, 183, 78, 28);
-		batchProcessPanel.add(buttonExit);		
-		lblNewLabel = new JLabel("Batch Process");
+		batchProcessPanel.add(buttonExit);
+		wsUIControls.setButtonExit(buttonExit);		
+		JLabel lblNewLabel = new JLabel("Batch Process");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(10, 11, 102, 28);
 		batchProcessPanel.add(lblNewLabel);		
-		batchProcessBrowsePanel = new JPanel();
+		wsUIControls.setLblNewLabel(lblNewLabel);		
+		JPanel batchProcessBrowsePanel = new JPanel();
 		batchProcessBrowsePanel.setBounds(10, 40, 609, 121);
 		batchProcessPanel.add(batchProcessBrowsePanel);
 		batchProcessBrowsePanel.setLayout(null);		
 		JLabel lblOpen = new JLabel("Open : ");
 		lblOpen.setBounds(10, 19, 49, 28);
 		batchProcessBrowsePanel.add(lblOpen);
-		pathtextField = new JTextField();
+		wsUIControls.setBatchProcessBrowsePanel(batchProcessBrowsePanel);		
+		JTextField pathtextField = new JTextField();
 		pathtextField.addKeyListener(new KeyAdapter(){				
 			@Override
 			public void keyReleased(KeyEvent e) {
-				String value = pathtextField.getText();
+				String value = wsUIControls.getPathtextField().getText();
 				if(!"".equals(value.trim())){	
-					btnProcess.setEnabled(true);
+					wsUIControls.getBtnProcess().setEnabled(true);
 				}else{
-					btnProcess.setEnabled(false);
+					wsUIControls.getBtnProcess().setEnabled(false);
 				}	
 			}});		
 		pathtextField.setBounds(69, 19, 408, 28);
 		batchProcessBrowsePanel.add(pathtextField);
-		pathtextField.setColumns(10);		
+		pathtextField.setColumns(10);
+		wsUIControls.setPathtextField(pathtextField);		
 		JButton btnBrowse = new JButton("Browse..");
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				fc = new JFileChooser();				
+				JFileChooser fc = new JFileChooser();				
 				int result = fc.showOpenDialog(frame);
 				if (result == JFileChooser.APPROVE_OPTION){
 				    File selectedFile = fc.getSelectedFile();				    
-				    pathtextField.setText(selectedFile.getAbsolutePath());
+				    wsUIControls.getPathtextField().setText(selectedFile.getAbsolutePath());
 				    enableBatchProessPanelControls();
 				}
 			}});
 		btnBrowse.setBounds(487, 19, 96, 28);
-		batchProcessBrowsePanel.add(btnBrowse);		
-		btnProcess = new JButton("Process");
+		batchProcessBrowsePanel.add(btnBrowse);			
+		JButton btnProcess = new JButton("Process");
 		btnProcess.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				String fileName = pathtextField.getText();				
+				String fileName = wsUIControls.getPathtextField().getText();				
 				File f = new File(fileName);				 
 				if(f.exists()){
 					JOptionPane.showMessageDialog(frame, "Batch Process exported data successfully.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
@@ -410,7 +406,8 @@ public class WSUIControlsManager
 			}
 		});
 		btnProcess.setBounds(414, 80, 169, 30);
-		batchProcessBrowsePanel.add(btnProcess);		
+		batchProcessBrowsePanel.add(btnProcess);
+		wsUIControls.setBtnProcess(btnProcess);		
 		disableBatchProessPanelControls();
 		batchProcessPanel.setVisible(false);
 		logger.info("Exiting from createBatchProcessPanel()");
@@ -421,8 +418,8 @@ public class WSUIControlsManager
 	 */
 	public void disableBatchProessPanelControls(){
 		logger.info("Entering in disableBatchProessPanelControls()");
-		btnProcess.setEnabled(false);	
-		pathtextField.setText("");
+		wsUIControls.getBtnProcess().setEnabled(false);	
+		wsUIControls.getPathtextField().setText("");
 		logger.info("Exiting from disableBatchProessPanelControls()");
 	}
 	
@@ -431,7 +428,7 @@ public class WSUIControlsManager
 	 */
 	public void resetBatchProcessPanel(){		
 		logger.info("Entering in resetBatchProcessPanel()");
-		batchProcessPanel.setBounds(10, 32, 629, 243);
+		wsUIControls.getBatchProcessPanel().setBounds(10, 32, 629, 243);
 		frame.setBounds(10, 32, 657, 320);
 		disableBatchProessPanelControls();
 		frame.setLocationRelativeTo( null );
@@ -443,26 +440,26 @@ public class WSUIControlsManager
 	 */
 	public void enableBatchProessPanelControls(){
 		logger.info("Entering in enableBatchProessPanelControls()");
-		btnProcess.setEnabled(true);
-		pathtextField.setEnabled(true);
+		wsUIControls.getBtnProcess().setEnabled(true);
+		wsUIControls.getPathtextField().setEnabled(true);
 		logger.info("Exiting from enableBatchProessPanelControls()");
 	}
 	
 	/**
 	 * Method for reset all controls of extract process panel.
 	 */
-	public static void resetAllExtractProcessPanel(){
+	public void resetAllExtractProcessPanel(){
 		logger.info("Entering in resetAllExtractProcessPanel()");
 		resetHeaderValuesValue();
-		queryRunnerControlBoxPanel.setVisible(false);
-		previewRunQueryPanel.setBounds(10, 180, 609, 54);
-		extractProcessPanel.setBounds(10, 32, 629, 243);
+		wsUIControls.getQueryRunnerControlBoxPanel().setVisible(false);
+		wsUIControls.getPreviewRunQueryPanel().setBounds(10, 180, 609, 54);
+		wsUIControls.getExtractProcessPanel().setBounds(10, 32, 629, 243);
 		frame.setBounds(10, 32, 657, 320);
 		frame.setLocationRelativeTo( null );
-		btnPreview.setEnabled(false);
-		unStructedRadioButton.setSelected(false);
-		structedRadioButton.setSelected(false);
-		htmlControlScrollPanel.setVisible(false);
+		wsUIControls.getBtnPreview().setEnabled(false);
+		wsUIControls.getUnStructedRadioButton().setSelected(false);
+		wsUIControls.getStructedRadioButton().setSelected(false);
+		wsUIControls.getHtmlControlScrollPanel().setVisible(false);
 		logger.info("Exiting from resetAllExtractProcessPanel()");
 	}
 	
@@ -471,48 +468,48 @@ public class WSUIControlsManager
 	 */
 	public void resetExtractProcessPanel(){		
 		logger.info("Entering in resetExtractProcessPanel()");
-		queryRunnerControlBoxPanel.setVisible(false);
-		previewRunQueryPanel.setBounds(10, 180, 609, 54);
-		extractProcessPanel.setBounds(10, 32, 629, 243);
+		wsUIControls.getQueryRunnerControlBoxPanel().setVisible(false);
+		wsUIControls.getPreviewRunQueryPanel().setBounds(10, 180, 609, 54);
+		wsUIControls.getExtractProcessPanel().setBounds(10, 32, 629, 243);
 		frame.setBounds(10, 32, 657, 320);
 		frame.setLocationRelativeTo( null );
-		btnPreview.setEnabled(false);		
-		dataTypeRadioButtonGroup.clearSelection();
+		wsUIControls.getBtnPreview().setEnabled(false);		
+		wsUIControls.getDataTypeRadioButtonGroup().clearSelection();
 		logger.info("Exiting from resetExtractProcessPanel()");
 	}
 	
 	/**
-	 * Method for expand extract process panel
+	 * Method for expand extract process panel.
 	 */
 	public void expandExtractProcessPanel()	{	
 		logger.info("Entering in expandExtractProcessPanel()");
 		frame.setBounds(100, 100, 652, 541);
-		queryRunnerControlBoxPanel.setVisible(true);
-		previewRunQueryPanel.setVisible(true);
-		previewRunQueryPanel.setBounds(10, 405, 609, 54);
-		extractProcessPanel.setBounds(10, 32, 629, 470);
+		wsUIControls.getQueryRunnerControlBoxPanel().setVisible(true);
+		wsUIControls.getPreviewRunQueryPanel().setVisible(true);
+		wsUIControls.getPreviewRunQueryPanel().setBounds(10, 405, 609, 54);
+		wsUIControls.getExtractProcessPanel().setBounds(10, 32, 629, 470);
 		frame.setLocationRelativeTo( null );		
-		String slectedValue = extractDataTypeComboBox.getSelectedItem().toString();
+		String slectedValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
 		if(slectedValue.equals(ContentType.IMAGE.getType())){					
-			extractDataTypeSelectionpanel.setVisible(false);
-			scrollPane.setVisible(true);						
-			extractTocomboBox.setVisible(false);
-			lblExtractTo.setVisible(false);
-			htmlControlScrollPanel.setVisible(false);			
-			btnRunQuery.setEnabled(false);
+			wsUIControls.getExtractDataTypeSelectionpanel().setVisible(false);
+			wsUIControls.getScrollPane().setVisible(true);						
+			wsUIControls.getExtractTocomboBox().setVisible(false);
+			wsUIControls.getLblExtractTo().setVisible(false);
+			wsUIControls.getHtmlControlScrollPanel().setVisible(false);			
+			wsUIControls.getBtnRunQuery().setEnabled(false);
 		}else{				
-			extractDataTypeSelectionpanel.setVisible(true);
-			scrollPane.setVisible(false);			
-			extractTocomboBox.setVisible(true);
-			lblExtractTo.setVisible(true);
-			htmlControlScrollPanel.setVisible(false);			
-			structedRadioButton.setEnabled(true);
-			unStructedRadioButton.setEnabled(true);
-			btnPreview.setEnabled(false);
-			dataTypeRadioButtonGroup.clearSelection();
-			htmlControlList.setListData(new CheckListItem[] {});
-			btnRunQuery.setEnabled(false);
-			extractTocomboBox.setModel(new DefaultComboBoxModel(new String[]{}));			
+			wsUIControls.getExtractDataTypeSelectionpanel().setVisible(true);
+			wsUIControls.getScrollPane().setVisible(false);			
+			wsUIControls.getExtractTocomboBox().setVisible(true);
+			wsUIControls.getLblExtractTo().setVisible(true);
+			wsUIControls.getHtmlControlScrollPanel().setVisible(false);			
+			wsUIControls.getStructedRadioButton().setEnabled(true);
+			wsUIControls.getUnStructedRadioButton().setEnabled(true);
+			wsUIControls.getBtnPreview().setEnabled(false);
+			wsUIControls.getDataTypeRadioButtonGroup().clearSelection();
+			wsUIControls.getHtmlControlList().setListData(new CheckListItem[] {});
+			wsUIControls.getBtnRunQuery().setEnabled(false);
+			wsUIControls.getExtractTocomboBox().setModel(new DefaultComboBoxModel(new String[]{}));			
 		}
 		logger.info("Exiting from expandExtractProcessPanel()");
 	}
@@ -522,9 +519,9 @@ public class WSUIControlsManager
 	 */
 	public void populateImageList()	{
 		logger.info("Entering in populateImageList()");
-		Set<String> imageUrls = extractResponse.getImageUrls();		
+		Set<String> imageUrls = frame.getExtractResponse().getImageUrls();		
 		List<String> imageURLList = new ArrayList<String>(imageUrls);		
-		imageList.setListData(WebScrapperUtil.getCheckListItemArray(imageURLList));
+		wsUIControls.getImageList().setListData(WebScrapperUtil.getCheckListItemArray(imageURLList));
 		logger.info("Exiting from populateImageList()");
 	}
 	
@@ -533,33 +530,36 @@ public class WSUIControlsManager
 	 */
 	public void populateHtmlControlList(){
 		logger.info("Entering in populateHtmlControlList()");
-		Set<TagType> tagValues = extractResponse.getTagDataMap().keySet();		
+		Set<TagType> tagValues = frame.getExtractResponse().getTagDataMap().keySet();		
 		List<String> tagList = new ArrayList<String>();		
 		for(TagType tagType : tagValues){
 			tagList.add(tagType.getDisplayName());
 		}		
-		htmlControlList.setListData(WebScrapperUtil.getCheckListItemArray(tagList));
+		wsUIControls.getHtmlControlList().setListData(WebScrapperUtil.getCheckListItemArray(tagList));
 		logger.info("Exiting from populateHtmlControlList()");
 	}	
 	
 	/**
 	 * Method for reset Headers.
 	 */
-	public static void resetHeaderValuesValue(){		
+	/**
+	 * 
+	 */
+	public void resetHeaderValuesValue(){		
 		logger.info("Entering in resetHeaderValuesValue()");
-		url = null;
-		title = null;
-		contentType = null;
-		extractRequest = null;
-		wsServiceProvider = null;
-		extractResponse = null;
-		urlTextField.setText("");
-		titleTextField.setText("");
-		urlTextField.setEditable(true);
-		titleTextField.setEditable(true);
-		extractDataTypeComboBox.setEnabled(true);
-		extractDataTypeComboBox.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
-		extractButton.setEnabled(true);
+		wsUIControls.setUrl(null);
+		wsUIControls.setTitle(null);
+		wsUIControls.setContentType(null);
+		frame.setExtractRequest(null);
+		frame.setWsServiceProvider(null);
+		frame.setExtractResponse(null);		
+		wsUIControls.getUrlTextField().setText("");
+		wsUIControls.getTitleTextField().setText("");
+		wsUIControls.getUrlTextField().setEditable(true);
+		wsUIControls.getTitleTextField().setEditable(true);
+		wsUIControls.getExtractDataTypeComboBox().setEnabled(true);
+		wsUIControls.getExtractDataTypeComboBox().setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
+		wsUIControls.getExtractButton().setEnabled(true);
 		logger.info("Exiting from resetHeaderValuesValue()");
 	}
 	
@@ -568,74 +568,48 @@ public class WSUIControlsManager
 	 */
 	public void disableHeaderArea()	{		
 		logger.info("Entering in disableHeaderArea()");
-		urlTextField.setEditable(false);
-		titleTextField.setEditable(false);
-		extractDataTypeComboBox.setEnabled(false);
-		extractButton.setEnabled(false);
+		wsUIControls.getUrlTextField().setEditable(false);
+		wsUIControls.getTitleTextField().setEditable(false);
+		wsUIControls.getExtractDataTypeComboBox().setEnabled(false);
+		wsUIControls.getExtractButton().setEnabled(false);
 		logger.info("Exiting from disableHeaderArea()");
 	}
-	
+
 	/**
-	 * 
-	 * @return
+	 * Gets the frame.
+	 *
+	 * @return the frame
 	 */
-	public JTextField getPathtextField(){
-		return this.pathtextField;
+	public WebScrapper getFrame() {
+		return frame;
+	}
+
+	/**
+	 * Sets the frame.
+	 *
+	 * @param frame the new frame
+	 */
+	public void setFrame(WebScrapper frame) {
+		this.frame = frame;
+	}
+
+	/**
+	 * Gets the ws ui controls.
+	 *
+	 * @return the ws ui controls
+	 */
+	public WSUIControls getWsUIControls() {
+		return wsUIControls;
+	}
+
+	/**
+	 * Sets the ws ui controls.
+	 *
+	 * @param wsUIControls the new ws ui controls
+	 */
+	public void setWsUIControls(WSUIControls wsUIControls) {
+		this.wsUIControls = wsUIControls;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public JTextField getURLtextField(){
-		return this.urlTextField;
-	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public JTextField getTitletextField(){
-		return this.titleTextField;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public JButton getBtnPreview(){
-		return this.btnPreview;	
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public JPanel getPreviewRunQueryPanel(){
-		return this.previewRunQueryPanel;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public JComboBox getExtractDataTypeComboBox(){
-		return this.extractDataTypeComboBox;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public JList getImageList(){
-		return this.imageList;
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public JList getHtmlControlList(){
-		return this.htmlControlList;
-	}
 }

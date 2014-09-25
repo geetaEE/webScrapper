@@ -50,7 +50,7 @@ public class TestWSUIControlsManager
 		
 		WSUIControlsManager.disableBatchProessPanelControls();
 		
-		JTextField pathtextField = WSUIControlsManager.getPathtextField();
+		JTextField pathtextField = WSUIControlsManager.getWsUIControls().getPathtextField();
 		
 		Assert.assertEquals("", pathtextField.getText());
 	}
@@ -69,7 +69,7 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.resetBatchProcessPanel();
 		
-		JTextField pathtextField = wsUIControlsManager.getPathtextField();
+		JTextField pathtextField = wsUIControlsManager.getWsUIControls().getPathtextField();
 		
 		Assert.assertEquals("", pathtextField.getText());
 	}
@@ -88,7 +88,7 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.enableBatchProessPanelControls();
 		
-		JTextField pathtextField = wsUIControlsManager.getPathtextField();
+		JTextField pathtextField = wsUIControlsManager.getWsUIControls().getPathtextField();
 		
 		Assert.assertTrue(pathtextField.isEnabled());
 	}
@@ -107,7 +107,7 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.resetAllExtractProcessPanel();
 		
-		JButton btnPreview = wsUIControlsManager.getBtnPreview();
+		JButton btnPreview = wsUIControlsManager.getWsUIControls().getBtnPreview();
 		
 		Assert.assertFalse(btnPreview.isEnabled());
 	}
@@ -126,7 +126,7 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.resetExtractProcessPanel();
 		
-		JButton btnPreview = wsUIControlsManager.getBtnPreview();
+		JButton btnPreview = wsUIControlsManager.getWsUIControls().getBtnPreview();
 		
 		Assert.assertFalse(btnPreview.isEnabled());
 	}
@@ -145,7 +145,7 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.expandExtractProcessPanel();
 		
-		JPanel panel = wsUIControlsManager.getPreviewRunQueryPanel();
+		JPanel panel = wsUIControlsManager.getWsUIControls().getPreviewRunQueryPanel();
 		
 		Assert.assertTrue(panel.isVisible());
 	}
@@ -164,11 +164,11 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.resetHeaderValuesValue();
 		
-		JTextField textField = wsUIControlsManager.getURLtextField();
+		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();
 		
 		Assert.assertEquals("", textField.getText());
 		
-		textField = wsUIControlsManager.getTitletextField();
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		
 		Assert.assertEquals("", textField.getText());
 	}
@@ -187,11 +187,11 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.disableHeaderArea();
 		
-		JTextField textField = wsUIControlsManager.getURLtextField();
+		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();
 		
 		Assert.assertFalse(textField.isEditable());
 		
-		textField = wsUIControlsManager.getTitletextField();
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		
 		Assert.assertFalse(textField.isEditable());
 	}
@@ -209,25 +209,25 @@ public class TestWSUIControlsManager
 		webScrapper.setFrame(webScrapper);		
 		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
 		
-		JTextField textField = wsUIControlsManager.getURLtextField();		
+		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
 		
 		textField.setText("www.google.com");
 		
-		textField = wsUIControlsManager.getTitletextField();
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		
 		textField.setText("TestTitle");
 		
-		JComboBox combo = wsUIControlsManager.getExtractDataTypeComboBox();
+		JComboBox combo = wsUIControlsManager.getWsUIControls().getExtractDataTypeComboBox();
 		
 		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
 		webScrapper.executeExtractOpertion();
 		
-		textField = wsUIControlsManager.getURLtextField();
+		textField = wsUIControlsManager.getWsUIControls().getUrlTextField();
 		
 		Assert.assertFalse(textField.isEditable());
 		
-		textField = wsUIControlsManager.getTitletextField();
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		
 		Assert.assertFalse(textField.isEditable());
 	}
@@ -245,15 +245,15 @@ public class TestWSUIControlsManager
 		webScrapper.setFrame(webScrapper);	
 		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
 		
-		JTextField textField = wsUIControlsManager.getURLtextField();		
+		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
 		
 		textField.setText("http://www.w3schools.com/html/html_tables.asp");
 		
-		textField = wsUIControlsManager.getTitletextField();
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		
 		textField.setText("TestTitle");
 		
-		JComboBox combo = wsUIControlsManager.getExtractDataTypeComboBox();
+		JComboBox combo = wsUIControlsManager.getWsUIControls().getExtractDataTypeComboBox();
 		
 		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
@@ -263,7 +263,7 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.populateImageList();
 		
-		JList imageList = wsUIControlsManager.getImageList();
+		JList imageList = wsUIControlsManager.getWsUIControls().getImageList();
 		
 		ListModel<JList> dlm = (ListModel<JList>) imageList.getModel();
 		
@@ -283,15 +283,15 @@ public class TestWSUIControlsManager
 		webScrapper.setFrame(webScrapper);		
 		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
 		
-		JTextField textField = wsUIControlsManager.getURLtextField();		
+		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
 		
 		textField.setText("http://www.w3schools.com/html/html_tables.asp");
 		
-		textField = wsUIControlsManager.getTitletextField();
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		
 		textField.setText("TestTitle");
 		
-		JComboBox combo = wsUIControlsManager.getExtractDataTypeComboBox();
+		JComboBox combo = wsUIControlsManager.getWsUIControls().getExtractDataTypeComboBox();
 		
 		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
 		
@@ -301,7 +301,7 @@ public class TestWSUIControlsManager
 		
 		wsUIControlsManager.populateHtmlControlList();
 		
-		JList imageList = wsUIControlsManager.getHtmlControlList();
+		JList imageList = wsUIControlsManager.getWsUIControls().getHtmlControlList();
 		
 		ListModel<JList> dlm = (ListModel<JList>) imageList.getModel();
 		

@@ -66,7 +66,14 @@ import com.webscrapper.constants.StructuredExtractDocType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class WebScrapper.
+ */
 public class WebScrapper extends JFrame {
+	
+	/** The logger. */
 	private static Logger logger = Logger.getLogger(WebScrapper.class);
 	static {
         // Initialize for ssl communication.
@@ -97,12 +104,25 @@ public class WebScrapper extends JFrame {
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
     }
 	
+	/** The frame. */
 	private static WebScrapper frame = null;
-	private static WSUIControlsManager webScrapperUIControls;
+	
+	/** The extract request. */
+	private ExtractRequest extractRequest;
+	
+	/** The extract response. */
+	private ExtractResponse extractResponse = null;
+	
+	/** The ws service provider. */
+	static  WSServiceProvider wsServiceProvider;
+	
+	/** The web scrapper ui controls. */
+	private static WSUIControlsManager wsUIControlsManager;
 	
 	/**
-	 * 
-	 * @param frame
+	 * Sets the frame.
+	 *
+	 * @param frame the new frame
 	 */
 	public void setFrame(WebScrapper frame)
 	{
@@ -110,33 +130,94 @@ public class WebScrapper extends JFrame {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the frame.
+	 *
+	 * @return the frame
 	 */
 	public WebScrapper getFrame(){
 		return this.frame;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the web scrapper ui controls.
+	 *
+	 * @return the web scrapper ui controls
 	 */
 	public static WSUIControlsManager getWebScrapperUIControls() {
-		return webScrapperUIControls;
+		return wsUIControlsManager;
 	}
 
 	/**
-	 * 
-	 * @param webScrapperUIControls
+	 * Sets the web scrapper ui controls.
+	 *
+	 * @param webScrapperUIControls the new web scrapper ui controls
 	 */
 	public static void setWebScrapperUIControls(
-			WSUIControlsManager webScrapperUIControls) {
-		WebScrapper.webScrapperUIControls = webScrapperUIControls;
+			WSUIControlsManager wsUIControlsManager) {
+		WebScrapper.wsUIControlsManager = wsUIControlsManager;
+	}
+	
+	
+
+	/**
+	 * Gets the extract request.
+	 *
+	 * @return the extract request
+	 */
+	public ExtractRequest getExtractRequest() {
+		return extractRequest;
+	}
+
+	/**
+	 * Sets the extract request.
+	 *
+	 * @param extractRequest the new extract request
+	 */
+	public void setExtractRequest(ExtractRequest extractRequest) {
+		this.extractRequest = extractRequest;
+	}
+
+	/**
+	 * Gets the extract response.
+	 *
+	 * @return the extract response
+	 */
+	public ExtractResponse getExtractResponse() {
+		return extractResponse;
+	}
+
+	/**
+	 * Sets the extract response.
+	 *
+	 * @param extractResponse the new extract response
+	 */
+	public void setExtractResponse(ExtractResponse extractResponse) {
+		this.extractResponse = extractResponse;
+	}
+
+	/**
+	 * Gets the ws service provider.
+	 *
+	 * @return the ws service provider
+	 */
+	public static WSServiceProvider getWsServiceProvider() {
+		return wsServiceProvider;
+	}
+
+	/**
+	 * Sets the ws service provider.
+	 *
+	 * @param wsServiceProvider the new ws service provider
+	 */
+	public static void setWsServiceProvider(WSServiceProvider wsServiceProvider) {
+		WebScrapper.wsServiceProvider = wsServiceProvider;
 	}
 
 	/**
 	 * Launch the application.
-	 * @throws InterruptedException 
+	 *
+	 * @param args the arguments
+	 * @throws InterruptedException the interrupted exception
 	 */
 	public static void main(String[] args) throws InterruptedException 
 	{
@@ -147,8 +228,8 @@ public class WebScrapper extends JFrame {
 		EventQueue.invokeLater(new Runnable(){public void run(){
 												try {
 													frame = new WebScrapper();frame.setVisible(true);frame.setLocationRelativeTo( null );
-													webScrapperUIControls = new WSUIControlsManager(frame);
-													webScrapperUIControls.resetAllExtractProcessPanel();				
+													wsUIControlsManager = new WSUIControlsManager(frame);
+													wsUIControlsManager.resetAllExtractProcessPanel();				
 												}catch (Exception e) 
 												{
 													logger.warn(e);													
@@ -165,8 +246,9 @@ public class WebScrapper extends JFrame {
 	 */
 	public void executeExtractOpertion(){		
 		logger.info("Entering in executeExtractOpertion()");
-		String url = webScrapperUIControls.urlTextField.getText().trim();
-		String keyword = webScrapperUIControls.titleTextField.getText().trim();		
+		WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
+		String url = wsUIControls.getUrlTextField().getText().trim();
+		String keyword = wsUIControls.getTitleTextField().getText().trim();		
 		if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)){
 			JOptionPane.showMessageDialog(frame, "URL and title is required.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 			return;
@@ -194,39 +276,41 @@ public class WebScrapper extends JFrame {
 				return;
 			}
 		}		
-		String slectedValue = webScrapperUIControls.extractDataTypeComboBox.getSelectedItem().toString();
-		webScrapperUIControls.url = url;
-		webScrapperUIControls.title = keyword;
-		webScrapperUIControls.contentType = ContentType.getContentType(slectedValue);		
-		webScrapperUIControls.wsServiceProvider = new WSServiceProvider();
-		webScrapperUIControls.extractRequest = webScrapperUIControls.wsServiceProvider.buildExtractRequest(webScrapperUIControls.url, webScrapperUIControls.contentType);
-		webScrapperUIControls.extractResponse = webScrapperUIControls.wsServiceProvider.executeExtractOperation(webScrapperUIControls.extractRequest);		
-		if(null == webScrapperUIControls.extractResponse){
+		String slectedValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
+		wsUIControls.setUrl(url);
+		wsUIControls.setTitle(keyword);
+		wsUIControls.setContentType(ContentType.getContentType(slectedValue));
+			
+		wsServiceProvider = new WSServiceProvider();
+		extractRequest = wsServiceProvider.buildExtractRequest(wsUIControls.getUrl(), wsUIControls.getContentType());
+		extractResponse = wsServiceProvider.executeExtractOperation(extractRequest);		
+		if(null == extractResponse){
 			JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}		
 		WebScrapperUtil.showWaitingDialog(frame);				
 		if(slectedValue.equals(ContentType.IMAGE.getType())){				
-			webScrapperUIControls.populateImageList();
-			webScrapperUIControls.btnPreview.setEnabled(true);
+			wsUIControlsManager.populateImageList();
+			wsUIControls.getBtnPreview().setEnabled(true);
 		}
-		webScrapperUIControls.expandExtractProcessPanel();
-		webScrapperUIControls.disableHeaderArea();
+		wsUIControlsManager.expandExtractProcessPanel();
+		wsUIControlsManager.disableHeaderArea();
 		logger.info("Exiting from executeExtractOpertion()");
 	}
 	
 	/**
 	 * Method for preview operation.
-	 * @throws IOException 
-	 * @throws Exception
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void executePreviewOperation() throws IOException{
 		logger.info("Entering in executePreviewOperation()");
-		String slectedOptionValue = webScrapperUIControls.extractDataTypeComboBox.getSelectedItem().toString();		
+		WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
+		String slectedOptionValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();		
 		if(slectedOptionValue.equals(ContentType.IMAGE.getType())){			
-			List<CheckListItem> lists = WebScrapperUtil.getSelectedListItems(webScrapperUIControls.imageList);			
+			List<CheckListItem> lists = WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList());			
 			if(lists.size() >0){	
-				InputStream stream = webScrapperUIControls.wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(webScrapperUIControls.imageList).get(0).toString());
+				InputStream stream = wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).get(0).toString());
 				BufferedImage bufferedImage = null;
 				try{
 					bufferedImage = ImageIO.read( stream );
@@ -242,9 +326,9 @@ public class WebScrapper extends JFrame {
 			}
     	}else{	
     		JScrollPane scrollPane = null;			
-			if(webScrapperUIControls.structedRadioButton.isSelected()){
-				String columnNames[] = webScrapperUIControls.wsServiceProvider.fetchColumnNameForPreview(webScrapperUIControls.extractResponse);
-				String dataValues[][] = webScrapperUIControls.wsServiceProvider.fetchTabularPreviewData(webScrapperUIControls.extractResponse);				
+			if(wsUIControls.getStructedRadioButton().isSelected()){
+				String columnNames[] = wsServiceProvider.fetchColumnNameForPreview(extractResponse);
+				String dataValues[][] = wsServiceProvider.fetchTabularPreviewData(extractResponse);				
 				JTable table = new JTable( dataValues, columnNames );
 				table.setTableHeader(null);
 				table.setGridColor(Color.YELLOW);
@@ -253,9 +337,9 @@ public class WebScrapper extends JFrame {
 		        table.setPreferredScrollableViewportSize(new Dimension(200, 200));		        
 				scrollPane = new JScrollPane( table );
 			}else{	
-				List<String> selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(webScrapperUIControls.htmlControlList);						
+				List<String> selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getHtmlControlList());						
 				if(selectedHTMLControlList.size() >0)				{	
-					String content = webScrapperUIControls.wsServiceProvider.fetchNonTabularPreviewData(webScrapperUIControls.extractResponse, selectedHTMLControlList);					
+					String content = wsServiceProvider.fetchNonTabularPreviewData(extractResponse, selectedHTMLControlList);					
 					JTextArea textArea = new JTextArea(10, 25);
 					textArea.setLineWrap(true);
 				    textArea.setText(content);
@@ -276,31 +360,32 @@ public class WebScrapper extends JFrame {
 	 */
 	public void executeRunQueryOperation(){
 		logger.info("Entering in executeRunQueryOperation()");
-		String selectedOptionValue = webScrapperUIControls.extractDataTypeComboBox.getSelectedItem().toString();
+		WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
+		String selectedOptionValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
 		String extractToOptionValue = "";		
-		if(null != webScrapperUIControls.extractTocomboBox && null != webScrapperUIControls.extractTocomboBox.getSelectedItem()){	
-			extractToOptionValue = webScrapperUIControls.extractTocomboBox.getSelectedItem().toString();				
+		if(null != wsUIControls.getExtractTocomboBox() && null != wsUIControls.getExtractTocomboBox().getSelectedItem()){	
+			extractToOptionValue = wsUIControls.getExtractTocomboBox().getSelectedItem().toString();				
 		}		
 		JLabel queryLabel = new JLabel(" Result Query : ");		
 		JTextField queryTextField = new JTextField();
 		Font font = new Font("Verdana", Font.BOLD, 12);				
 		queryTextField.setEditable(false);
 		queryTextField.setFont(font);		
-		String url = webScrapperUIControls.urlTextField.getText();
-		String title = webScrapperUIControls.titleTextField.getText();
+		String url = wsUIControls.getUrlTextField().getText();
+		String title = wsUIControls.getTitleTextField().getText();
 		String selectedTabularOption = "";		
-		if(webScrapperUIControls.structedRadioButton.isSelected()){ 
+		if(wsUIControls.getStructedRadioButton().isSelected()){ 
 			selectedTabularOption = "Tabular";
 		}else{
 			selectedTabularOption = "Non-Tabular";		
 		}
 		if(selectedOptionValue.equals(ContentType.IMAGE.getType())){
-			queryTextField.setText(url + "," +title+","+selectedOptionValue+","+ WebScrapperUtil.getSelectedListItems(webScrapperUIControls.imageList).toString());
+			queryTextField.setText(url + "," +title+","+selectedOptionValue+","+ WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).toString());
     	}else{
-			if(webScrapperUIControls.structedRadioButton.isSelected()) {
+			if(wsUIControls.getStructedRadioButton().isSelected()) {
 				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+extractToOptionValue);						
 			}else{
-				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+WebScrapperUtil.getSelectedListItems(webScrapperUIControls.htmlControlList).toString()+","+extractToOptionValue);			
+				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+WebScrapperUtil.getSelectedListItems(wsUIControls.getHtmlControlList()).toString()+","+extractToOptionValue);			
 			}
 		}		
 		queryTextField.setColumns(14);		
@@ -318,26 +403,26 @@ public class WebScrapper extends JFrame {
         		List<String> selectedImageURLList = new ArrayList<String>();
         		List<String> selectedHTMLControlList = new ArrayList<String>();        		
         		if(selectedOptionValue.equals(ContentType.IMAGE.getType())){ 
-        			selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(webScrapperUIControls.imageList);
+        			selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getImageList());
         		}else{
-        			selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(webScrapperUIControls.htmlControlList);        		
+        			selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getHtmlControlList());        		
         		}
         		boolean result = executeExportOperation(extractToOptionValue, selectedOptionValue, selectedImageURLList, selectedHTMLControlList);
         		if(!result){
         			return;        			
         		}
             }else{
-            	webScrapperUIControls.fc = new JFileChooser();
-            	webScrapperUIControls.fc.setDialogTitle("Save");
-				int result = webScrapperUIControls.fc.showSaveDialog(WebScrapper.this);
+            	JFileChooser fc = new JFileChooser();
+            	fc.setDialogTitle("Save");
+				int result = fc.showSaveDialog(WebScrapper.this);
 				if (result == JFileChooser.APPROVE_OPTION){
-				    File selectedFile = webScrapperUIControls.fc.getSelectedFile();				    				    
+				    File selectedFile = fc.getSelectedFile();				    				    
 				    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 				}else{
 					return;				
 				}
             }
-        	webScrapperUIControls.resetAllExtractProcessPanel();
+        	wsUIControlsManager.resetAllExtractProcessPanel();
         }
         logger.info("Exiting from executeRunQueryOperation()");
 	}
@@ -345,24 +430,30 @@ public class WebScrapper extends JFrame {
 
 	/**
 	 * Method for export operation.
-	 * @param extractToOptionValue
+	 *
+	 * @param extractToOptionValue the extract to option value
+	 * @param selectedOptionValue the selected option value
+	 * @param selectedImageURLList the selected image url list
+	 * @param selectedHTMLControlList the selected html control list
+	 * @return true, if successful
 	 */
 	private boolean executeExportOperation(String extractToOptionValue, String selectedOptionValue, List<String> selectedImageURLList, List<String> selectedHTMLControlList){
 		logger.info("Entering in executeExportOperation()");
+		WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
 		String msg = "All data exported successfully.";    	
     	if(!"DB".equals(extractToOptionValue)){	
-    		webScrapperUIControls.fc = new JFileChooser();
-    		webScrapperUIControls.fc.setDialogTitle("Open");
-    		webScrapperUIControls.fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			int result = webScrapperUIControls.fc.showSaveDialog(WebScrapper.this);
+    		JFileChooser fc = new JFileChooser();
+    		fc.setDialogTitle("Open");
+    		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			int result = fc.showSaveDialog(WebScrapper.this);
 			if (result == JFileChooser.APPROVE_OPTION){
-			    File selectedFile = webScrapperUIControls.fc.getSelectedFile();			     
+			    File selectedFile = fc.getSelectedFile();			     
             	if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
             	{
             		msg = "All Images exported successfully.";
             	}            	
-            	ExportRequest exportRequest = webScrapperUIControls.wsServiceProvider.buildExportRequest(webScrapperUIControls.url,webScrapperUIControls.title,webScrapperUIControls.extractResponse,ExportType.getExportType(extractToOptionValue),selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
-            	ExportResponse exportResponse = webScrapperUIControls.wsServiceProvider.executeExportOperation(exportRequest);            	
+            	ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.getExportType(extractToOptionValue),selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
+            	ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);            	
             	WebScrapperUtil.showWaitingDialog(frame);            	
             	if(exportResponse.isSuccess()){
             		JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
@@ -378,8 +469,8 @@ public class WebScrapper extends JFrame {
 				return false;
 			} 
     	}else{    		
-    		ExportRequest exportRequest = webScrapperUIControls.wsServiceProvider.buildExportRequest(webScrapperUIControls.url,webScrapperUIControls.title,webScrapperUIControls.extractResponse,ExportType.getExportType(extractToOptionValue),null,null,null);    		
-    		ExportResponse exportResponse = webScrapperUIControls.wsServiceProvider.executeExportOperation(exportRequest);    		
+    		ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.getExportType(extractToOptionValue),null,null,null);    		
+    		ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);    		
     		WebScrapperUtil.showWaitingDialog(frame);    		
     		if(exportResponse.isSuccess()){	
     			JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);

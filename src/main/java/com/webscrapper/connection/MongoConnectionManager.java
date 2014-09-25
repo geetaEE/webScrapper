@@ -22,6 +22,7 @@ public class MongoConnectionManager{
      *
      * @return single instance of MongoConnectionManager */
     public static MongoConnectionManager getInstance() {
+    	logger.info("Entering getInstance method.");
         if (connectionManager == null) {
             synchronized (MongoConnectionManager.class) {
                 if (connectionManager == null) {
@@ -29,15 +30,18 @@ public class MongoConnectionManager{
                 }
             }
         }
+        logger.info("Exiting from getInstance method.");
         return connectionManager;
     }
     /**
 	 * @return the connection
 	 */
     public MongoConnection getConnection() {
+    	logger.info("Entering getConnection method.");
         if (connection == null) {
             connection = new MongoConnection();
         }
+        logger.info("Exiting getConnection method.");
         return connection;
     }
 
@@ -45,9 +49,11 @@ public class MongoConnectionManager{
 	 * Release connection
 	 */
     public void releaseConnection() {
+    	 logger.info("Entering from releaseConnection method.");
         if (connection != null) {
             connection.closeConnection();
         }
+        logger.info("Exiting from releaseConnection method.");
     }    
  
 }

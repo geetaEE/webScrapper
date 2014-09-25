@@ -62,6 +62,7 @@ public class ExportToDBService implements ExportService {
             }
         } catch (Exception e) {
             exportResponse.setSuccess(false);
+            logger.warn(e);
         }
 
         return exportResponse;

@@ -15,8 +15,6 @@ import com.webscrapper.service.ExportService;
 
 
 /**
- * A factory for creating ExportService objects.
- *
  * @author ruby.jha
  * A factory for creating export service objects.
  */
@@ -35,6 +33,7 @@ public abstract class ExportServiceFactory
      *            content type
      * @return instance */
     public static ExportService getInstance(ExportType type) {
+    	logger.info("Entering getInstance method.");
         if (null == instanceMap) {
             synchronized (ExportServiceFactory.class) {
                 if (null == instanceMap) {
@@ -63,6 +62,7 @@ public abstract class ExportServiceFactory
                 }
             }
         }
-        return instanceMap.get(type);
+        logger.info("Exiting from getInstance method.");
+        return instanceMap.get(type);        
     }
 }

@@ -50,6 +50,7 @@ public class MongoConnection {
 	 * @return the db connection
 	 */
 	public DB getDbConnection() throws AuthenticationException {
+		logger.info("Entering from getDbConnection method.");
 		if (db == null) {
 			try {
 				client = new MongoClient(DBConstants.MONGO_SERVER,
@@ -74,16 +75,18 @@ public class MongoConnection {
 				throw new AuthenticationException("Authentication Fail");
 			}
 		}
+		logger.info("Exiting from getDbConnection method.");
 		return db;
 	}
 	/**
 	 * @Close client
 	 */
 	public void closeClient() {
+		logger.info("Entering from closeClient method.");
 		if (client != null) {
 			db = null;
 			client.close();
-
+		logger.info("Exiting from closeClient method.");
 		}
 	}
 	

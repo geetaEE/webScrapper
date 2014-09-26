@@ -288,7 +288,7 @@ public class WebScrapper extends JFrame {
 			JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 			return;
 		}		
-		WebScrapperUtil.showWaitingDialog(frame);				
+		//WebScrapperUtil.showWaitingDialog(frame);				
 		if(slectedValue.equals(ContentType.IMAGE.getType())){				
 			wsUIControlsManager.populateImageList();
 			wsUIControls.getBtnPreview().setEnabled(true);

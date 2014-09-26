@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 /**
  * The Class CheckListRenderer.
  */
-class CheckListRenderer extends JCheckBox implements ListCellRenderer
+public class CheckListRenderer extends JCheckBox implements ListCellRenderer
 {
 	
 	/** The logger. */

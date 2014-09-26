@@ -2,6 +2,7 @@ package com.webscapper.service;
 
 import static org.junit.Assert.assertFalse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,9 +16,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.webscapper.factory.ExportServiceFactory;
+import com.webscapper.factory.ExtractServiceFactory;
 import com.webscapper.request.ExportRequest;
+import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
+import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
@@ -186,6 +190,22 @@ public class TestExportService {
 		Assert.assertNotNull(tagDataMap);
 		Assert.assertNotNull(tagsList);
 	}
+    
+    /** Test export table to csv. 
+     * @throws IOException */
+    @Test
+    public void testExportTableToCSV() throws IOException { 
+        String url = "http://www.w3schools.com/html/html_tables.asp";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.TEXT);
+        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+        exportRequest.setExtractResponse(response);  
+        exportRequest.setExportType(ExportType.CSV);
+        ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
+        ExportResponse exportResponse = exportService.export(exportRequest);
+        Assert.assertTrue(exportResponse.isSuccess() == true);
+    }
     
     @After
     public void destroy()

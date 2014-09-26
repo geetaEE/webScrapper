@@ -30,9 +30,10 @@ public class ExportToImageService implements ExportService {
             String dirLocation = request.getLocation();
             List<String> imageList = request.getImageURLList();
             String title = request.getTitle();
-            boolean imageExists = null != imageList && !imageList.isEmpty() && null != dirLocation && !dirLocation.isEmpty() && title != null
-                    && !title.isEmpty();
-            if (imageExists) {
+            boolean imageExists = null != imageList && !imageList.isEmpty();
+            boolean dirLocExists = null != dirLocation && !dirLocation.isEmpty();
+            boolean titleExists = title != null && !title.isEmpty();
+            if (imageExists && dirLocExists && titleExists) {
                 dirLocation = dirLocation + File.separator + title + CommonConstants.DATE_FORMATTER.format(new Date());
                 exportResponse.setSuccess(saveImages(imageList, dirLocation));
             }

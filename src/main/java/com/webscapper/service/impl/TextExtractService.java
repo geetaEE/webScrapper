@@ -1,19 +1,16 @@
 package com.webscapper.service.impl;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
-import com.webscrapper.constants.CommonConstants;
+import com.webscapper.util.ExtractTableUtil;
+import com.webscapper.util.ExtractTextUtil;
 import com.webscrapper.constants.TagType;
 
 /** The extract text content service. */
@@ -30,51 +27,17 @@ public class TextExtractService extends BaseExtractService {
                 doc = Jsoup.parse(doc.html());
                 ExtractResponse response = new ExtractResponse();
                 // Non tabular data
-                Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
-                TagType[] tags = TagType.values();
-                for (TagType tagType : tags) {
-                    StringBuilder textB = new StringBuilder();
-                    for (Element element : doc.select(tagType.getName())) {
-                        String elemTxt = element.text().trim();
-                        if (!textB.toString().contains(elemTxt)) {
-                            if (!textB.toString().isEmpty()) {
-                                textB.append(" ");
-                            }
-                            textB.append(elemTxt);
-                        }
-                    }
-                    String text = textB.toString();
-                    if (!text.isEmpty()) {
-                        tagDataMap.put(tagType, text);
-                    }
-                }
+                Map<TagType, String> tagDataMap = ExtractTextUtil.getTagDataMap(doc);
                 if (!tagDataMap.isEmpty()) {
                     response.setTagDataMap(tagDataMap);
                 }
                 // Tabular data.
-                List<List<List<String>>> tables = new ArrayList<List<List<String>>>();
-                for (Element table : doc.select(CommonConstants.TABLE_TAG)) {
-                    List<List<String>> rows = new ArrayList<List<String>>();
-                    for (Element row : table.select(CommonConstants.TR_TAG)) {
-                        List<String> columns = new ArrayList<String>();
-                        Elements tds = null;
-                        tds = row.select(CommonConstants.TH_TAG);
-                        for (Element td : tds) {
-                            columns.add(td.text());
-                        }
-                        tds = row.select(CommonConstants.TD_TAG);
-                        for (Element td : tds) {
-                            columns.add(td.text());
-                        }
-                        rows.add(columns);
-                    }
-                    tables.add(rows);
-                }
+                List<List<List<String>>> tables = ExtractTableUtil.getTableList(doc);
                 if (!tables.isEmpty()) {
                     response.setTables(tables);
                 }
                 // return response
-                if (!response.getTagDataMap().isEmpty() || !response.getTables().isEmpty()) {
+                if (!tagDataMap.isEmpty() || !tables.isEmpty()) {
                     return response;
                 }
             }

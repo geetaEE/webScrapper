@@ -56,7 +56,7 @@ public final class CommonConstants {
     public static final String USER_AGENT = "Mozilla/5.0";
     
     /** The Constant EXTRACT_TIMEOUT. */
-    public static final int EXTRACT_TIMEOUT = new Integer(30000);
+    public static final int EXTRACT_TIMEOUT = Integer.valueOf(30000).intValue();
     
     /** The Constant HIDDEN_CONTENT_EXPRESSION. */
     public static final String HIDDEN_CONTENT_EXPRESSION = "*[style*=display:none]";

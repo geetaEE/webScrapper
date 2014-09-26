@@ -12,9 +12,7 @@ import com.webscrapper.constants.CommonConstants;
 /** The Class ExtractUtil. */
 public final class ExtractTableUtil {
     /** Instantiates a new ExtractUtil. */
-    private ExtractTableUtil() {
-
-    }
+    private ExtractTableUtil() {}
 
     /** Get table list.
      * 

@@ -11,9 +11,7 @@ import com.webscrapper.constants.TagType;
 /** The Class ExtractUtil. */
 public final class ExtractTextUtil {
     /** Instantiates a new ExtractUtil. */
-    private ExtractTextUtil() {
-
-    }
+    private ExtractTextUtil() {}
 
     /** Get tag data map.
      * 

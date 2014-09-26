@@ -30,7 +30,9 @@ public class ExportToImageService implements ExportService {
             String dirLocation = request.getLocation();
             List<String> imageList = request.getImageURLList();
             String title = request.getTitle();
-            if (null != imageList && !imageList.isEmpty() && null != dirLocation && !dirLocation.isEmpty() && title != null && !title.isEmpty()) {
+            boolean imageExists = null != imageList && !imageList.isEmpty() && null != dirLocation && !dirLocation.isEmpty() && title != null
+                    && !title.isEmpty();
+            if (imageExists) {
                 dirLocation = dirLocation + File.separator + title + CommonConstants.DATE_FORMATTER.format(new Date());
                 exportResponse.setSuccess(saveImages(imageList, dirLocation));
             }
@@ -69,10 +71,12 @@ public class ExportToImageService implements ExportService {
             return true;
         } catch (Exception e) {
             try {
-                if (null != is)
+                if (null != is) {
                     is.close();
-                if (null != os)
+                }
+                if (null != os) {
                     os.close();
+                }
             } catch (IOException e1) {
                 return false;
             }

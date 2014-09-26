@@ -1,7 +1,8 @@
 package com.webscrapper.connection;
 
+import junit.framework.Assert;
+
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,12 +14,14 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class TestMongoConnectionManager {
 	
+	/** The connectionManager. */
 	private MongoConnectionManager connectionManager;
+	/** The connection. */
 	private MongoConnection connection;
 
 	@Before
 	public void setUp() {
-		
+		connectionManager = MongoConnectionManager.getInstance();
 	}
 
 	/**
@@ -27,8 +30,7 @@ public class TestMongoConnectionManager {
 	 * Expectation: Should return connectionManager.
 	 */
 	@Test
-	public void testGetInstance() {
-		connectionManager = MongoConnectionManager.getInstance();
+	public void testGetInstance() {		
 		Assert.assertNotNull(connectionManager);
 	}
 	
@@ -38,8 +40,7 @@ public class TestMongoConnectionManager {
 	 * Expectation: Should return Mongo connection.
 	 */
 	@Test
-	public void testGetConnection(){
-		connectionManager = MongoConnectionManager.getInstance();
+	public void testGetConnection(){		
 		connection = connectionManager.getConnection();
 		Assert.assertNotNull(connection);
 	}
@@ -50,8 +51,7 @@ public class TestMongoConnectionManager {
 	 * Expectation: Should return release the connection.
 	 */
 	@Test
-	public void testReleaseConnection(){
-		connectionManager = MongoConnectionManager.getInstance();
+	public void testReleaseConnection(){		
 		connection = connectionManager.getConnection();
 		connectionManager.releaseConnection();
 		Assert.assertNotNull(connection);

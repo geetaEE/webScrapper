@@ -68,7 +68,7 @@ public abstract class BaseExtractService implements ExtractService {
      * @param url
      *            the url
      * @return html document */
-    protected Document extractDocument(String url) {
+    public Document extractDocument(String url) {
         logger.info("Method extractDocument is executing");
         Document doc = null;
         try {
@@ -86,14 +86,14 @@ public abstract class BaseExtractService implements ExtractService {
                 }
             } catch (IOException e) {
                 logger.error("Document process error occurred" + e);
-                throw new ExtractException("Document process error", e);
+                throw new ExtractException(e);
             } finally {
                 if (br != null) {
                     try {
                         br.close();
                     } catch (IOException e) {
                         logger.error("Connection close error occurred" + e);
-                        throw new ExtractException("Connection close error", e);
+                        throw new ExtractException(e);
                     }
                 }
             }

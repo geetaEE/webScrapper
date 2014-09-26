@@ -34,5 +34,24 @@ public class TestWSUIControlsManager
 	{
 		WebScrapper webScrapper = new WebScrapper(); 
 		Assert.assertNotNull(webScrapper);
-	}	
+	}
+	
+	/**
+	 * Unit Test for disableBatchProessPanelControls().
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testDisableBatchProessPanelControls() throws Exception
+	{
+		WebScrapper webScrapper = new WebScrapper(); 
+		WSUIControlsManager WSUIControlsManager = new WSUIControlsManager(webScrapper);
+		webScrapper.setFrame(webScrapper);
+		
+		WSUIControlsManager.disableBatchProessPanelControls();
+		
+		JTextField pathtextField = WSUIControlsManager.getWsUIControls().getPathtextField();
+		
+		Assert.assertEquals("", pathtextField.getText());
+	}
 }

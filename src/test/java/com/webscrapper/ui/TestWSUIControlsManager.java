@@ -54,4 +54,23 @@ public class TestWSUIControlsManager
 		
 		Assert.assertEquals("", pathtextField.getText());
 	}
+	
+	/**
+	 * Unit Test for resetBatchProcessPanel().
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testResetBatchProcessPanel() throws Exception
+	{
+		WebScrapper webScrapper = new WebScrapper();
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
+		webScrapper.setFrame(webScrapper);
+		
+		wsUIControlsManager.resetBatchProcessPanel();
+		
+		JTextField pathtextField = wsUIControlsManager.getWsUIControls().getPathtextField();
+		
+		Assert.assertEquals("", pathtextField.getText());
+	}
 }

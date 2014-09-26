@@ -454,7 +454,7 @@ public class WebScrapper extends JFrame {
             	}            	
             	ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.getExportType(extractToOptionValue),selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
             	ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);            	
-            	WebScrapperUtil.showWaitingDialog(frame);            	
+            	//WebScrapperUtil.showWaitingDialog(frame);            	
             	if(exportResponse.isSuccess()){
             		JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
             		return true;
@@ -471,7 +471,7 @@ public class WebScrapper extends JFrame {
     	}else{    		
     		ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.getExportType(extractToOptionValue),null,null,null);    		
     		ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);    		
-    		WebScrapperUtil.showWaitingDialog(frame);    		
+    		//WebScrapperUtil.showWaitingDialog(frame);    		
     		if(exportResponse.isSuccess()){	
     			JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
     			return true;

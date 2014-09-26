@@ -73,7 +73,7 @@ public abstract class BaseExtractService implements ExtractService {
         Document doc = null;
         try {
             doc = Jsoup.connect(url).userAgent(CommonConstants.USER_AGENT).timeout(CommonConstants.EXTRACT_TIMEOUT).get();
-        } catch (IOException e) {
+        } catch (IOException ie) {
             BufferedReader br = null;
             StringBuilder htmlB = new StringBuilder();
             try {
@@ -84,16 +84,16 @@ public abstract class BaseExtractService implements ExtractService {
                 while ((input = br.readLine()) != null) {
                     htmlB.append(input);
                 }
-            } catch (IOException ie) {
-                logger.error("Document process error occurred" + ie);
-                throw new ExtractException("Document process error", ie);
+            } catch (IOException e) {
+                logger.error("Document process error occurred" + e);
+                throw new ExtractException("Document process error", e);
             } finally {
                 if (br != null) {
                     try {
                         br.close();
-                    } catch (IOException e1) {
-                        logger.error("Connection close error occurred" + e1);
-                        throw new ExtractException("Connection close error", e1);
+                    } catch (IOException e) {
+                        logger.error("Connection close error occurred" + e);
+                        throw new ExtractException("Connection close error", e);
                     }
                 }
             }

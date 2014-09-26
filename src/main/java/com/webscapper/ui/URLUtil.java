@@ -20,7 +20,7 @@ public final class URLUtil
 	/**
 	 * Instantiates a new URL util.
 	 */
-	public URLUtil(){}
+	private URLUtil(){}
 	/** The logger. */
 	private static Logger logger = Logger.getLogger(URLUtil.class);
 	

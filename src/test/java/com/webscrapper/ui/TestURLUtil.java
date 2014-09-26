@@ -31,6 +31,11 @@ public class TestURLUtil {
         url = "testtesttest123";
         result = URLUtil.isValidURL(url);
         Assert.assertFalse("URL validaton result should be false.", result);
+        
+      //Scenario 3 : Negative Scenario.
+        url = "testtesttest123.com";
+        result = URLUtil.isValidURL(url);
+        Assert.assertFalse("URL validaton result should be false.", result);
     }
 
 

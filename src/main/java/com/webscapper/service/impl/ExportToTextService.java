@@ -18,6 +18,7 @@ public class ExportToTextService  implements ExportService{
 	private static Logger logger = Logger.getLogger(ExportToTextService.class);
 	@Override
 	public ExportResponse export(ExportRequest request) {
+	    logger.info("Text export executing");
 		String fileName = null;
 		ExportResponse exportResponse = new ExportResponse();
 		try

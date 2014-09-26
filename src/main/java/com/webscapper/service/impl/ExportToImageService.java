@@ -24,6 +24,7 @@ public class ExportToImageService implements ExportService {
      */
     @Override
     public ExportResponse export(ExportRequest request) {
+        logger.info("Image export executing");
         ExportResponse exportResponse = new ExportResponse();
         if (null != request) {
             String dirLocation = request.getLocation();

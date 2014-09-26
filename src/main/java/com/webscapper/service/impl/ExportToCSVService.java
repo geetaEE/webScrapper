@@ -14,16 +14,15 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 public class ExportToCSVService implements ExportService {
-	private static Logger logger = Logger.getLogger(ExportToCSVService.class);
+    private static Logger logger = Logger.getLogger(ExportToCSVService.class);
+
     @Override
-    public ExportResponse export(ExportRequest request) 
-    {        
+    public ExportResponse export(ExportRequest request) {
+        logger.info("CSV export executing");
         ExportResponse exportResponse = new ExportResponse();
         String fileName = null;
-        try 
-        {
-        	fileName = CommonUtil.getFileName(request.getLocation(),
-					request.getTitle(), CommonConstants.EXT_CSV);
+        try {
+            fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_CSV);
             FileWriter writer = new FileWriter(fileName);
             ExtractResponse response = request.getExtractResponse();
             List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
@@ -32,37 +31,30 @@ public class ExportToCSVService implements ExportService {
                 while (tableIterator.hasNext()) {
                     List<List<String>> rowsList = tableIterator.next();
                     Iterator<List<String>> rowIterator = rowsList.iterator();
-                    while (rowIterator.hasNext()) 
-                    {
+                    while (rowIterator.hasNext()) {
                         int commaCounter = 0;
-                    	List<String> colsList = rowIterator.next();
+                        List<String> colsList = rowIterator.next();
                         Iterator<String> colIterator = colsList.iterator();
-                        while (colIterator.hasNext()) 
-                        {                            
-                            if(commaCounter >0)
-                            {
-                            	writer.append(",");
-                            }                            	
-                        	writer.append(colIterator.next());
-                        	commaCounter++;
+                        while (colIterator.hasNext()) {
+                            if (commaCounter > 0) {
+                                writer.append(",");
+                            }
+                            writer.append(colIterator.next());
+                            commaCounter++;
                         }
-                        
-                        writer.append("\r\n");                       
+
+                        writer.append("\r\n");
                     }
                     writer.append("\r\n");
                 }
             }
 
-            
-            writer.close();           
-            
-            exportResponse.setSuccess(true);            
-        } 
-        catch (Exception e) 
-        {            
+            writer.close();
+
+            exportResponse.setSuccess(true);
+        } catch (Exception e) {
             exportResponse.setSuccess(false);
         }
         return exportResponse;
     }
-
 }

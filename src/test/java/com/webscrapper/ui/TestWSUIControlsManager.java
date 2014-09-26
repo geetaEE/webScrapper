@@ -194,5 +194,43 @@ public class TestWSUIControlsManager
 		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		
 		Assert.assertFalse(textField.isEditable());
-	}	
+	}
+	
+	/**
+	 * Unit test for executeExtractOpertion().
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testExecuteExtractOpertion()throws Exception
+	{
+		WebScrapper webScrapper = new WebScrapper();
+		webScrapper.setFrame(webScrapper);	
+		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
+			
+		webScrapper.getFrame().setWebScrapperUIControls(wsUIControlsManager);
+		
+		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
+		
+		textField.setText("www.google.com");
+		
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
+		
+		textField.setText("TestTitle");
+		
+		JComboBox combo = wsUIControlsManager.getWsUIControls().getExtractDataTypeComboBox();
+		
+		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
+		
+		webScrapper.executeExtractOpertion();
+		
+		textField = wsUIControlsManager.getWsUIControls().getUrlTextField();
+		
+		Assert.assertFalse(textField.isEditable());
+		
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
+		
+		Assert.assertFalse(textField.isEditable());
+	}
 }

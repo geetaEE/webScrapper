@@ -14,8 +14,15 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
+/**
+ * @author geeta.chaudhary
+ *
+ */
 public class ExportToTextService  implements ExportService{
 	private static Logger logger = Logger.getLogger(ExportToTextService.class);
+	/* 
+	 * This method will export non tabular data into Text file. 
+	 */
 	@Override
 	public ExportResponse export(ExportRequest request) {
 	    logger.info("Text export executing");
@@ -52,6 +59,7 @@ public class ExportToTextService  implements ExportService{
 			
 		} catch (Exception e) {
 			exportResponse.setSuccess(false);
+			logger.warn(e);
 		}
 		return exportResponse;
 	}

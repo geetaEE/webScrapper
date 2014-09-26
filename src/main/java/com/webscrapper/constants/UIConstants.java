@@ -2,7 +2,7 @@ package com.webscrapper.constants;
 /**
  * The Class UIConstants.
  */
-public class UIConstants 
+public final class UIConstants 
 {
 	
 	/**

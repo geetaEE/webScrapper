@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
  * @author ruby.jha
  * Common Constants
  */
-public class CommonConstants {
+public final class CommonConstants {
 	
 	/**
 	 * Instantiates a new common constants.

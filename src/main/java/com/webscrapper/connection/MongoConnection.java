@@ -23,15 +23,7 @@ public class MongoConnection {
 	private DB db;
 	/** The client. */
 	private MongoClient client;
-
-	/** Instantiates a new mongo connection. */
-	public MongoConnection() {
-		try {
-			this.db = getDbConnection();
-		} catch (AuthenticationException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	/**
 	 * Close connection
 	 */
@@ -56,7 +48,7 @@ public class MongoConnection {
 				client = new MongoClient(DBConstants.MONGO_SERVER,
 						DBConstants.PORT_NO);
 			} catch (UnknownHostException e1) {
-				e1.printStackTrace();
+				logger.warn("UnknownHost Exception",e1);
 			}
 			db = client.getDB(DBConstants.DB_NAME);
 			db.addUser(DBConstants.USER_NAME,

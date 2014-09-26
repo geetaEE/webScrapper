@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
  * @author ruby.jha
  * Mongo Connection Manager
  */
-public class MongoConnectionManager{
+public final class MongoConnectionManager{
 	private static Logger logger = Logger.getLogger(MongoConnectionManager.class);
 	/** The connection. */
     private MongoConnection connection;

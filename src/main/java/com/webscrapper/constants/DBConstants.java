@@ -6,7 +6,7 @@ package com.webscrapper.constants;
  * @author ruby.jha
  * DB Constants.
  */
-public class DBConstants 
+public final class DBConstants 
 {
 	
 	/**

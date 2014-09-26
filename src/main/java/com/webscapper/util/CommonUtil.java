@@ -17,11 +17,6 @@ public final class CommonUtil{
 	
 	/** The logger. */
 	private static Logger logger = Logger.getLogger(CommonUtil.class);
-		
-	/**
-	 * Instantiates a new common util.
-	 */
-	public CommonUtil(){}
 	
 	/**
 	 * Gets the file name.

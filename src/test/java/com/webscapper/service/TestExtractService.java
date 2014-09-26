@@ -1,5 +1,6 @@
 package com.webscapper.service;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
@@ -21,9 +22,11 @@ import com.webscrapper.constants.TagType;
 /** Test extract service. */
 @RunWith(JUnit4.class)
 public class TestExtractService {
-    /** Test https extraction. */
+    /** Test https extraction.
+     * 
+     * @throws IOException */
     @Test
-    public void testExtractHttps() {
+    public void testExtractHttps() throws IOException {
         String url = "https://www.httpsnow.org/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -34,9 +37,11 @@ public class TestExtractService {
         Assert.assertTrue(tagDataMap.get(TagType.PARAGRAPH).contains("HTTPS Now"));
     }
 
-    /** Test https extraction. */
+    /** Test https extraction.
+     * 
+     * @throws IOException */
     @Test
-    public void testExtractHttp() {
+    public void testExtractHttp() throws IOException {
         String url = "http://stackoverflow.com/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -47,9 +52,11 @@ public class TestExtractService {
                 "Stack Overflow is a question and answer site for professional and enthusiast programmers."));
     }
 
-    /** Test https extraction. */
+    /** Test https extraction.
+     * 
+     * @throws IOException */
     @Test
-    public void testExtractText() {
+    public void testExtractText() throws IOException {
         String url = "https://www.httpsnow.org/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -61,9 +68,11 @@ public class TestExtractService {
         Assert.assertTrue(tagDataMap.get(TagType.ANCHOR).contains("How does our website work"));
     }
 
-    /** Test table extraction. */
+    /** Test table extraction.
+     * 
+     * @throws IOException */
     @Test
-    public void testExtractTable() {
+    public void testExtractTable() throws IOException {
         String url = "http://www.w3schools.com/html/html_tables.asp";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -77,9 +86,11 @@ public class TestExtractService {
         Assert.assertEquals("Number", columns.get(0));
     }
 
-    /** Test image extraction. */
+    /** Test image extraction.
+     * 
+     * @throws IOException */
     @Test
-    public void testExtractImage() {
+    public void testExtractImage() throws IOException {
         String url = "https://www.httpsnow.org/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);

@@ -1,5 +1,6 @@
 package com.webscapper.service.impl;
 
+import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public class ImageExtractService extends BaseExtractService {
     private static Logger logger = Logger.getLogger(ImageExtractService.class);
 
     @Override
-    public ExtractResponse extract(ExtractRequest request) {
+    public ExtractResponse extract(ExtractRequest request) throws IOException {
         logger.info("Method extract for Image is executing");
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());

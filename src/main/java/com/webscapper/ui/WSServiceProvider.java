@@ -88,7 +88,12 @@ public class WSServiceProvider
 	{
 		logger.info("Entering executeExtractOperation method.");
 		
-		ExtractResponse extractResponse = ExtractServiceFactory.getInstance(extractRequest.getContentType()).extract(extractRequest);
+		ExtractResponse extractResponse = null;
+        try {
+            extractResponse = ExtractServiceFactory.getInstance(extractRequest.getContentType()).extract(extractRequest);
+        } catch (IOException e) {
+            logger.error(e);
+        }
 		
 		logger.info("Exiting from executeExtractOperation method.");
 		

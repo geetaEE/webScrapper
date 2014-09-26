@@ -21,7 +21,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import com.webscrapper.constants.CommonConstants;
-import com.webscrapper.exception.ExtractException;
 import com.webscrapper.service.ExtractService;
 
 /** The base extract service. */
@@ -48,10 +47,8 @@ public abstract class BaseExtractService implements ExtractService {
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (KeyManagementException e) {
             logger.error("Security key error occurred" + e);
-            throw new ExtractException("Security key error", e);
         } catch (NoSuchAlgorithmException e) {
             logger.error("Security algorithm error occurred" + e);
-            throw new ExtractException("Security algorithm error", e);
         }
         // Create all-trusting host name verifier
         HostnameVerifier allHostsValid = new HostnameVerifier() {
@@ -67,8 +64,9 @@ public abstract class BaseExtractService implements ExtractService {
      * 
      * @param url
      *            the url
-     * @return html document */
-    public Document extractDocument(String url) {
+     * @return html document
+     * @throws IOException */
+    public Document extractDocument(String url) throws IOException {
         logger.info("Method extractDocument is executing");
         Document doc = null;
         try {
@@ -84,17 +82,9 @@ public abstract class BaseExtractService implements ExtractService {
                 while ((input = br.readLine()) != null) {
                     htmlB.append(input);
                 }
-            } catch (IOException e) {
-                logger.error("Document process error occurred" + e);
-                throw new ExtractException(e);
             } finally {
                 if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        logger.error("Connection close error occurred" + e);
-                        throw new ExtractException(e);
-                    }
+                    br.close();
                 }
             }
             String html = htmlB.toString().trim();

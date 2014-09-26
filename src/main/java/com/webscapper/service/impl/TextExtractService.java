@@ -1,5 +1,6 @@
 package com.webscapper.service.impl;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class TextExtractService extends BaseExtractService {
     private static Logger logger = Logger.getLogger(TextExtractService.class);
 
     @Override
-    public ExtractResponse extract(ExtractRequest request) {
+    public ExtractResponse extract(ExtractRequest request) throws IOException {
         logger.info("Method extract for Text is executing");
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());

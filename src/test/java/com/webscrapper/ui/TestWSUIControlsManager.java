@@ -274,4 +274,45 @@ public class TestWSUIControlsManager
 		
 		Assert.assertEquals(4, dlm.getSize());		
 	}
+	
+	/**
+	 * Unit for populateImageList().
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testpopulateImageList() throws Exception
+	{
+		WebScrapper webScrapper = new WebScrapper();
+		webScrapper.setFrame(webScrapper);	
+		
+		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);		
+		webScrapper.getFrame().setWebScrapperUIControls(wsUIControlsManager);
+		
+		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
+		
+		textField.setText("http://www.w3schools.com/html/html_tables.asp");
+		
+		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
+		
+		textField.setText("TestTitle");
+		
+		JComboBox combo = wsUIControlsManager.getWsUIControls().getExtractDataTypeComboBox();
+		
+		combo.setModel(new DefaultComboBoxModel(ContentType.getContentArray()));
+		
+		combo.setSelectedIndex(1);
+		
+		wsUIControlsManager.getWsUIControls().setExtractDataTypeComboBox(combo);
+		
+		webScrapper.executeExtractOpertion();
+		
+		wsUIControlsManager.populateImageList();
+		
+		JList imageList = wsUIControlsManager.getWsUIControls().getImageList();
+		
+		ListModel<JList> dlm = (ListModel<JList>) imageList.getModel();
+		
+		Assert.assertEquals(5, dlm.getSize());		
+	}
 }

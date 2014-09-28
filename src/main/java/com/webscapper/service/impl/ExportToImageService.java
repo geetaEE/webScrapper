@@ -54,13 +54,14 @@ public class ExportToImageService implements ExportService {
                 URL url = new URL(imageUrl);
                 String fileName = url.getFile();
                 if (null != fileName && fileName.contains("/")) {
-                    fileName = fileName.substring(fileName.lastIndexOf("/")).split("/")[1];
+                    String[] fileSeparatorArr = fileName.split("/");
+                    fileName = fileSeparatorArr[fileSeparatorArr.length - 1];
                     String destName = imageStorePath + File.separator + fileName;
                     File destDir = new File(imageStorePath);
                     destDir.mkdirs();
                     is = url.openStream();
                     os = new FileOutputStream(destName);
-                    byte[] img = new byte[2048];
+                    byte[] img = new byte[CommonConstants.DEFAULT_BYTE_ARR_SIZE];
                     int length;
                     while ((length = is.read(img)) != -1) {
                         os.write(img, 0, length);

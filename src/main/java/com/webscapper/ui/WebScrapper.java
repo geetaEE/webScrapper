@@ -5,14 +5,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.net.ssl.HostnameVerifier;
@@ -31,28 +22,19 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
@@ -62,10 +44,7 @@ import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
-import com.webscrapper.constants.StructuredExtractDocType;
-import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
-import com.webscrapper.constants.UnStructuredExtractDocType;
 // TODO: Auto-generated Javadoc
 
 /**
@@ -73,7 +52,10 @@ import com.webscrapper.constants.UnStructuredExtractDocType;
  */
 public class WebScrapper extends JFrame {
 	
-	/** The logger. */
+    /** Generated serialVersionUID. */
+    private static final long serialVersionUID = 2993601246664970663L;
+
+    /** The logger. */
 	private static Logger logger = Logger.getLogger(WebScrapper.class);
 	static {
         // Initialize for ssl communication.
@@ -416,7 +398,6 @@ public class WebScrapper extends JFrame {
             	fc.setDialogTitle("Save");
 				int result = fc.showSaveDialog(WebScrapper.this);
 				if (result == JFileChooser.APPROVE_OPTION){
-				    File selectedFile = fc.getSelectedFile();				    				    
 				    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
 				}else{
 					return;				

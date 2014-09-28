@@ -37,6 +37,9 @@ public final class CommonConstants {
 	/** The Constant DATE_FORMAT. */
 	public static final String DATE_FORMAT = "yyyy-MM-dd-HH_mm_ss";
 	
+	/** The Constant EXTRACT_TIMEOUT. */
+	public static final int EXTRACT_TIMEOUT_VAL = 30000;
+	
 	/** The Constant DATE_FORMATTER. */
 	public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 	
@@ -56,7 +59,7 @@ public final class CommonConstants {
     public static final String USER_AGENT = "Mozilla/5.0";
     
     /** The Constant EXTRACT_TIMEOUT. */
-    public static final int EXTRACT_TIMEOUT = Integer.valueOf(30000).intValue();
+    public static final int EXTRACT_TIMEOUT = Integer.valueOf(EXTRACT_TIMEOUT_VAL).intValue();
     
     /** The Constant HIDDEN_CONTENT_EXPRESSION. */
     public static final String HIDDEN_CONTENT_EXPRESSION = "*[style*=display:none]";
@@ -78,4 +81,7 @@ public final class CommonConstants {
     
     /** The Constant SRC_ATTR. */
     public static final String SRC_ATTR = "src";
+    
+    /** The Constant DEFAULT_BYTE_ARR_SIZE. */
+    public static final int DEFAULT_BYTE_ARR_SIZE = 2048;
 }

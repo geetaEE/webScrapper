@@ -132,7 +132,7 @@ public class WebScrapper extends JFrame {
 	/**
 	 * Sets the web scrapper ui controls.
 	 *
-	 * @param webScrapperUIControls the new web scrapper ui controls
+	 * @param wsUIControlsManager the new web scrapper ui controls
 	 */
 	public static void setWebScrapperUIControls(
 			WSUIControlsManager wsUIControlsManager) {
@@ -211,10 +211,8 @@ public class WebScrapper extends JFrame {
 												try {
 													frame = new WebScrapper();frame.setVisible(true);frame.setLocationRelativeTo( null );
 													wsUIControlsManager = new WSUIControlsManager(frame);
-													wsUIControlsManager.createMenus();			
-													wsUIControlsManager.createExtrctProcessPanel();		
-													wsUIControlsManager.createBatchProcessPanel();
-													wsUIControlsManager.resetAllExtractProcessPanel();				
+													populateDetailArea();			
+																
 												}catch (Exception e) 
 												{
 													logger.warn(e);													
@@ -223,7 +221,16 @@ public class WebScrapper extends JFrame {
 		logger.info("Exit from main()");
 	}
 
-
+	/**
+	 * Populate detail area.
+	 */
+	public static void populateDetailArea()
+	{
+		wsUIControlsManager.createMenus();
+		wsUIControlsManager.createExtrctProcessPanel();		
+		wsUIControlsManager.createBatchProcessPanel();
+		wsUIControlsManager.resetAllExtractProcessPanel();	
+	}
 	
 	
 	/**
@@ -459,8 +466,6 @@ public class WebScrapper extends JFrame {
 	 *
 	 * @param extractToOptionValue the extract to option value
 	 * @param selectedOptionValue the selected option value
-	 * @param selectedImageURLList the selected image url list
-	 * @param selectedHTMLControlList the selected html control list
 	 * @return true, if successful
 	 */
 	private boolean executeExportOperation(String extractToOptionValue, String selectedOptionValue){

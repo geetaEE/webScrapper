@@ -47,6 +47,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper(); 
 		WSUIControlsManager WSUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(WSUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		WSUIControlsManager.disableBatchProessPanelControls();
 		
@@ -66,6 +68,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper();
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		wsUIControlsManager.resetBatchProcessPanel();
 		
@@ -85,6 +89,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper();
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);		
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		wsUIControlsManager.enableBatchProessPanelControls();
 		
@@ -104,6 +110,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper();
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);		
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		wsUIControlsManager.resetAllExtractProcessPanel();
 		
@@ -123,6 +131,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper();
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		wsUIControlsManager.resetExtractProcessPanel();
 		
@@ -142,6 +152,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper();
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);		
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		wsUIControlsManager.expandExtractProcessPanel();
 		
@@ -161,6 +173,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper();
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		wsUIControlsManager.resetHeaderValuesValue();
 		
@@ -184,6 +198,8 @@ public class TestWSUIControlsManager
 		WebScrapper webScrapper = new WebScrapper();
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 		webScrapper.setFrame(webScrapper);
+		webScrapper.setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		wsUIControlsManager.disableHeaderArea();
 		
@@ -210,6 +226,8 @@ public class TestWSUIControlsManager
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);
 			
 		webScrapper.getFrame().setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
+		
 		
 		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
 		
@@ -249,6 +267,7 @@ public class TestWSUIControlsManager
 		WSUIControlsManager wsUIControlsManager = new WSUIControlsManager(webScrapper);				
 		
 		webScrapper.getFrame().setWebScrapperUIControls(wsUIControlsManager);
+		webScrapper.populateDetailArea();
 		
 		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
 		

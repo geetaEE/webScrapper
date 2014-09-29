@@ -213,7 +213,7 @@ public class TestWSUIControlsManager
 		
 		JTextField textField = wsUIControlsManager.getWsUIControls().getUrlTextField();		
 		
-		textField.setText("www.google.com");
+		textField.setText("https://www.google.co.in");
 		
 		textField = wsUIControlsManager.getWsUIControls().getTitleTextField();
 		

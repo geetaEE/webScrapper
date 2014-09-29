@@ -69,7 +69,7 @@ public class WSUIControlsManager
 		webScrapper.setResizable(false);
 		webScrapper.setTitle(UIConstants.WEB_SCRAPPER);	
 		webScrapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		webScrapper.setBounds(100, 100, 652, 792);		
+		webScrapper.setBounds(UIConstants.WSUM_X_1, UIConstants.WSUM_Y_1, UIConstants.WSUM_WIDTH_1, UIConstants.WSUM_HEIGHT_1);		
 		JPanel contentPane = new JPanel();
 		webScrapper.setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -86,7 +86,7 @@ public class WSUIControlsManager
 	{
 		logger.info("Entering in createMenus()");
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 651, 21);				
+		menuBar.setBounds(UIConstants.WSUM_X_2, UIConstants.WSUM_Y_2, UIConstants.WSUM_WIDTH_2, UIConstants.WSUM_HEIGHT_2);				
 		wsUIControls.getContentPane().add(menuBar);		
 		JMenu mnNewMenu = new JMenu("Process   |");
 		menuBar.add(mnNewMenu);			
@@ -119,19 +119,19 @@ public class WSUIControlsManager
 		logger.info("Entering in createExtrctProcessPanel()");
 		JPanel extractProcessPanel = new JPanel();
 		extractProcessPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		extractProcessPanel.setBounds(10, 32, 629, 470);
+		extractProcessPanel.setBounds(UIConstants.WSUM_X_3, UIConstants.WSUM_Y_3, UIConstants.WSUM_WIDTH_3, UIConstants.WSUM_HEIGHT_3);
 		extractProcessPanel.setLayout(null);
 		wsUIControls.setExtractProcessPanel(extractProcessPanel);		
 		wsUIControls.getContentPane().add(extractProcessPanel);		
 		JPanel queryRunnerControlBoxPanel = new JPanel();
-		queryRunnerControlBoxPanel.setBounds(10, 200, 609, 194);
+		queryRunnerControlBoxPanel.setBounds(UIConstants.WSUM_X_4, UIConstants.WSUM_Y_4, UIConstants.WSUM_WIDTH_4, UIConstants.WSUM_HEIGHT_4);
 		extractProcessPanel.add(queryRunnerControlBoxPanel);		
 		queryRunnerControlBoxPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		queryRunnerControlBoxPanel.setLayout(null);	
 		wsUIControls.setQueryRunnerControlBoxPanel(queryRunnerControlBoxPanel);		
 		JPanel extractDataTypeSelectionpanel = new JPanel();
 		extractDataTypeSelectionpanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		extractDataTypeSelectionpanel.setBounds(10, 11, 141, 61);
+		extractDataTypeSelectionpanel.setBounds(UIConstants.WSUM_X_5, UIConstants.WSUM_Y_5, UIConstants.WSUM_WIDTH_5, UIConstants.WSUM_HEIGHT_5);
 		queryRunnerControlBoxPanel.add(extractDataTypeSelectionpanel);
 		extractDataTypeSelectionpanel.setLayout(null);
 		wsUIControls.setExtractDataTypeSelectionpanel(extractDataTypeSelectionpanel);		
@@ -144,7 +144,7 @@ public class WSUIControlsManager
 				wsUIControls.getBtnPreview().setEnabled(true);
 				wsUIControls.getHtmlControlScrollPanel().setVisible(true);
 			}});		
-		unStructedRadioButton.setBounds(6, 5, 129, 23);	
+		unStructedRadioButton.setBounds(UIConstants.WSUM_X_6, UIConstants.WSUM_Y_6, UIConstants.WSUM_WIDTH_6, UIConstants.WSUM_HEIGHT_6);	
 		unStructedRadioButton.setEnabled(false);
 		wsUIControls.setUnStructedRadioButton(unStructedRadioButton);		
 		JRadioButton structedRadioButton = new JRadioButton("Tabular");
@@ -156,7 +156,7 @@ public class WSUIControlsManager
 				wsUIControls.getBtnPreview().setEnabled(true);
 				wsUIControls.getHtmlControlScrollPanel().setVisible(false);
 			}});		
-		structedRadioButton.setBounds(6, 31, 92, 23);	
+		structedRadioButton.setBounds(UIConstants.WSUM_X_7, UIConstants.WSUM_Y_7, UIConstants.WSUM_WIDTH_7, UIConstants.WSUM_HEIGHT_7);	
 		structedRadioButton.setEnabled(false);
 		wsUIControls.setStructedRadioButton(structedRadioButton);		
 		wsUIControls.getDataTypeRadioButtonGroup().add(unStructedRadioButton);
@@ -220,28 +220,28 @@ public class WSUIControlsManager
 	         }});	
 		wsUIControls.setHtmlControlList(htmlControlList);		
 		JScrollPane scrollPane = new JScrollPane(imageList);		
-		scrollPane.setBounds(210, 11, 200, 124);
+		scrollPane.setBounds(UIConstants.WSUM_X_8, UIConstants.WSUM_Y_8, UIConstants.WSUM_WIDTH_8, UIConstants.WSUM_HEIGHT_8);
 		wsUIControls.setScrollPane(scrollPane);		
 		JScrollPane htmlControlScrollPanel = new JScrollPane(htmlControlList);
-		htmlControlScrollPanel.setBounds(210, 11, 150, 124);
+		htmlControlScrollPanel.setBounds(UIConstants.WSUM_X_9, UIConstants.WSUM_Y_9, UIConstants.WSUM_WIDTH_9, UIConstants.WSUM_HEIGHT_9);
 		queryRunnerControlBoxPanel.add(htmlControlScrollPanel);
 		htmlControlScrollPanel.setVisible(false);
 		wsUIControls.setHtmlControlScrollPanel(htmlControlScrollPanel);		
 		queryRunnerControlBoxPanel.add(scrollPane);		
 		JLabel lblExtractTo = new JLabel("Export To : ");
-		lblExtractTo.setBounds(412, 11, 71, 28);
+		lblExtractTo.setBounds(UIConstants.WSUM_X_10, UIConstants.WSUM_Y_10, UIConstants.WSUM_WIDTH_10, UIConstants.WSUM_HEIGHT_10);
 		queryRunnerControlBoxPanel.add(lblExtractTo);
 		wsUIControls.setLblExtractTo(lblExtractTo);		
 		JComboBox extractTocomboBox = new JComboBox();
-		extractTocomboBox.setBounds(480, 13, 99, 24);
+		extractTocomboBox.setBounds(UIConstants.WSUM_X_11, UIConstants.WSUM_Y_11, UIConstants.WSUM_WIDTH_11, UIConstants.WSUM_HEIGHT_11);
 		queryRunnerControlBoxPanel.add(extractTocomboBox);
 		wsUIControls.setExtractTocomboBox(extractTocomboBox);		
 		JButton btnPreview = new JButton("Preview");
-		btnPreview.setBounds(134, 146, 123, 28);
+		btnPreview.setBounds(UIConstants.WSUM_X_12, UIConstants.WSUM_Y_12, UIConstants.WSUM_WIDTH_12, UIConstants.WSUM_HEIGHT_12);
 		wsUIControls.setBtnPreview(btnPreview);
 		queryRunnerControlBoxPanel.add(btnPreview);		
 		JButton btnRunQuery = new JButton("Run Query");
-		btnRunQuery.setBounds(322, 146, 123, 28);
+		btnRunQuery.setBounds(UIConstants.WSUM_X_13, UIConstants.WSUM_Y_13, UIConstants.WSUM_WIDTH_13, UIConstants.WSUM_HEIGHT_13);
 		queryRunnerControlBoxPanel.add(btnRunQuery);
 		btnRunQuery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){			
@@ -260,7 +260,7 @@ public class WSUIControlsManager
 		btnPreview.setEnabled(false);
 		wsUIControls.setBtnPreview(btnPreview);		
 		JPanel previewRunQueryPanel = new JPanel();
-		previewRunQueryPanel.setBounds(10, 405, 609, 54);
+		previewRunQueryPanel.setBounds(UIConstants.WSUM_X_14, UIConstants.WSUM_Y_14, UIConstants.WSUM_WIDTH_14, UIConstants.WSUM_HEIGHT_14);
 		extractProcessPanel.add(previewRunQueryPanel);
 		previewRunQueryPanel.setLayout(null);
 		wsUIControls.setPreviewRunQueryPanel(previewRunQueryPanel);		
@@ -282,19 +282,19 @@ public class WSUIControlsManager
 				resetAllExtractProcessPanel();
 			}
 		});
-		btnReset.setBounds(413, 11, 78, 28);
+		btnReset.setBounds(UIConstants.WSUM_X_15, UIConstants.WSUM_Y_15, UIConstants.WSUM_WIDTH_15, UIConstants.WSUM_HEIGHT_15);
 		previewRunQueryPanel.add(btnReset);
 		wsUIControls.setPreviewRunQueryPanel(previewRunQueryPanel);		
 		JButton exitButton = new JButton("Exit");
-		exitButton.setBounds(501, 11, 78, 28);
+		exitButton.setBounds(UIConstants.WSUM_X_16, UIConstants.WSUM_Y_16, UIConstants.WSUM_WIDTH_16, UIConstants.WSUM_HEIGHT_16);
 		previewRunQueryPanel.add(exitButton);		
 		JPanel headerPanel = new JPanel();
-		headerPanel.setBounds(10, 11, 609, 178);
+		headerPanel.setBounds(UIConstants.WSUM_X_17, UIConstants.WSUM_Y_17, UIConstants.WSUM_WIDTH_17, UIConstants.WSUM_HEIGHT_17);
 		extractProcessPanel.add(headerPanel);
 		headerPanel.setLayout(null);
 		wsUIControls.setHeaderPanel(headerPanel);		
 		JTextField urlTextField = new JTextField();
-		urlTextField.setBounds(122, 29, 471, 28);
+		urlTextField.setBounds(UIConstants.WSUM_X_18, UIConstants.WSUM_Y_18, UIConstants.WSUM_WIDTH_18, UIConstants.WSUM_HEIGHT_18);
 		headerPanel.add(urlTextField);
 		urlTextField.setColumns(10);
 		wsUIControls.setUrlTextField(urlTextField);		
@@ -312,21 +312,21 @@ public class WSUIControlsManager
 	public void createExtrctProcessPanelPhaseFour(JPanel headerPanel, JButton exitButton, JScrollPane scrollPane)
 	{
 		JLabel lblUrl = new JLabel("URL*");
-		lblUrl.setBounds(10, 29, 31, 28);
+		lblUrl.setBounds(UIConstants.WSUM_X_19, UIConstants.WSUM_Y_19, UIConstants.WSUM_WIDTH_19, UIConstants.WSUM_HEIGHT_19);
 		wsUIControls.getHeaderPanel().add(lblUrl);		
 		JTextField titleTextField = new JTextField();
-		titleTextField.setBounds(122, 68, 471, 28);
+		titleTextField.setBounds(UIConstants.WSUM_X_20, UIConstants.WSUM_Y_20, UIConstants.WSUM_WIDTH_20, UIConstants.WSUM_HEIGHT_20);
 		headerPanel.add(titleTextField);
 		titleTextField.setColumns(10);	
 		wsUIControls.setTitleTextField(titleTextField);		
 		JLabel lblKeyword = new JLabel("Title*");
-		lblKeyword.setBounds(10, 68, 31, 28);
+		lblKeyword.setBounds(UIConstants.WSUM_X_21, UIConstants.WSUM_Y_21, UIConstants.WSUM_WIDTH_21, UIConstants.WSUM_HEIGHT_21);
 		headerPanel.add(lblKeyword);		
 		JLabel lblExtracatDataType = new JLabel("Extract Data Type");
-		lblExtracatDataType.setBounds(10, 107, 123, 28);
+		lblExtracatDataType.setBounds(UIConstants.WSUM_X_22, UIConstants.WSUM_Y_22, UIConstants.WSUM_WIDTH_22, UIConstants.WSUM_HEIGHT_22);
 		headerPanel.add(lblExtracatDataType);		
 		JComboBox extractDataTypeComboBox = new JComboBox();
-		extractDataTypeComboBox.setBounds(122, 108, 78, 26);
+		extractDataTypeComboBox.setBounds(UIConstants.WSUM_X_23, UIConstants.WSUM_Y_23, UIConstants.WSUM_WIDTH_23, UIConstants.WSUM_HEIGHT_23);
 		headerPanel.add(extractDataTypeComboBox);
 		extractDataTypeComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0){
@@ -339,12 +339,12 @@ public class WSUIControlsManager
 			public void actionPerformed(ActionEvent e){			
 				frame.executeExtractOpertion();
 			}});
-		extractButton.setBounds(256, 139, 123, 28);
+		extractButton.setBounds(UIConstants.WSUM_X_24, UIConstants.WSUM_Y_24, UIConstants.WSUM_WIDTH_24, UIConstants.WSUM_HEIGHT_24);
 		headerPanel.add(extractButton);	
 		wsUIControls.setExtractButton(extractButton);		
 		JLabel lblExtractProcess = new JLabel("Extract Process");
 		lblExtractProcess.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblExtractProcess.setBounds(10, 0, 123, 28);
+		lblExtractProcess.setBounds(UIConstants.WSUM_X_25, UIConstants.WSUM_Y_25, UIConstants.WSUM_WIDTH_25, UIConstants.WSUM_HEIGHT_25);
 		headerPanel.add(lblExtractProcess);		
 		wsUIControls.setLblExtractProcess(lblExtractProcess);		
 		exitButton.addMouseListener(new MouseAdapter() {
@@ -363,7 +363,7 @@ public class WSUIControlsManager
 	public void createBatchProcessPanel(){	
 		logger.info("Entering in createBatchProcessPanel()");		
 		JPanel batchProcessPanel = new JPanel();
-		batchProcessPanel.setBounds(10, 542, 629, 211);
+		batchProcessPanel.setBounds(UIConstants.WSUM_X_26, UIConstants.WSUM_Y_26, UIConstants.WSUM_WIDTH_26, UIConstants.WSUM_HEIGHT_26);
 		wsUIControls.setBatchProcessPanel(batchProcessPanel);		
 		wsUIControls.getContentPane().add(batchProcessPanel);
 		batchProcessPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -374,7 +374,7 @@ public class WSUIControlsManager
 				disableBatchProessPanelControls();
 			}
 		});
-		button.setBounds(427, 183, 78, 28);
+		button.setBounds(UIConstants.WSUM_X_27, UIConstants.WSUM_Y_27, UIConstants.WSUM_WIDTH_27, UIConstants.WSUM_HEIGHT_27);
 		batchProcessPanel.add(button);	
 		wsUIControls.setButton(button);		
 		JButton buttonExit = new JButton("Exit");
@@ -383,20 +383,20 @@ public class WSUIControlsManager
 				System.exit(1);
 			}
 		});
-		buttonExit.setBounds(515, 183, 78, 28);
+		buttonExit.setBounds(UIConstants.WSUM_X_28, UIConstants.WSUM_Y_28, UIConstants.WSUM_WIDTH_28, UIConstants.WSUM_HEIGHT_28);
 		batchProcessPanel.add(buttonExit);
 		wsUIControls.setButtonExit(buttonExit);		
 		JLabel lblNewLabel = new JLabel("Batch Process");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 11, 102, 28);
+		lblNewLabel.setBounds(UIConstants.WSUM_X_29, UIConstants.WSUM_Y_29, UIConstants.WSUM_WIDTH_29, UIConstants.WSUM_HEIGHT_29);
 		batchProcessPanel.add(lblNewLabel);		
 		wsUIControls.setLblNewLabel(lblNewLabel);		
 		JPanel batchProcessBrowsePanel = new JPanel();
-		batchProcessBrowsePanel.setBounds(10, 40, 609, 121);
+		batchProcessBrowsePanel.setBounds(UIConstants.WSUM_X_30, UIConstants.WSUM_Y_30, UIConstants.WSUM_WIDTH_30, UIConstants.WSUM_HEIGHT_30);
 		batchProcessPanel.add(batchProcessBrowsePanel);
 		batchProcessBrowsePanel.setLayout(null);		
 		JLabel lblOpen = new JLabel("Open : ");
-		lblOpen.setBounds(10, 19, 49, 28);
+		lblOpen.setBounds(UIConstants.WSUM_X_31, UIConstants.WSUM_Y_31, UIConstants.WSUM_WIDTH_31, UIConstants.WSUM_HEIGHT_31);
 		batchProcessBrowsePanel.add(lblOpen);
 		wsUIControls.setBatchProcessBrowsePanel(batchProcessBrowsePanel);		
 		JTextField pathtextField = new JTextField();
@@ -410,7 +410,7 @@ public class WSUIControlsManager
 					wsUIControls.getBtnProcess().setEnabled(false);
 				}	
 			}});		
-		pathtextField.setBounds(69, 19, 408, 28);
+		pathtextField.setBounds(UIConstants.WSUM_X_32, UIConstants.WSUM_Y_32, UIConstants.WSUM_WIDTH_32, UIConstants.WSUM_HEIGHT_32);
 		batchProcessBrowsePanel.add(pathtextField);
 		pathtextField.setColumns(10);
 		wsUIControls.setPathtextField(pathtextField);		
@@ -425,7 +425,7 @@ public class WSUIControlsManager
 				    enableBatchProessPanelControls();
 				}
 			}});
-		btnBrowse.setBounds(487, 19, 96, 28);
+		btnBrowse.setBounds(UIConstants.WSUM_X_33, UIConstants.WSUM_Y_33, UIConstants.WSUM_WIDTH_33, UIConstants.WSUM_HEIGHT_33);
 		batchProcessBrowsePanel.add(btnBrowse);			
 		JButton btnProcess = new JButton("Process");
 		btnProcess.addActionListener(new ActionListener() {
@@ -441,7 +441,7 @@ public class WSUIControlsManager
 				}				
 			}
 		});
-		btnProcess.setBounds(414, 80, 169, 30);
+		btnProcess.setBounds(UIConstants.WSUM_X_34, UIConstants.WSUM_Y_34, UIConstants.WSUM_WIDTH_34, UIConstants.WSUM_HEIGHT_34);
 		batchProcessBrowsePanel.add(btnProcess);
 		wsUIControls.setBtnProcess(btnProcess);		
 		disableBatchProessPanelControls();
@@ -464,8 +464,8 @@ public class WSUIControlsManager
 	 */
 	public void resetBatchProcessPanel(){		
 		logger.info("Entering in resetBatchProcessPanel()");
-		wsUIControls.getBatchProcessPanel().setBounds(10, 32, 629, 243);
-		frame.setBounds(10, 32, 657, 320);
+		wsUIControls.getBatchProcessPanel().setBounds(UIConstants.WSUM_X_35, UIConstants.WSUM_Y_35, UIConstants.WSUM_WIDTH_35, UIConstants.WSUM_HEIGHT_35);
+		frame.setBounds(UIConstants.WSUM_X_36, UIConstants.WSUM_Y_36, UIConstants.WSUM_WIDTH_36, UIConstants.WSUM_HEIGHT_36);
 		disableBatchProessPanelControls();
 		frame.setLocationRelativeTo( null );
 		logger.info("Exiting from resetBatchProcessPanel()");
@@ -488,9 +488,9 @@ public class WSUIControlsManager
 		logger.info("Entering in resetAllExtractProcessPanel()");
 		resetHeaderValuesValue();
 		wsUIControls.getQueryRunnerControlBoxPanel().setVisible(false);
-		wsUIControls.getPreviewRunQueryPanel().setBounds(10, 180, 609, 54);
-		wsUIControls.getExtractProcessPanel().setBounds(10, 32, 629, 243);
-		frame.setBounds(10, 32, 657, 320);
+		wsUIControls.getPreviewRunQueryPanel().setBounds(UIConstants.WSUM_X_37, UIConstants.WSUM_Y_37, UIConstants.WSUM_WIDTH_37, UIConstants.WSUM_HEIGHT_37);
+		wsUIControls.getExtractProcessPanel().setBounds(UIConstants.WSUM_X_38, UIConstants.WSUM_Y_38, UIConstants.WSUM_WIDTH_38, UIConstants.WSUM_HEIGHT_38);
+		frame.setBounds(UIConstants.WSUM_X_39, UIConstants.WSUM_Y_39, UIConstants.WSUM_WIDTH_39, UIConstants.WSUM_HEIGHT_39);
 		frame.setLocationRelativeTo( null );
 		wsUIControls.getBtnPreview().setEnabled(false);
 		wsUIControls.getUnStructedRadioButton().setSelected(false);
@@ -505,9 +505,9 @@ public class WSUIControlsManager
 	public void resetExtractProcessPanel(){		
 		logger.info("Entering in resetExtractProcessPanel()");
 		wsUIControls.getQueryRunnerControlBoxPanel().setVisible(false);
-		wsUIControls.getPreviewRunQueryPanel().setBounds(10, 180, 609, 54);
-		wsUIControls.getExtractProcessPanel().setBounds(10, 32, 629, 243);
-		frame.setBounds(10, 32, 657, 320);
+		wsUIControls.getPreviewRunQueryPanel().setBounds(UIConstants.WSUM_X_40, UIConstants.WSUM_Y_40, UIConstants.WSUM_WIDTH_40, UIConstants.WSUM_HEIGHT_40);
+		wsUIControls.getExtractProcessPanel().setBounds(UIConstants.WSUM_X_41, UIConstants.WSUM_Y_41, UIConstants.WSUM_WIDTH_41, UIConstants.WSUM_HEIGHT_41);
+		frame.setBounds(UIConstants.WSUM_X_42, UIConstants.WSUM_Y_42, UIConstants.WSUM_WIDTH_42, UIConstants.WSUM_HEIGHT_42);
 		frame.setLocationRelativeTo( null );
 		wsUIControls.getBtnPreview().setEnabled(false);		
 		wsUIControls.getDataTypeRadioButtonGroup().clearSelection();
@@ -519,11 +519,11 @@ public class WSUIControlsManager
 	 */
 	public void expandExtractProcessPanel()	{	
 		logger.info("Entering in expandExtractProcessPanel()");
-		frame.setBounds(100, 100, 652, 541);
+		frame.setBounds(UIConstants.WSUM_X_43, UIConstants.WSUM_Y_43, UIConstants.WSUM_WIDTH_43, UIConstants.WSUM_HEIGHT_43);
 		wsUIControls.getQueryRunnerControlBoxPanel().setVisible(true);
 		wsUIControls.getPreviewRunQueryPanel().setVisible(true);
-		wsUIControls.getPreviewRunQueryPanel().setBounds(10, 405, 609, 54);
-		wsUIControls.getExtractProcessPanel().setBounds(10, 32, 629, 470);
+		wsUIControls.getPreviewRunQueryPanel().setBounds(UIConstants.WSUM_X_44, UIConstants.WSUM_Y_44, UIConstants.WSUM_WIDTH_44, UIConstants.WSUM_HEIGHT_44);
+		wsUIControls.getExtractProcessPanel().setBounds(UIConstants.WSUM_X_45, UIConstants.WSUM_Y_45, UIConstants.WSUM_WIDTH_45, UIConstants.WSUM_HEIGHT_45);
 		frame.setLocationRelativeTo( null );		
 		String slectedValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
 		if(slectedValue.equals(ContentType.IMAGE.getType())){					

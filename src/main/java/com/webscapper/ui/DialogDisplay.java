@@ -15,6 +15,8 @@ import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
+import com.webscrapper.constants.UIConstants;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class DialogDisplay.
@@ -26,16 +28,10 @@ public class DialogDisplay
   	private static Logger logger = Logger.getLogger(DialogDisplay.class);
 	  
   	/** The main panel. */
-  	private JPanel mainPanel = new JPanel();
-	  
-  	/** The progress bar. */
-  	private int min = 0;
-  	
-	  /** The max. */
-	  private int max = 100;
+  	private JPanel mainPanel = new JPanel();	  
   	
 	  /** The progress bar. */
-	  private JProgressBar progressBar = new JProgressBar(0, 100);	 
+	  private JProgressBar progressBar = new JProgressBar(UIConstants.MIN, UIConstants.MAX);	 
 	  
   	/** The status label. */
   	private JLabel statusLabel = new JLabel("Processing....", SwingConstants.CENTER);

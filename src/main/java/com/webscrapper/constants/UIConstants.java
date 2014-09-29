@@ -21,4 +21,8 @@ public final class UIConstants
 	
 	/** The web scrapper. */
 	public static final String WEB_SCRAPPER = "Web Scrapper";
+	
+	public static final int MIN = 0;
+	
+	public static final int MAX = 100;
 }

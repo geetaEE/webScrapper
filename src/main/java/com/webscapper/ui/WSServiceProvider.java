@@ -17,6 +17,7 @@ import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
+import com.webscrapper.constants.UIConstants;
 
 
 // TODO: Auto-generated Javadoc
@@ -128,16 +129,16 @@ public class WSServiceProvider
 	{
 		logger.info("Entering fetchTabularPreviewData method.");
 		
-		String[][] columnArray = new String[4][4];
+		String[][] columnArray = new String[UIConstants.WSSP_TABLE_ROW][UIConstants.WSSP_TABLE_COLUMN];
 		List<List<List<String>>> tablesList = extractResponse != null ? extractResponse.getTables() : null;
         if (tablesList != null && tablesList.size() > 0) 
         {
         	List<List<String>> table = tablesList.get(0);                            
         	int rowCounter = populateTableData(table, columnArray);   
         	
-            if(rowCounter < 4 )
+            if(rowCounter < UIConstants.WSSP_ROW_COUNTER_FOUR )
             {            	
-            	for(int i = rowCounter ; i<= 3 ; i++)
+            	for(int i = rowCounter ; i<= UIConstants.WSSP_ROW_COUNTER_THREE ; i++)
             	{
             		populateRowBlankValue(columnArray, i);
             		
@@ -158,8 +159,8 @@ public class WSServiceProvider
 	 */
 	public void populateRowBlankValue(String[][] columnArray, int i)
 	{
-		columnArray[i] = new String[4];
-		for(int j = 0 ; j<= 3 ; j++)
+		columnArray[i] = new String[UIConstants.WSSP_ROW_COUNTER_FOUR];
+		for(int j = 0 ; j<= UIConstants.WSSP_ROW_COUNTER_THREE ; j++)
 		{
 			columnArray[i][j]="";
 		}
@@ -174,7 +175,7 @@ public class WSServiceProvider
 	 */
 	public void populateColumnBlankValue(String[][] columnArray, int columnCounter, int rowCounter)
 	{
-		for(int i = columnCounter ; i<= 3 ; i++)
+		for(int i = columnCounter ; i<= UIConstants.WSSP_ROW_COUNTER_THREE ; i++)
 		{	
 				columnArray[rowCounter][i]="";
 		}
@@ -192,15 +193,15 @@ public class WSServiceProvider
 		int rowCounter = 0;
         for (List<String> row : table) 
         {              
-        	if(rowCounter == 4)
+        	if(rowCounter == UIConstants.WSSP_ROW_COUNTER_FOUR)
         	{
         		break;
         	}
-        	columnArray[rowCounter] = new String[4];
+        	columnArray[rowCounter] = new String[UIConstants.WSSP_ROW_COUNTER_FOUR];
         	int columnCounter = 0;
         	for(String columnValue : row)
             {
-            	if(columnCounter == 4)
+            	if(columnCounter == UIConstants.WSSP_ROW_COUNTER_FOUR)
             	{
             		break;
             	}
@@ -208,7 +209,7 @@ public class WSServiceProvider
         		columnCounter++;
             }
         	
-        	if(columnCounter < 4)
+        	if(columnCounter < UIConstants.WSSP_ROW_COUNTER_FOUR)
         	{
         		populateColumnBlankValue(columnArray, columnCounter, rowCounter);		
         	}
@@ -230,10 +231,10 @@ public class WSServiceProvider
 		logger.info("Entering fetchColumnNameForPreview method.");
 		
 		String[] columnArray = new String[4];
-        columnArray[0] = "Column_1";
-        columnArray[1] = "Column_2";
-        columnArray[2] = "Column_3";
-        columnArray[3] = "Column_4";
+        columnArray[0] = UIConstants.WSSP_COLUMN_ONE;
+        columnArray[1] = UIConstants.WSSP_COLUMN_TWO;
+        columnArray[2] = UIConstants.WSSP_COLUMN_THREE;
+        columnArray[3] = UIConstants.WSSP_COLUMN_FOUR;
         
         logger.info("Exiting from fetchColumnNameForPreview method.");
         
@@ -265,9 +266,9 @@ public class WSServiceProvider
 					{
 						previewData = previewData+entry.getKey() + "\n";
 						String value = entry.getValue();
-						if(value.length() > 50)
+						if(value.length() > UIConstants.WSSP_ROW_COUNTER_TEXT_LENGTH)
 						{
-							value = value.substring(0, 50);
+							value = value.substring(0, UIConstants.WSSP_ROW_COUNTER_TEXT_LENGTH);
 						}
 						previewData = previewData+value + "\n";
 						previewData = previewData+"\n";

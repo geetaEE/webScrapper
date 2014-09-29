@@ -341,7 +341,7 @@ public class WebScrapper extends JFrame {
 					bufferedImage = ImageIO.read( stream );
 				}catch (IOException e1)	{}				
 				ImageIcon image = new ImageIcon( bufferedImage );				
-				Image scaleImage = image.getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT);				
+				Image scaleImage = image.getImage().getScaledInstance(UIConstants.WS_IMAGE_WIDTH, UIConstants.WS_IMAGE_HEIGHT, Image.SCALE_DEFAULT);				
 				image = new ImageIcon(scaleImage);				
 				JLabel lbl = new JLabel(image);				
 				JOptionPane.showMessageDialog(frame, lbl,"Image Preview", -1);	
@@ -359,13 +359,13 @@ public class WebScrapper extends JFrame {
 				table.setGridColor(Color.YELLOW);
 		        table.setBackground(Color.CYAN);
 		        table.setEnabled(false);				
-		        table.setPreferredScrollableViewportSize(new Dimension(200, 200));		        
+		        table.setPreferredScrollableViewportSize(new Dimension(UIConstants.WS_IMAGE_WIDTH, UIConstants.WS_IMAGE_HEIGHT));		        
 				scrollPane = new JScrollPane( table );
 			}else{	
 				List<String> selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getHtmlControlList());						
 				if(selectedHTMLControlList.size() >0)				{	
 					String content = wsServiceProvider.fetchNonTabularPreviewData(extractResponse, selectedHTMLControlList);					
-					JTextArea textArea = new JTextArea(10, 25);
+					JTextArea textArea = new JTextArea(UIConstants.WS_TEXT_PREVIEW_ROW, UIConstants.WS_TEXT_PREVIEW_COLUMN);
 					textArea.setLineWrap(true);
 				    textArea.setText(content);
 				    textArea.setEditable(false);				    
@@ -393,7 +393,7 @@ public class WebScrapper extends JFrame {
 		}		
 		JLabel queryLabel = new JLabel(" Result Query : ");		
 		JTextField queryTextField = new JTextField();
-		Font font = new Font("Verdana", Font.BOLD, 12);				
+		Font font = new Font("Verdana", Font.BOLD, UIConstants.WS_FONT_SIZE);				
 		queryTextField.setEditable(false);
 		queryTextField.setFont(font);		
 		String url = wsUIControls.getUrlTextField().getText();
@@ -413,7 +413,7 @@ public class WebScrapper extends JFrame {
 				queryTextField.setText(url + "," +title+","+selectedOptionValue+","+selectedTabularOption+","+WebScrapperUtil.getSelectedListItems(wsUIControls.getHtmlControlList()).toString()+","+extractToOptionValue);			
 			}
 		}		
-		queryTextField.setColumns(14);		
+		queryTextField.setColumns(UIConstants.WS_COLUMN);		
 		JComboBox comboBox = new JComboBox();				
 		comboBox.setModel(new DefaultComboBoxModel(new String[]{"Export","Save Query For Batch"}));		
 		JPanel message = new JPanel();

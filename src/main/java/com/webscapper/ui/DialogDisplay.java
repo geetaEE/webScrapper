@@ -55,12 +55,12 @@ public class DialogDisplay
 		      private int value = 0;		       
 		      @Override
 		      protected Void doInBackground() throws InterruptedException {
-		    for (int i = 0; i < 5; i++) {
-		      setProgress(10 * i);
-		      Thread.sleep(1000);
+		    for (int i = 0; i < UIConstants.DAILOG_COUNTER; i++) {
+		      setProgress(UIConstants.DAILOG_MULTIPLY * i);
+		      Thread.sleep(UIConstants.SLEEP);
 		    }
-		    setProgress(100);
-		    Thread.sleep(1000);
+		    setProgress(UIConstants.DAILOG_PROGRESS);
+		    Thread.sleep(UIConstants.SLEEP);
 		    return null;
 		      }		       
 		      @Override

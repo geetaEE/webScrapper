@@ -274,30 +274,23 @@ public class WebScrapper extends JFrame {
 	 */
 	public boolean validateUrl(String url)
 	{
+		boolean isValidURL = false;
+		
 		if(url.startsWith("http:") || url.startsWith("https:"))
 		{
-			boolean isValidURL = URLUtil.isValidURL(url);
-			if(!isValidURL)
-			{				
-				return false;
-			}						
+			isValidURL = URLUtil.isValidURL(url);												
 		}
 		else
 		{
-			boolean isValidURL = validateIncompleteUrl(url);
-			if(!isValidURL)
-			{				
-				return false;
-			}					
+			isValidURL = validateIncompleteUrl(url);								
 		}
 		
-		boolean isValid = URLUtil.isValidURLForConnection(url);
-		if(!isValid)
-		{			
-			return false;
-		}
+		if(isValidURL)
+		{	
+			isValidURL = URLUtil.isValidURLForConnection(url);		
+		}	
 		
-		return true;
+		return isValidURL;
 	}
 	
 	/**

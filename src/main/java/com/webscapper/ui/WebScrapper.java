@@ -96,7 +96,7 @@ public class WebScrapper extends JFrame {
 	private ExtractResponse extractResponse = null;
 	
 	/** The ws service provider. */
-	static  WSServiceProvider wsServiceProvider;
+	private static  WSServiceProvider wsServiceProvider;
 	
 	/** The web scrapper ui controls. */
 	private static WSUIControlsManager wsUIControlsManager;
@@ -234,29 +234,15 @@ public class WebScrapper extends JFrame {
 		if((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)){
 			JOptionPane.showMessageDialog(frame, "URL and title is required.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 			return;
-		}else{
-			if(url.startsWith("http:") || url.startsWith("https:")){
-				boolean isValidURL = URLUtil.isValidURL(url);
-				if(!isValidURL){
-					JOptionPane.showMessageDialog(frame, "URL is invalid.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
-					return;
-				}						
-			}else{
-				url = "http://"+url;
-				if(!URLUtil.isValidURL("http://"+url)){
-					url = "https://"+url; 
-					if(!URLUtil.isValidURL(url)){	
-						JOptionPane.showMessageDialog(frame, "URL is invalid.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
-						return;
-					}						
-				}					
-			}
-			
-			boolean isValid = URLUtil.isValidURLForConnection(url);
-			if(!isValid){
+		}
+		else
+		{
+			boolean isValid = validateUrl(url);
+			if(!isValid)
+			{
 				JOptionPane.showMessageDialog(frame, "URL is invalid.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
 				return;
-			}
+			}			
 		}		
 		String slectedValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
 		wsUIControls.setUrl(url);
@@ -278,6 +264,60 @@ public class WebScrapper extends JFrame {
 		wsUIControlsManager.expandExtractProcessPanel();
 		wsUIControlsManager.disableHeaderArea();
 		logger.info("Exiting from executeExtractOpertion()");
+	}
+	
+	/**
+	 * Validate url.
+	 *
+	 * @param url the url
+	 * @return true, if successful
+	 */
+	public boolean validateUrl(String url)
+	{
+		if(url.startsWith("http:") || url.startsWith("https:"))
+		{
+			boolean isValidURL = URLUtil.isValidURL(url);
+			if(!isValidURL)
+			{				
+				return false;
+			}						
+		}
+		else
+		{
+			boolean isValidURL = validateIncompleteUrl(url);
+			if(!isValidURL)
+			{				
+				return false;
+			}					
+		}
+		
+		boolean isValid = URLUtil.isValidURLForConnection(url);
+		if(!isValid)
+		{			
+			return false;
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Validate incomplete url.
+	 *
+	 * @param url the url
+	 * @return true, if successful
+	 */
+	public boolean validateIncompleteUrl(String url)
+	{
+		url = "http://"+url;
+		if(!URLUtil.isValidURL("http://"+url))
+		{
+			url = "https://"+url; 
+			if(!URLUtil.isValidURL(url))
+			{				
+				return false;
+			}						
+		}
+		return true;
 	}
 	
 	/**
@@ -381,19 +421,14 @@ public class WebScrapper extends JFrame {
         int returnvalue = JOptionPane.showOptionDialog(frame, message, UIConstants.WEB_SCRAPPER, JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         String optionValue = comboBox.getSelectedItem().toString();
         if(returnvalue == 0){	                
-        	if("Export".equals(optionValue)){               	            	
-        		List<String> selectedImageURLList = new ArrayList<String>();
-        		List<String> selectedHTMLControlList = new ArrayList<String>();        		
-        		if(selectedOptionValue.equals(ContentType.IMAGE.getType())){ 
-        			selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getImageList());
-        		}else{
-        			selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getHtmlControlList());        		
-        		}
-        		boolean result = executeExportOperation(extractToOptionValue, selectedOptionValue, selectedImageURLList, selectedHTMLControlList);
+        	if("Export".equals(optionValue))
+        	{        		
+        		boolean result = executeExportOperation(extractToOptionValue, selectedOptionValue);
         		if(!result){
         			return;        			
         		}
-            }else{
+            }
+        	else{
             	JFileChooser fc = new JFileChooser();
             	fc.setDialogTitle("Save");
 				int result = fc.showSaveDialog(WebScrapper.this);
@@ -418,9 +453,18 @@ public class WebScrapper extends JFrame {
 	 * @param selectedHTMLControlList the selected html control list
 	 * @return true, if successful
 	 */
-	private boolean executeExportOperation(String extractToOptionValue, String selectedOptionValue, List<String> selectedImageURLList, List<String> selectedHTMLControlList){
+	private boolean executeExportOperation(String extractToOptionValue, String selectedOptionValue){
 		logger.info("Entering in executeExportOperation()");
 		WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
+		
+		List<String> selectedImageURLList = new ArrayList<String>();
+		List<String> selectedHTMLControlList = new ArrayList<String>();        		
+		if(selectedOptionValue.equals(ContentType.IMAGE.getType())){ 
+			selectedImageURLList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getImageList());
+		}else{
+			selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getHtmlControlList());        		
+		}
+		
 		String msg = "All data exported successfully.";    	
     	if(!"DB".equals(extractToOptionValue)){	
     		JFileChooser fc = new JFileChooser();

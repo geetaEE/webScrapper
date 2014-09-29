@@ -74,10 +74,7 @@ public class WSUIControlsManager
 		contentPane.setLayout(null);
 		wsUIControls.setContentPane(contentPane);		
 		ButtonGroup dataTypeRadioButtonGroup = new ButtonGroup();
-		wsUIControls.setDataTypeRadioButtonGroup(dataTypeRadioButtonGroup);		
-		createMenus();			
-		createExtrctProcessPanel();		
-		createBatchProcessPanel();
+		wsUIControls.setDataTypeRadioButtonGroup(dataTypeRadioButtonGroup);				
 		logger.info("Exiting from WebScrapper()");
 	}
 	

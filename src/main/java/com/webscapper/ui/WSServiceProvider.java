@@ -19,6 +19,7 @@ import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class WSServiceProvider.
  */
@@ -132,44 +133,14 @@ public class WSServiceProvider
         if (tablesList != null && tablesList.size() > 0) 
         {
         	List<List<String>> table = tablesList.get(0);                            
-        	int rowCounter = 0;           
-            for (List<String> row : table) 
-            {              
-            	if(rowCounter == 4)
-            	{
-            		break;
-            	}
-            	columnArray[rowCounter] = new String[4];
-            	int columnCounter = 0;
-            	for(String columnValue : row)
-                {
-                	if(columnCounter == 4)
-                	{
-                		break;
-                	}
-                	columnArray[rowCounter][columnCounter]=columnValue;
-            		columnCounter++;
-                }
-            	
-            	if(columnCounter < 4)
-            	{
-            		for(int i = columnCounter ; i<= 3 ; i++)
-            		{	
-            				columnArray[rowCounter][i]="";
-            		}		
-            	}
-            	
-            	rowCounter++;
-            }
+        	int rowCounter = populateTableData(table, columnArray);   
+        	
             if(rowCounter < 4 )
             {            	
             	for(int i = rowCounter ; i<= 3 ; i++)
             	{
-            		columnArray[i] = new String[4];
-            		for(int j = 0 ; j<= 3 ; j++)
-            		{
-            			columnArray[i][j]="";
-            		}
+            		populateRowBlankValue(columnArray, i);
+            		
             	}
             }
         }
@@ -177,6 +148,75 @@ public class WSServiceProvider
         logger.info("Exiting from fetchTabularPreviewData method.");
         
         return columnArray;
+	}
+	
+	/**
+	 * Populate row blank value.
+	 *
+	 * @param columnArray the column array
+	 * @param i the i
+	 */
+	public void populateRowBlankValue(String[][] columnArray, int i)
+	{
+		columnArray[i] = new String[4];
+		for(int j = 0 ; j<= 3 ; j++)
+		{
+			columnArray[i][j]="";
+		}
+	}
+	
+	/**
+	 * Populate column blank value.
+	 *
+	 * @param columnArray the column array
+	 * @param columnCounter the column counter
+	 * @param rowCounter the row counter
+	 */
+	public void populateColumnBlankValue(String[][] columnArray, int columnCounter, int rowCounter)
+	{
+		for(int i = columnCounter ; i<= 3 ; i++)
+		{	
+				columnArray[rowCounter][i]="";
+		}
+	}
+	
+	/**
+	 * Populate table data.
+	 *
+	 * @param table the table
+	 * @param columnArray the column array
+	 * @return the int
+	 */
+	public int populateTableData(List<List<String>> table, String[][] columnArray)
+	{
+		int rowCounter = 0;
+        for (List<String> row : table) 
+        {              
+        	if(rowCounter == 4)
+        	{
+        		break;
+        	}
+        	columnArray[rowCounter] = new String[4];
+        	int columnCounter = 0;
+        	for(String columnValue : row)
+            {
+            	if(columnCounter == 4)
+            	{
+            		break;
+            	}
+            	columnArray[rowCounter][columnCounter]=columnValue;
+        		columnCounter++;
+            }
+        	
+        	if(columnCounter < 4)
+        	{
+        		populateColumnBlankValue(columnArray, columnCounter, rowCounter);		
+        	}
+        	
+        	rowCounter++;
+        }
+        
+        return rowCounter;
 	}
 	
 	/**
@@ -244,7 +284,7 @@ public class WSServiceProvider
 	/**
 	 * Fetch image preview data.
 	 *
-	 * @param ImageURL the image url
+	 * @param imageURL the image url
 	 * @return the input stream
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */

@@ -39,6 +39,7 @@ import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class WSUIControlsManager.
  */
@@ -180,6 +181,16 @@ public class WSUIControlsManager
 	            }	
 	         }});	
 		wsUIControls.setImageList(imageList);		
+		createExtrctProcessPanelPhaseTwo(imageList, queryRunnerControlBoxPanel, extractProcessPanel);	
+		logger.info("Exiting from createExtrctProcessPanel()");
+	}	
+	
+	
+	/**
+	 * Creates the extrct process panel phase two.
+	 */
+	public void createExtrctProcessPanelPhaseTwo(JList imageList, JPanel queryRunnerControlBoxPanel, JPanel extractProcessPanel)
+	{
 		JList htmlControlList = new JList(new CheckListItem[]{});		
 		htmlControlList.setCellRenderer(new CheckListRenderer());		
 		htmlControlList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
@@ -314,9 +325,8 @@ public class WSUIControlsManager
 				System.exit(1);
 			}
 		});		
-		scrollPane.setVisible(false);	
-		logger.info("Exiting from createExtrctProcessPanel()");
-	}	
+		scrollPane.setVisible(false);
+	}
 	
 	/**
 	 * Method for crating the batch process panel.

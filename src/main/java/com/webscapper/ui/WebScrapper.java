@@ -377,6 +377,7 @@ public class WebScrapper extends JFrame {
 	 * Method for perform the run query operation.
 	 */
 	public void executeRunQueryOperation(){		
+		logger.info("Entering in executeRunQueryOperation()");
 		WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
 		String selectedOptionValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
 		String extractToOptionValue = "";		
@@ -414,28 +415,42 @@ public class WebScrapper extends JFrame {
         message.add(comboBox);
         Object[] options = new String[]{"Process","Cancel"};
         int returnvalue = JOptionPane.showOptionDialog(frame, message, UIConstants.WEB_SCRAPPER, JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-        String optionValue = comboBox.getSelectedItem().toString();
-        if(returnvalue == 0){	                
-        	if("Export".equals(optionValue))
-        	{        		
-        		boolean result = executeExportOperation(extractToOptionValue, selectedOptionValue);
-        		if(!result){
-        			return;        			
-        		}
-            }
-        	else{
-            	JFileChooser fc = new JFileChooser();
-            	fc.setDialogTitle("Save");
-				int result = fc.showSaveDialog(WebScrapper.this);
-				if (result == JFileChooser.APPROVE_OPTION){
-				    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
-				}else{
-					return;				
-				}
-            }
-        	wsUIControlsManager.resetAllExtractProcessPanel();
+        String optionValue = comboBox.getSelectedItem().toString();       
+        if(returnvalue == 0)
+        {	                
+        	 performExportOperation(optionValue, extractToOptionValue, selectedOptionValue);
         }
         logger.info("Exiting from executeRunQueryOperation()");
+	}
+	
+	/**
+	 * Perform export operation.
+	 *
+	 * @param optionValue the option value
+	 * @param extractToOptionValue the extract to option value
+	 * @param selectedOptionValue the selected option value
+	 */
+	public void performExportOperation(String optionValue, String extractToOptionValue, String selectedOptionValue)
+	{
+		if("Export".equals(optionValue))
+    	{        		
+    		boolean result = executeExportOperation(extractToOptionValue, selectedOptionValue);
+    		if(!result){
+    			return;        			
+    		}
+        }
+    	else
+    	{
+        	JFileChooser fc = new JFileChooser();
+        	fc.setDialogTitle("Save");
+			int result = fc.showSaveDialog(WebScrapper.this);
+			if (result == JFileChooser.APPROVE_OPTION){
+			    JOptionPane.showMessageDialog(frame, "Query Saved Successfuly for batch processing. For batch processing you need to select batch process menu.", UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
+			}else{
+				return;				
+			}
+        }
+    	wsUIControlsManager.resetAllExtractProcessPanel();
 	}
 
 

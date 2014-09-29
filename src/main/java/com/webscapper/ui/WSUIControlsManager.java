@@ -296,7 +296,7 @@ public class WSUIControlsManager
 		JTextField urlTextField = new JTextField();
 		urlTextField.setBounds(UIConstants.WSUM_X_18, UIConstants.WSUM_Y_18, UIConstants.WSUM_WIDTH_18, UIConstants.WSUM_HEIGHT_18);
 		headerPanel.add(urlTextField);
-		urlTextField.setColumns(10);
+		urlTextField.setColumns(UIConstants.WSUM_URL_TEXT_COLUMN);
 		wsUIControls.setUrlTextField(urlTextField);		
 		createExtrctProcessPanelPhaseFour(headerPanel, exitButton, scrollPane);
 	}
@@ -317,7 +317,7 @@ public class WSUIControlsManager
 		JTextField titleTextField = new JTextField();
 		titleTextField.setBounds(UIConstants.WSUM_X_20, UIConstants.WSUM_Y_20, UIConstants.WSUM_WIDTH_20, UIConstants.WSUM_HEIGHT_20);
 		headerPanel.add(titleTextField);
-		titleTextField.setColumns(10);	
+		titleTextField.setColumns(UIConstants.WSUM_URL_TEXT_COLUMN);	
 		wsUIControls.setTitleTextField(titleTextField);		
 		JLabel lblKeyword = new JLabel("Title*");
 		lblKeyword.setBounds(UIConstants.WSUM_X_21, UIConstants.WSUM_Y_21, UIConstants.WSUM_WIDTH_21, UIConstants.WSUM_HEIGHT_21);
@@ -343,7 +343,7 @@ public class WSUIControlsManager
 		headerPanel.add(extractButton);	
 		wsUIControls.setExtractButton(extractButton);		
 		JLabel lblExtractProcess = new JLabel("Extract Process");
-		lblExtractProcess.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblExtractProcess.setFont(new Font("Tahoma", Font.BOLD, UIConstants.WSUM_URL_FONT_SIZE));
 		lblExtractProcess.setBounds(UIConstants.WSUM_X_25, UIConstants.WSUM_Y_25, UIConstants.WSUM_WIDTH_25, UIConstants.WSUM_HEIGHT_25);
 		headerPanel.add(lblExtractProcess);		
 		wsUIControls.setLblExtractProcess(lblExtractProcess);		
@@ -387,7 +387,7 @@ public class WSUIControlsManager
 		batchProcessPanel.add(buttonExit);
 		wsUIControls.setButtonExit(buttonExit);		
 		JLabel lblNewLabel = new JLabel("Batch Process");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, UIConstants.WSUM_URL_FONT_SIZE));
 		lblNewLabel.setBounds(UIConstants.WSUM_X_29, UIConstants.WSUM_Y_29, UIConstants.WSUM_WIDTH_29, UIConstants.WSUM_HEIGHT_29);
 		batchProcessPanel.add(lblNewLabel);		
 		wsUIControls.setLblNewLabel(lblNewLabel);		
@@ -412,7 +412,7 @@ public class WSUIControlsManager
 			}});		
 		pathtextField.setBounds(UIConstants.WSUM_X_32, UIConstants.WSUM_Y_32, UIConstants.WSUM_WIDTH_32, UIConstants.WSUM_HEIGHT_32);
 		batchProcessBrowsePanel.add(pathtextField);
-		pathtextField.setColumns(10);
+		pathtextField.setColumns(UIConstants.WSUM_URL_TEXT_COLUMN);
 		wsUIControls.setPathtextField(pathtextField);		
 		JButton btnBrowse = new JButton("Browse..");
 		btnBrowse.addActionListener(new ActionListener() {

@@ -640,5 +640,11 @@ public final class UIConstants
 	public static final int WSUM_WIDTH_45 = 629;
 	
 	/** The Constant WSUM_HEIGHT_45. */
-	public static final int WSUM_HEIGHT_45 = 470;	
+	public static final int WSUM_HEIGHT_45 = 470;
+	
+	/** The Constant WSUM_URL_TEXT_COLUMN. */
+	public static final int WSUM_URL_TEXT_COLUMN = 10;
+	
+	/** The Constant WSUM_URL_FONT_SIZE. */
+	public static final int WSUM_URL_FONT_SIZE = 14;
 }

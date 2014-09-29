@@ -230,11 +230,7 @@ public class WSServiceProvider
 	{		
 		logger.info("Entering fetchColumnNameForPreview method.");
 		
-		String[] columnArray = new String[UIConstants.WSSP_TABLE_ROW];
-        columnArray[0] = UIConstants.WSSP_COLUMN_ONE;
-        columnArray[1] = UIConstants.WSSP_COLUMN_TWO;
-        columnArray[2] = UIConstants.WSSP_COLUMN_THREE;
-        columnArray[3] = UIConstants.WSSP_COLUMN_FOUR;
+		String[] columnArray = new String[]{UIConstants.WSSP_COLUMN_ONE,UIConstants.WSSP_COLUMN_TWO,UIConstants.WSSP_COLUMN_THREE, UIConstants.WSSP_COLUMN_FOUR};        
         
         logger.info("Exiting from fetchColumnNameForPreview method.");
         

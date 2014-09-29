@@ -260,6 +260,11 @@ public class WSUIControlsManager
 		extractProcessPanel.add(previewRunQueryPanel);
 		previewRunQueryPanel.setLayout(null);
 		wsUIControls.setPreviewRunQueryPanel(previewRunQueryPanel);		
+		createExtrctProcessPanelPhaseThree(previewRunQueryPanel, extractProcessPanel, scrollPane);
+	}
+	
+	public void createExtrctProcessPanelPhaseThree(JPanel previewRunQueryPanel, JPanel extractProcessPanel, JScrollPane scrollPane)
+	{
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

@@ -301,11 +301,11 @@ public class WebScrapper extends JFrame {
 	 */
 	public boolean validateIncompleteUrl(String url)
 	{
-		url = "http://"+url;
-		if(!URLUtil.isValidURL("http://"+url))
+		String completeUrl = "http://"+url;
+		if(!URLUtil.isValidURL(completeUrl))
 		{
-			url = "https://"+url; 
-			if(!URLUtil.isValidURL(url))
+			completeUrl = "https://"+url; 
+			if(!URLUtil.isValidURL(completeUrl))
 			{				
 				return false;
 			}						
@@ -373,8 +373,7 @@ public class WebScrapper extends JFrame {
 	/**
 	 * Method for perform the run query operation.
 	 */
-	public void executeRunQueryOperation(){
-		logger.info("Entering in executeRunQueryOperation()");
+	public void executeRunQueryOperation(){		
 		WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
 		String selectedOptionValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
 		String extractToOptionValue = "";		

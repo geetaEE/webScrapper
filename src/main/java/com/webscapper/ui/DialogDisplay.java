@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 
 import org.apache.log4j.Logger;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class DialogDisplay.
  */
@@ -28,7 +29,13 @@ public class DialogDisplay
   	private JPanel mainPanel = new JPanel();
 	  
   	/** The progress bar. */
-  	private JProgressBar progressBar = new JProgressBar(0, 100);	 
+  	private int min = 0;
+  	
+	  /** The max. */
+	  private int max = 100;
+  	
+	  /** The progress bar. */
+	  private JProgressBar progressBar = new JProgressBar(0, 100);	 
 	  
   	/** The status label. */
   	private JLabel statusLabel = new JLabel("Processing....", SwingConstants.CENTER);

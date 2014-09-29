@@ -188,6 +188,10 @@ public class WSUIControlsManager
 	
 	/**
 	 * Creates the extrct process panel phase two.
+	 *
+	 * @param imageList the image list
+	 * @param queryRunnerControlBoxPanel the query runner control box panel
+	 * @param extractProcessPanel the extract process panel
 	 */
 	public void createExtrctProcessPanelPhaseTwo(JList imageList, JPanel queryRunnerControlBoxPanel, JPanel extractProcessPanel)
 	{
@@ -263,6 +267,13 @@ public class WSUIControlsManager
 		createExtrctProcessPanelPhaseThree(previewRunQueryPanel, extractProcessPanel, scrollPane);
 	}
 	
+	/**
+	 * Creates the extrct process panel phase three.
+	 *
+	 * @param previewRunQueryPanel the preview run query panel
+	 * @param extractProcessPanel the extract process panel
+	 * @param scrollPane the scroll pane
+	 */
 	public void createExtrctProcessPanelPhaseThree(JPanel previewRunQueryPanel, JPanel extractProcessPanel, JScrollPane scrollPane)
 	{
 		JButton btnReset = new JButton("Reset");
@@ -287,6 +298,19 @@ public class WSUIControlsManager
 		headerPanel.add(urlTextField);
 		urlTextField.setColumns(10);
 		wsUIControls.setUrlTextField(urlTextField);		
+		createExtrctProcessPanelPhaseFour(headerPanel, exitButton, scrollPane);
+	}
+	
+	
+	/**
+	 * Creates the extrct process panel phase four.
+	 *
+	 * @param headerPanel the header panel
+	 * @param exitButton the exit button
+	 * @param scrollPane the scroll pane
+	 */
+	public void createExtrctProcessPanelPhaseFour(JPanel headerPanel, JButton exitButton, JScrollPane scrollPane)
+	{
 		JLabel lblUrl = new JLabel("URL*");
 		lblUrl.setBounds(10, 29, 31, 28);
 		wsUIControls.getHeaderPanel().add(lblUrl);		

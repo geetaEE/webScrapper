@@ -211,6 +211,9 @@ public class WebScrapper extends JFrame {
 												try {
 													frame = new WebScrapper();frame.setVisible(true);frame.setLocationRelativeTo( null );
 													wsUIControlsManager = new WSUIControlsManager(frame);
+													wsUIControlsManager.createMenus();			
+													wsUIControlsManager.createExtrctProcessPanel();		
+													wsUIControlsManager.createBatchProcessPanel();
 													wsUIControlsManager.resetAllExtractProcessPanel();				
 												}catch (Exception e) 
 												{

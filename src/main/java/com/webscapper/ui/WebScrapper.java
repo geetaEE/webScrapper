@@ -355,9 +355,7 @@ public class WebScrapper extends JFrame {
 				String columnNames[] = wsServiceProvider.fetchColumnNameForPreview(extractResponse);
 				String dataValues[][] = wsServiceProvider.fetchTabularPreviewData(extractResponse);				
 				JTable table = new JTable( dataValues, columnNames );
-				table.setTableHeader(null);
-				table.setGridColor(Color.YELLOW);
-		        table.setBackground(Color.CYAN);
+				table.setTableHeader(null);				
 		        table.setEnabled(false);				
 		        table.setPreferredScrollableViewportSize(new Dimension(UIConstants.WS_IMAGE_WIDTH, UIConstants.WS_IMAGE_HEIGHT));		        
 				scrollPane = new JScrollPane( table );

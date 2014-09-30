@@ -1,6 +1,5 @@
 package com.webscapper.ui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;

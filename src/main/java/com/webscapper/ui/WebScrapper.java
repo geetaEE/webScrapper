@@ -487,10 +487,18 @@ public class WebScrapper extends JFrame {
 			    File selectedFile = fc.getSelectedFile();			     
             	if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
             	{
-            		msg = "All Images exported successfully.";
-            		extractToOptionValue = ExportType.IMAGE.getType();
-            	}            	
-            	ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.getExportType(extractToOptionValue),selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
+            		msg = "All Images exported successfully.";           		
+            	}     	
+            	
+            	ExportRequest exportRequest = null;
+            	if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
+            	{	
+            		exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.IMAGE,selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
+            	}
+            	else
+            	{
+            		exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.getExportType(extractToOptionValue),selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
+            	}
             	ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);            	
             	WebScrapperUtil.showWaitingDialog(frame);            	
             	if(exportResponse.isSuccess()){

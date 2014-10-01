@@ -18,7 +18,7 @@ public final class DBConstants
 	public static final String DB_NAME ="EE_J5_DB";
 	
 	/** The Constant MONGO_SERVER. */
-	public static final String MONGO_SERVER = "192.168.206.210";
+	public static final String MONGO_SERVER = "localhost";
 	
 	/** The Constant PORT_NO. */
 	public static final int PORT_NO = 27017;

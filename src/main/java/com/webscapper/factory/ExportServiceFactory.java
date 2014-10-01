@@ -56,7 +56,7 @@ public abstract class ExportServiceFactory
                     else if (ExportType.TEXT.equals(type)) {
                       instanceMap.put(type, new ExportToTextService());
                     }
-                    else {
+                    else if(ExportType.IMAGE.equals(type)){
                         instanceMap.put(type, new ExportToImageService());
                     }
                 }

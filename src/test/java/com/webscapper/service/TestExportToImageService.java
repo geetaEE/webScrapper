@@ -17,6 +17,7 @@ import org.junit.runners.JUnit4;
 
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.request.ExportRequest;
+import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
 
 /**
@@ -46,7 +47,8 @@ public class TestExportToImageService
     exportRequest.setTitle("Test");
     exportRequest.setUrl("https://www.httpsnow.org/");
     exportRequest.setLocation(System.getProperty("user.dir"));
-    exportRequest.setImageURLList(imageUrlsList);    
+    exportRequest.setImageURLList(imageUrlsList);
+    exportRequest.setExportType(ExportType.IMAGE);
     
     ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
     exportService.export(exportRequest);
@@ -66,6 +68,7 @@ public class TestExportToImageService
     exportRequest.setUrl("https://www.httpsnow.org/");
     exportRequest.setLocation(null);
     exportRequest.setImageURLList(imageUrlsList);    
+    exportRequest.setExportType(ExportType.IMAGE);
     
     ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
     exportService.export(exportRequest);
@@ -85,6 +88,7 @@ public class TestExportToImageService
     exportRequest.setUrl("https://www.httpsnow.org/");
     exportRequest.setLocation(null);
     exportRequest.setImageURLList(imageUrlsList);    
+    exportRequest.setExportType(ExportType.IMAGE);
     
     ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
     exportService.export(exportRequest);

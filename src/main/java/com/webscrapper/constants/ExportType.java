@@ -1,6 +1,9 @@
 package com.webscrapper.constants;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Enum ExportType.
+ *
  * @author ruby.jha
  * Defines Content types.
  */
@@ -12,7 +15,10 @@ public enum ExportType {
     /** The Text. */
     TEXT("Text"),
     /** The DOC. */
-    DOC("Doc");
+    DOC("Doc"),    
+    
+    /** The image. */
+    IMAGE("Image");
 
     /** The type. */
     private String type;

@@ -488,7 +488,7 @@ public class WebScrapper extends JFrame {
             	if(selectedOptionValue.equals(ContentType.IMAGE.getType()))
             	{
             		msg = "All Images exported successfully.";
-            		extractToOptionValue = "Image";
+            		extractToOptionValue = ExportType.IMAGE.getType();
             	}            	
             	ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(),wsUIControls.getTitle(),extractResponse,ExportType.getExportType(extractToOptionValue),selectedHTMLControlList,selectedFile.getAbsolutePath(),selectedImageURLList);
             	ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);            	

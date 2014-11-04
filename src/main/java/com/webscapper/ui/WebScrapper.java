@@ -284,43 +284,31 @@ public class WebScrapper extends JFrame {
 	public boolean validateUrl(String url)
 	{
 		boolean isValidURL = false;
-		
+		String completeUrl = "";
 		if(url.startsWith("http:") || url.startsWith("https:"))
 		{
-			isValidURL = URLUtil.isValidURL(url);												
+			isValidURL = URLUtil.isValidURL(url);
+			completeUrl = completeUrl+url;
 		}
 		else
 		{
-			isValidURL = validateIncompleteUrl(url);								
+			completeUrl = "http://"+url;
+			isValidURL = URLUtil.isValidURL(completeUrl);
+			if(!isValidURL)
+			{
+				completeUrl = "https://"+url;
+				isValidURL = URLUtil.isValidURL(completeUrl);			
+			}													
 		}
 		
 		if(isValidURL)
 		{	
-			isValidURL = URLUtil.isValidURLForConnection(url);		
+			isValidURL = URLUtil.isValidURLForConnection(completeUrl);		
 		}	
 		
 		return isValidURL;
-	}
+	}	
 	
-	/**
-	 * Validate incomplete url.
-	 *
-	 * @param url the url
-	 * @return true, if successful
-	 */
-	public boolean validateIncompleteUrl(String url)
-	{
-		String completeUrl = "http://"+url;
-		if(!URLUtil.isValidURL(completeUrl))
-		{
-			completeUrl = "https://"+url; 
-			if(!URLUtil.isValidURL(completeUrl))
-			{				
-				return false;
-			}						
-		}
-		return true;
-	}
 	
 	/**
 	 * Method for preview operation.

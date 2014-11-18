@@ -90,7 +90,7 @@ public final class CommonConstants {
 
     /** The Constant EXTRACT_SSL_ERROR. */
     public static final String EXTRACT_SSL_ERROR = "Secured ssl key is not valid for https";
-    
+
     /** The Constant EXTRACT_HTTP_ERROR. */
     public static final String EXTRACT_HTTP_ERROR = "HTTP Error with statut code ";
 }

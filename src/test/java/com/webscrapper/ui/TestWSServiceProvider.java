@@ -21,20 +21,15 @@ import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 
-
-/**
- * The Class TestWSServiceProvider.
- *
- * @author vivek.yadav
- */
+/** The Class TestWSServiceProvider.
+ * 
+ * @author vivek.yadav */
 @RunWith(JUnit4.class)
 public class TestWSServiceProvider {
-    //~ Methods ------------------------------------------------------------------------------------------------------
+    // ~ Methods ------------------------------------------------------------------------------------------------------
 
-    /**
-     * Unit test for buildExtractRequest().
-     */
-	@Test
+    /** Unit test for buildExtractRequest(). */
+    @Test
     public void testBuildExtractRequest() {
         String url = "www.google.com";
         ContentType contentType = ContentType.IMAGE;
@@ -47,11 +42,8 @@ public class TestWSServiceProvider {
         Assert.assertEquals("Content type is wrong.", contentType, extractRequest.getContentType());
     }
 
-
-    /**
-     * Unit test for buildExportRequest().
-     */
-	@Test
+    /** Unit test for buildExportRequest(). */
+    @Test
     public void testBuildExportRequest() {
         String url = "google.com";
         String title = "testTitle";
@@ -62,8 +54,8 @@ public class TestWSServiceProvider {
         List<String> selectedImageURLList = Arrays.asList(new String[] { "Image1" });
 
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
-        ExportRequest exportRequest = wsServiceProvider.buildExportRequest(
-                url, title, extractResponse, exportType, tagsList, location, selectedImageURLList);
+        ExportRequest exportRequest = wsServiceProvider.buildExportRequest(url, title, extractResponse, exportType, tagsList, location,
+                selectedImageURLList);
 
         Assert.assertNotNull("ExportRequest object should not be null.", exportRequest);
         Assert.assertEquals("Url is wrong.", url, exportRequest.getUrl());
@@ -75,11 +67,8 @@ public class TestWSServiceProvider {
         Assert.assertEquals("ImageURLList is wrong.", selectedImageURLList, exportRequest.getImageURLList());
     }
 
-
-    /**
-     * Unit test for executeExtractOperation().
-     */
-	@Test
+    /** Unit test for executeExtractOperation(). */
+    @Test
     public void testExecuteExtractOperation() {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
@@ -93,11 +82,8 @@ public class TestWSServiceProvider {
         Assert.assertNotNull("ExportRequest object should not be null.", extractResponse);
     }
 
-
-    /**
-     * Unit test for executeExportOperation().
-     */
-	@Test
+    /** Unit test for executeExportOperation(). */
+    @Test
     public void testExecuteExportOperation() {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
@@ -122,19 +108,15 @@ public class TestWSServiceProvider {
         List<String> tagsList = tagList;
         String location = System.getProperty("user.dir");
 
-        ExportRequest exportRequest = wsServiceProvider.buildExportRequest(
-                url, title, extractResponse1, exportType, tagsList, location, null);
+        ExportRequest exportRequest = wsServiceProvider.buildExportRequest(url, title, extractResponse1, exportType, tagsList, location, null);
 
         ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
 
         Assert.assertTrue("Response should be success.", exportResponse.isSuccess());
     }
 
-
-    /**
-     * Unit test for fetchTabularPreviewData().
-     */
-	@Test
+    /** Unit test for fetchTabularPreviewData(). */
+    @Test
     public void testFetchTabularPreviewData() {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
@@ -152,11 +134,8 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Column count should be 4.", result[0].length == 4);
     }
 
-
-    /**
-     * Unit test for fetchColumnNameForPreview().
-     */
-	@Test
+    /** Unit test for fetchColumnNameForPreview(). */
+    @Test
     public void testFetchColumnNameForPreview() {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
@@ -172,14 +151,10 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Column count should be 4.", columns.length == 4);
     }
 
-
-    /**
-     * Unit test for fetchNonTabularPreviewData().
-     */
+    /** Unit test for fetchNonTabularPreviewData(). */
     @Test
-    public void testFetchNonTabularPreviewData() 
-    {
-    	WSServiceProvider wsServiceProvider = new WSServiceProvider();
+    public void testFetchNonTabularPreviewData() {
+        WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
         String url = "http://www.w3schools.com/html/html_tables.asp";
         String title = "testTitle";
@@ -196,27 +171,24 @@ public class TestWSServiceProvider {
         for (TagType tagType : tagValues) {
             tagList.add(tagType.getDisplayName());
         }
-    	
+
         String result = wsServiceProvider.fetchNonTabularPreviewData(extractResponse, tagList);
-       
+
         Assert.assertNotNull("Result String should not be null.", result);
     }
 
-
-    /**
-     * Unit test for fetchImagePreviewData().
-     *
-     * @throws IOException Signals that an I/O exception has occurred.
-     */
+    /** Unit test for fetchImagePreviewData().
+     * 
+     * @throws IOException
+     *             Signals that an I/O exception has occurred. */
     @Test
-    public void testFetchImagePreviewData() throws IOException
-    {
-    	WSServiceProvider wsServiceProvider = new WSServiceProvider();
-    	
-    	String imageURL = "http://www.w3schools.com/images/w3logotest2.png";
-    	
-    	InputStream inputStream = wsServiceProvider.fetchImagePreviewData(imageURL);
-    	
-    	Assert.assertNotNull("inputStream should not be null.", inputStream);
+    public void testFetchImagePreviewData() throws IOException {
+        WSServiceProvider wsServiceProvider = new WSServiceProvider();
+
+        String imageURL = "http://www.w3schools.com/images/w3logotest2.png";
+
+        InputStream inputStream = wsServiceProvider.fetchImagePreviewData(imageURL);
+
+        Assert.assertNotNull("inputStream should not be null.", inputStream);
     }
 }

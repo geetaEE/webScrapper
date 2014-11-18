@@ -26,191 +26,167 @@ import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
-/**
- * @author ruby.jha
- * Test export service.
- */
+/** @author ruby.jha Test export service. */
 @RunWith(JUnit4.class)
-public class TestExportService { 
-	
-	/** The exportRequest. */
-	private ExportRequest exportRequest;	
-	/** The extractResponse. */
-	private ExtractResponse extractResponse;
-	
-	@Before
-	public void setUp() {
-		exportRequest = new ExportRequest();		
-		extractResponse = new ExtractResponse();
-		exportRequest.setTitle("Test");
-		exportRequest.setLocation(System.getProperty("user.dir"));
-		exportRequest.setExportType(ExportType.DOC);
-		exportRequest.setExtractResponse(extractResponse);
-	}
-	
-	/**
-	   * Method under test: export()
-	   * Scenario: Verifying the behavior when table List is not null.    
-	   * Expectation: Data should be saved to DB successfully.
-	   */
-    @Test
-	public void testExportToDB() {
-		List<String> columnValue1 = new ArrayList<String>();
-		columnValue1.add("Test1");
-		columnValue1.add("Test2");
+public class TestExportService {
 
-		List<String> columnValue2 = new ArrayList<String>();
-		columnValue2.add("Test4");
-		columnValue2.add("Test5");
+    /** The exportRequest. */
+    private ExportRequest exportRequest;
+    /** The extractResponse. */
+    private ExtractResponse extractResponse;
 
-		List<List<String>> rowList1 = new ArrayList<List<String>>();
-		rowList1.add(columnValue1);
-		rowList1.add(columnValue2);
-
-		List<List<String>> rowList2 = new ArrayList<List<String>>();
-		rowList2.add(columnValue2);
-
-		List<List<List<String>>> tableList = new ArrayList<List<List<String>>>();
-		tableList.add(rowList1);
-		tableList.add(rowList2);
-		exportRequest.setTitle("Test");
-		exportRequest.setUrl("https://www.httpsnow.org/");
-		exportRequest.setExportType(ExportType.DB);
-
-		extractResponse.setTables(tableList);
-		exportRequest.setExtractResponse(extractResponse);
-
-		ExportService exportService = ExportServiceFactory
-				.getInstance(exportRequest.getExportType());
-		ExportResponse exportResponse = exportService.export(exportRequest);
-		Assert.assertTrue(exportResponse.isSuccess() == true);
-		Assert.assertNotNull(tableList);
-		Assert.assertNotNull(exportRequest.getUrl());
-	}
-    
-    /**
-     * Method under test: export()
-     * Scenario: Verifying the behavior when Tag Data Map and tags list are not null.    
-     * Expectation: Data should be exported to doc successfully.
-     */
-    @Test
-	public void testExportToDoc() {		
-		Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
-		tagDataMap.put(TagType.DIV, "Div Text");
-		tagDataMap.put(TagType.SPAN, "Span Text");
-		tagDataMap.put(TagType.ANCHOR, "Anchor Text");
-		tagDataMap.put(TagType.BOLD, "Bold");
-		tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
-		extractResponse.setTagDataMap(tagDataMap);
-		List<String> tagsList = new ArrayList<String>();
-		tagsList.add("Div");
-		tagsList.add("Span");
-		tagsList.add("Hyper Link");
-		tagsList.add("Bold Text");
-		tagsList.add("Paragraph");			
-		exportRequest.setTagsList(tagsList);
-		ExportService exportService = ExportServiceFactory
-				.getInstance(exportRequest.getExportType());
-		ExportResponse exportResponse = exportService.export(exportRequest);
-		Assert.assertTrue(exportResponse.isSuccess() == true);
-		Assert.assertNotNull(tagDataMap);
-		Assert.assertNotNull(tagsList);
-	}
-    
-    /**
-     * Method under test: export()
-     * Scenario: Verifying the behavior when tag list is Null.    
-     * Expectation: Data will not be saved & method will not throw any Exception.
-     */
-    @Test
-    public void testExportToDocWhenTagsListIsNull() 
-    {      
-	  exportRequest.setTagsList(null);
-      ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
-      exportService.export(exportRequest);
-      assertFalse(exportService.export(exportRequest).isSuccess());
+    @Before
+    public void setUp() {
+        exportRequest = new ExportRequest();
+        extractResponse = new ExtractResponse();
+        exportRequest.setTitle("Test");
+        exportRequest.setLocation(System.getProperty("user.dir"));
+        exportRequest.setExportType(ExportType.DOC);
+        exportRequest.setExtractResponse(extractResponse);
     }
-    
-    /**
-     * Method under test: export()
-     * Scenario: Verifying the behavior when Tag Data Map and tags list are not null.    
-     * Expectation: Data should be exported to text file successfully.
-     */
+
+    /** Method under test: export() Scenario: Verifying the behavior when table List is not null. Expectation: Data should be saved to DB successfully. */
     @Test
-	public void testExportToText() {		
-		Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
-		tagDataMap.put(TagType.DIV, "Div Text");
-		tagDataMap.put(TagType.SPAN, "Span Text");
-		tagDataMap.put(TagType.ANCHOR, "Anchor Text");
-		tagDataMap.put(TagType.BOLD, "Bold");
-		tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
-		extractResponse.setTagDataMap(tagDataMap);
-		List<String> tagsList = new ArrayList<String>();
-		tagsList.add("Div");
-		tagsList.add("Span");
-		tagsList.add("Hyper Link");
-		tagsList.add("Bold Text");
-		tagsList.add("Paragraph");		
-		exportRequest.setExportType(ExportType.TEXT);
-		exportRequest.setTagsList(tagsList);
-		ExportService exportService = ExportServiceFactory
-				.getInstance(exportRequest.getExportType());
-		ExportResponse exportResponse = exportService.export(exportRequest);
-		Assert.assertTrue(exportResponse.isSuccess() == true);
-		Assert.assertNotNull(tagDataMap);
-		Assert.assertNotNull(tagsList);
-	}
-    
-    /**
-     * Method under test: export()
-     * Scenario: Verifying the behavior when Tag Data Map and tags list are not null.    
-     * Expectation: Data should be exported to csv successfully.
-     */
+    public void testExportToDB() {
+        List<String> columnValue1 = new ArrayList<String>();
+        columnValue1.add("Test1");
+        columnValue1.add("Test2");
+
+        List<String> columnValue2 = new ArrayList<String>();
+        columnValue2.add("Test4");
+        columnValue2.add("Test5");
+
+        List<List<String>> rowList1 = new ArrayList<List<String>>();
+        rowList1.add(columnValue1);
+        rowList1.add(columnValue2);
+
+        List<List<String>> rowList2 = new ArrayList<List<String>>();
+        rowList2.add(columnValue2);
+
+        List<List<List<String>>> tableList = new ArrayList<List<List<String>>>();
+        tableList.add(rowList1);
+        tableList.add(rowList2);
+        exportRequest.setTitle("Test");
+        exportRequest.setUrl("https://www.httpsnow.org/");
+        exportRequest.setExportType(ExportType.DB);
+
+        extractResponse.setTables(tableList);
+        exportRequest.setExtractResponse(extractResponse);
+
+        ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
+        ExportResponse exportResponse = exportService.export(exportRequest);
+        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertNotNull(tableList);
+        Assert.assertNotNull(exportRequest.getUrl());
+    }
+
+    /** Method under test: export() Scenario: Verifying the behavior when Tag Data Map and tags list are not null. Expectation: Data should be exported
+     * to doc successfully. */
     @Test
-	public void testExportToCSV() {		
-		Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
-		tagDataMap.put(TagType.DIV, "Div Text");
-		tagDataMap.put(TagType.SPAN, "Span Text");
-		tagDataMap.put(TagType.ANCHOR, "Anchor Text");
-		tagDataMap.put(TagType.BOLD, "Bold");
-		tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
-		extractResponse.setTagDataMap(tagDataMap);
-		List<String> tagsList = new ArrayList<String>();
-		tagsList.add("Div");
-		tagsList.add("Span");
-		tagsList.add("Hyper Link");
-		tagsList.add("Bold Text");
-		tagsList.add("Paragraph");		
-		exportRequest.setExportType(ExportType.CSV);
-		exportRequest.setTagsList(tagsList);
-		ExportService exportService = ExportServiceFactory
-				.getInstance(exportRequest.getExportType());
-		ExportResponse exportResponse = exportService.export(exportRequest);
-		Assert.assertTrue(exportResponse.isSuccess() == true);
-		Assert.assertNotNull(tagDataMap);
-		Assert.assertNotNull(tagsList);
-	}
-    
-    /** Test export table to csv. 
+    public void testExportToDoc() {
+        Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
+        tagDataMap.put(TagType.DIV, "Div Text");
+        tagDataMap.put(TagType.SPAN, "Span Text");
+        tagDataMap.put(TagType.ANCHOR, "Anchor Text");
+        tagDataMap.put(TagType.BOLD, "Bold");
+        tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
+        extractResponse.setTagDataMap(tagDataMap);
+        List<String> tagsList = new ArrayList<String>();
+        tagsList.add("Div");
+        tagsList.add("Span");
+        tagsList.add("Hyper Link");
+        tagsList.add("Bold Text");
+        tagsList.add("Paragraph");
+        exportRequest.setTagsList(tagsList);
+        ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
+        ExportResponse exportResponse = exportService.export(exportRequest);
+        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertNotNull(tagDataMap);
+        Assert.assertNotNull(tagsList);
+    }
+
+    /** Method under test: export() Scenario: Verifying the behavior when tag list is Null. Expectation: Data will not be saved & method will not throw
+     * any Exception. */
+    @Test
+    public void testExportToDocWhenTagsListIsNull() {
+        exportRequest.setTagsList(null);
+        ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
+        exportService.export(exportRequest);
+        assertFalse(exportService.export(exportRequest).isSuccess());
+    }
+
+    /** Method under test: export() Scenario: Verifying the behavior when Tag Data Map and tags list are not null. Expectation: Data should be exported
+     * to text file successfully. */
+    @Test
+    public void testExportToText() {
+        Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
+        tagDataMap.put(TagType.DIV, "Div Text");
+        tagDataMap.put(TagType.SPAN, "Span Text");
+        tagDataMap.put(TagType.ANCHOR, "Anchor Text");
+        tagDataMap.put(TagType.BOLD, "Bold");
+        tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
+        extractResponse.setTagDataMap(tagDataMap);
+        List<String> tagsList = new ArrayList<String>();
+        tagsList.add("Div");
+        tagsList.add("Span");
+        tagsList.add("Hyper Link");
+        tagsList.add("Bold Text");
+        tagsList.add("Paragraph");
+        exportRequest.setExportType(ExportType.TEXT);
+        exportRequest.setTagsList(tagsList);
+        ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
+        ExportResponse exportResponse = exportService.export(exportRequest);
+        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertNotNull(tagDataMap);
+        Assert.assertNotNull(tagsList);
+    }
+
+    /** Method under test: export() Scenario: Verifying the behavior when Tag Data Map and tags list are not null. Expectation: Data should be exported
+     * to csv successfully. */
+    @Test
+    public void testExportToCSV() {
+        Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
+        tagDataMap.put(TagType.DIV, "Div Text");
+        tagDataMap.put(TagType.SPAN, "Span Text");
+        tagDataMap.put(TagType.ANCHOR, "Anchor Text");
+        tagDataMap.put(TagType.BOLD, "Bold");
+        tagDataMap.put(TagType.PARAGRAPH, "Paragraph Text");
+        extractResponse.setTagDataMap(tagDataMap);
+        List<String> tagsList = new ArrayList<String>();
+        tagsList.add("Div");
+        tagsList.add("Span");
+        tagsList.add("Hyper Link");
+        tagsList.add("Bold Text");
+        tagsList.add("Paragraph");
+        exportRequest.setExportType(ExportType.CSV);
+        exportRequest.setTagsList(tagsList);
+        ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
+        ExportResponse exportResponse = exportService.export(exportRequest);
+        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertNotNull(tagDataMap);
+        Assert.assertNotNull(tagsList);
+    }
+
+    /** Test export table to csv.
+     * 
      * @throws IOException */
     @Test
-    public void testExportTableToCSV() throws IOException { 
+    public void testExportTableToCSV() throws IOException {
         String url = "http://www.w3schools.com/html/html_tables.asp";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
         request.setContentType(ContentType.TEXT);
         ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
-        exportRequest.setExtractResponse(response);  
+        exportRequest.setExtractResponse(response);
         exportRequest.setExportType(ExportType.CSV);
         ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
         ExportResponse exportResponse = exportService.export(exportRequest);
         Assert.assertTrue(exportResponse.isSuccess() == true);
     }
-    
+
     @After
-    public void destroy()
-    {
-    	exportRequest = null;    	
-    	extractResponse = null;		
+    public void destroy() {
+        exportRequest = null;
+        extractResponse = null;
     }
 }

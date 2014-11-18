@@ -16,12 +16,10 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.DataAccessService;
 import com.webscrapper.service.ExportService;
 
-/**
- * @author ruby.jha
- * Export to DB service.
- */
+/** @author ruby.jha Export to DB service. */
 public class ExportToDBService implements ExportService {
-	private static Logger logger = Logger.getLogger(ExportToDBService.class);
+    private static Logger logger = Logger.getLogger(ExportToDBService.class);
+
     /*
      * This method is used to insert the tabular data into DB based on the ExportType
      */

@@ -2,27 +2,24 @@ package com.webscrapper.connection;
 
 import org.apache.log4j.Logger;
 
-/**
- * @author ruby.jha
- * Mongo Connection Manager
- */
-public final class MongoConnectionManager{
-	private static Logger logger = Logger.getLogger(MongoConnectionManager.class);
-	/** The connection. */
+/** @author ruby.jha Mongo Connection Manager */
+public final class MongoConnectionManager {
+    private static Logger logger = Logger.getLogger(MongoConnectionManager.class);
+    /** The connection. */
     private MongoConnection connection;
     /** The connectionManager. */
     private static MongoConnectionManager connectionManager;
-    
+
     /** Prohibits direct instantiation of a new mongo connection from another class. */
-    private MongoConnectionManager()
-    {
+    private MongoConnectionManager() {
 
     }
+
     /** Gets the single instance of MongoConnectionManager.
-     *
+     * 
      * @return single instance of MongoConnectionManager */
     public static MongoConnectionManager getInstance() {
-    	logger.info("Entering getInstance method.");
+        logger.info("Entering getInstance method.");
         if (connectionManager == null) {
             synchronized (MongoConnectionManager.class) {
                 if (connectionManager == null) {
@@ -33,11 +30,10 @@ public final class MongoConnectionManager{
         logger.info("Exiting from getInstance method.");
         return connectionManager;
     }
-    /**
-	 * @return the connection
-	 */
+
+    /** @return the connection */
     public MongoConnection getConnection() {
-    	logger.info("Entering getConnection method.");
+        logger.info("Entering getConnection method.");
         if (connection == null) {
             connection = new MongoConnection();
         }
@@ -45,15 +41,13 @@ public final class MongoConnectionManager{
         return connection;
     }
 
-    /**
-	 * Release connection
-	 */
+    /** Release connection */
     public void releaseConnection() {
-    	 logger.info("Entering from releaseConnection method.");
+        logger.info("Entering from releaseConnection method.");
         if (connection != null) {
             connection.closeConnection();
         }
         logger.info("Exiting from releaseConnection method.");
-    }    
- 
+    }
+
 }

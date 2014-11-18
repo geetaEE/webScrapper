@@ -11,80 +11,64 @@ import java.net.URLConnection;
 
 import org.apache.log4j.Logger;
 
-/**
- * The Class URLUtil.
- */
-public final class URLUtil 
-{
-	
-	/**
-	 * Instantiates a new URL util.
-	 */
-	private URLUtil(){}
-	/** The logger. */
-	private static Logger logger = Logger.getLogger(URLUtil.class);
-	
-	/**
-	 * Checks if is valid url.
-	 *
-	 * @param url the url
-	 * @return true, if is valid url
-	 */
-	public static boolean isValidURL(String url) 
-	{
-		logger.info("Entering isValidURL method.");
-		
-		URL u = null;
-        try
-        {
+/** The Class URLUtil. */
+public final class URLUtil {
+
+    /** Instantiates a new URL util. */
+    private URLUtil() {
+    }
+
+    /** The logger. */
+    private static Logger logger = Logger.getLogger(URLUtil.class);
+
+    /** Checks if is valid url.
+     * 
+     * @param url
+     *            the url
+     * @return true, if is valid url */
+    public static boolean isValidURL(String url) {
+        logger.info("Entering isValidURL method.");
+
+        URL u = null;
+        try {
             u = new URL(url);
-        } 
-        catch (MalformedURLException e) 
-        {        	
-        	logger.warn(e);
-        	return false;
+        } catch (MalformedURLException e) {
+            logger.warn(e);
+            return false;
         }
-        
-        try 
-        {
+
+        try {
             u.toURI();
-        } 
-        catch (URISyntaxException e) 
-        {        	
-        	logger.warn(e);
-        	
-        	return false;
-        } 
-        
+        } catch (URISyntaxException e) {
+            logger.warn(e);
+
+            return false;
+        }
+
         logger.info("Exiting from isValidURL method.");
-        
+
         return true;
     }
-	
-	/**
-	 * Checks if is valid url for connection.
-	 *
-	 * @param url the url
-	 * @return true, if is valid url for connection
-	 */
-	public static boolean isValidURLForConnection(String url)
-	{
-		logger.info("Entering isValidURLForConnection method.");
-		
-		try 
-		{		   
-			URL webURL = new URL(url);
-			URLConnection conn = webURL.openConnection();
-		    conn.connect();
-		}		
-		catch (IOException ex) 
-		{			
-			logger.warn(ex);
-			return false;			 
-		}		
-		
-		logger.info("Exiting from isValidURLForConnection method.");
-		
-		return true;
-	}
+
+    /** Checks if is valid url for connection.
+     * 
+     * @param url
+     *            the url
+     * @return true, if is valid url for connection */
+    public static boolean isValidURLForConnection(String url) {
+        logger.info("Entering isValidURLForConnection method.");
+
+        try {
+            URL webURL = new URL(url);
+            URLConnection conn = webURL.openConnection();
+            conn.connect();
+        } catch (IOException ex) {
+            logger.warn(ex);
+            return false;
+        }
+
+        logger.info("Exiting from isValidURLForConnection method.");
+
+        return true;
+    }
 }

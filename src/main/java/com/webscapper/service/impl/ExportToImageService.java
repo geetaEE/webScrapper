@@ -17,8 +17,9 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 public class ExportToImageService implements ExportService {
-	private static Logger logger = Logger.getLogger(ExportToImageService.class);
-	/*
+    private static Logger logger = Logger.getLogger(ExportToImageService.class);
+
+    /*
      * (non-Javadoc)
      * @see com.webscrapper.service.ExportService#export(com.webscapper.request.ExportRequest) Export Image Functionality.
      */

@@ -4,16 +4,10 @@ import java.util.Map;
 
 import com.mongodb.DBCollection;
 
-/**
- * @author ruby.jha
- * DataAccessService
- */
+/** @author ruby.jha DataAccessService */
 
 public interface DataAccessService {
-	/**
-	 * insert tabular data to DB
-	 *
-	 */	
-	DBCollection insertData(Map<String, Object> map);
+    /** insert tabular data to DB */
+    DBCollection insertData(Map<String, Object> map);
 
 }

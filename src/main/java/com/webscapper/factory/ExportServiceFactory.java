@@ -13,18 +13,13 @@ import com.webscapper.service.impl.ExportToTextService;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
 
+/** @author ruby.jha A factory for creating export service objects. */
+public abstract class ExportServiceFactory {
 
-/**
- * @author ruby.jha
- * A factory for creating export service objects.
- */
-public abstract class ExportServiceFactory 
-{
-	
-	/** The logger. */
-	private static Logger logger = Logger.getLogger(ExportServiceFactory.class);
-	
-	/** The instance map. */
+    /** The logger. */
+    private static Logger logger = Logger.getLogger(ExportServiceFactory.class);
+
+    /** The instance map. */
     private static Map<ExportType, ExportService> instanceMap;
 
     /** Get export service instance.
@@ -33,7 +28,7 @@ public abstract class ExportServiceFactory
      *            content type
      * @return instance */
     public static ExportService getInstance(ExportType type) {
-    	logger.info("Entering getInstance method.");
+        logger.info("Entering getInstance method.");
         if (null == instanceMap) {
             synchronized (ExportServiceFactory.class) {
                 if (null == instanceMap) {
@@ -46,23 +41,19 @@ public abstract class ExportServiceFactory
                 if (!instanceMap.containsKey(type)) {
                     if (ExportType.DB.equals(type)) {
                         instanceMap.put(type, new ExportToDBService());
-                    }
-                    else if (ExportType.CSV.equals(type)) {
+                    } else if (ExportType.CSV.equals(type)) {
                         instanceMap.put(type, new ExportToCSVService());
-                    }
-                    else if (ExportType.DOC.equals(type)) {
+                    } else if (ExportType.DOC.equals(type)) {
                         instanceMap.put(type, new ExportToDocService());
-                    }
-                    else if (ExportType.TEXT.equals(type)) {
-                      instanceMap.put(type, new ExportToTextService());
-                    }
-                    else if(ExportType.IMAGE.equals(type)){
+                    } else if (ExportType.TEXT.equals(type)) {
+                        instanceMap.put(type, new ExportToTextService());
+                    } else if (ExportType.IMAGE.equals(type)) {
                         instanceMap.put(type, new ExportToImageService());
                     }
                 }
             }
         }
         logger.info("Exiting from getInstance method.");
-        return instanceMap.get(type);        
+        return instanceMap.get(type);
     }
 }

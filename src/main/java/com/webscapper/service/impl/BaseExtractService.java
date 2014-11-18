@@ -1,10 +1,8 @@
 package com.webscapper.service.impl;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -12,11 +10,13 @@ import java.security.cert.X509Certificate;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.log4j.Logger;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -46,9 +46,9 @@ public abstract class BaseExtractService implements ExtractService {
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (KeyManagementException e) {
-            logger.error("Security key error occurred" + e);
+            logger.error("Security key error occurred", e);
         } catch (NoSuchAlgorithmException e) {
-            logger.error("Security algorithm error occurred" + e);
+            logger.error("Security algorithm error occurred", e);
         }
         // Create all-trusting host name verifier
         HostnameVerifier allHostsValid = new HostnameVerifier() {
@@ -71,26 +71,21 @@ public abstract class BaseExtractService implements ExtractService {
         Document doc = null;
         try {
             doc = Jsoup.connect(url).userAgent(CommonConstants.USER_AGENT).timeout(CommonConstants.EXTRACT_TIMEOUT).get();
-        } catch (IOException ie) {
-            BufferedReader br = null;
-            StringBuilder htmlB = new StringBuilder();
-            try {
-                URLConnection con = new URL(url).openConnection();
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                String input = null;
-                while ((input = br.readLine()) != null) {
-                    htmlB.append(input);
-                }
-            } finally {
-                if (br != null) {
-                    br.close();
-                }
-            }
-            String html = htmlB.toString().trim();
-            if (!html.isEmpty()) {
-                doc = Jsoup.parse(htmlB.toString());
-            }
+        } catch (IllegalArgumentException e) {
+            logger.error(CommonConstants.EXTRACT_URL_INVALID, e);
+            throw new IOException(CommonConstants.EXTRACT_URL_INVALID);
+        } catch (UnknownHostException e) {
+            logger.error(CommonConstants.EXTRACT_URL_INVALID, e);
+            throw new IOException(CommonConstants.EXTRACT_URL_INVALID);
+        } catch (SocketTimeoutException e) {
+            logger.error(CommonConstants.EXTRACT_READ_TIME_OUT, e);
+            throw new IOException(CommonConstants.EXTRACT_READ_TIME_OUT);
+        } catch (HttpStatusException e) {
+            logger.error(CommonConstants.EXTRACT_HTTP_ERROR + e.getStatusCode(), e);
+            throw new IOException(CommonConstants.EXTRACT_HTTP_ERROR + e.getStatusCode());
+        } catch (SSLHandshakeException e) {
+            logger.error(CommonConstants.EXTRACT_SSL_ERROR, e);
+            throw new IOException(CommonConstants.EXTRACT_SSL_ERROR);
         }
         if (doc != null) {
             doc.select(CommonConstants.HIDDEN_CONTENT_EXPRESSION).remove();

@@ -112,8 +112,11 @@ public class TestExtractService {
         request.setContentType(ContentType.IMAGE);
         setFinalStatic(CommonConstants.class.getDeclaredField("EXTRACT_TIMEOUT"), 1);
 
-        ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
-        Assert.assertNull(response);
+        try {
+            ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+        } catch (IOException e) {
+            Assert.assertEquals(CommonConstants.EXTRACT_READ_TIME_OUT, e.getMessage());
+        }
     }
 
     /** FinalStatic.

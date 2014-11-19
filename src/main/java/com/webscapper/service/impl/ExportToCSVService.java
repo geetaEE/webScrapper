@@ -14,12 +14,10 @@ import com.webscapper.util.CommonUtil;
 import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
+/** Export to CSV service. */
 public class ExportToCSVService implements ExportService {
-    private static Logger logger = Logger.getLogger(ExportToCSVService.class);
+    private static final Logger logger = Logger.getLogger(ExportToCSVService.class);
 
-    /*
-     * This method will export data into CSV file.
-     */
     @Override
     public ExportResponse export(ExportRequest request) {
         logger.info("CSV export executing");
@@ -32,6 +30,7 @@ public class ExportToCSVService implements ExportService {
 			logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
 			exportResponse.setErrMsg(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
 			exportResponse.setSuccess(false);
+			return exportResponse;
 		}
         ExtractResponse response = request.getExtractResponse();
         List<List<List<String>>> tablesList = response != null ? response.getTables() : null;

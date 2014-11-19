@@ -1,6 +1,7 @@
 package com.webscapper.service.impl;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -14,31 +15,33 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
-/** @author ruby.jha Export To Doc Service */
+/** Export To Doc Service */
 public class ExportToDocService implements ExportService {
-    private static Logger logger = Logger.getLogger(ExportToDocService.class);
+    private static final Logger logger = Logger.getLogger(ExportToDocService.class);
 
-    /*
-     * This method will export non tabular data into doc. This will take file name, tagsList from the UI and return ExportResponse
-     */
     @Override
     public ExportResponse export(ExportRequest request) {
         String fileName = null;
-        ExportResponse exportResponse = null;
+        ExportResponse exportResponse = new ExportResponse();
         ExtractResponse response = null;
         FileWriter writer = null;
         List<String> tagsList = null;
+        if (request != null) {
+            fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_DOC);
+            response = request.getExtractResponse();
+            tagsList = request.getTagsList();
+        }
         try {
-            exportResponse = new ExportResponse();
-            if (request != null) {
-                fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_DOC);
-                response = request.getExtractResponse();
-                tagsList = request.getTagsList();
-            }
             writer = new FileWriter(fileName);
+        } catch (IOException e) {
+            logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
+            exportResponse.setErrMsg(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
+            exportResponse.setSuccess(false);
+            return exportResponse;
+        }
 
-            Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
-
+        Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
+        try {
             if (tagsList != null) {
                 for (String tags : tagsList) {
                     for (Map.Entry<TagType, String> entry : tagData.entrySet()) {
@@ -51,13 +54,21 @@ public class ExportToDocService implements ExportService {
                 }
                 exportResponse.setSuccess(true);
             }
-            writer.close();
-
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
+            exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
             exportResponse.setSuccess(false);
-            logger.warn(e);
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
+                    exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
+                    exportResponse.setSuccess(false);
+                }
+            }
         }
         return exportResponse;
     }
-
 }

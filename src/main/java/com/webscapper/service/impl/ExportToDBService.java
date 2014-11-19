@@ -14,28 +14,20 @@ import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.CommonConstants;
-import com.webscrapper.service.DataAccessService;
 import com.webscrapper.service.ExportService;
 
-/** @author ruby.jha Export to DB service. */
+/** Export to DB service. */
 public class ExportToDBService implements ExportService {
-    private static Logger logger = Logger.getLogger(ExportToDBService.class);
+    private static final Logger logger = Logger.getLogger(ExportToDBService.class);
 
-    /*
-     * This method is used to insert the tabular data into DB based on the ExportType
-     */
     @Override
     public ExportResponse export(ExportRequest request) {
-        DataAccessService serviceImpl = null;
-        Map<String, Object> map = null;
         ExportResponse exportResponse = new ExportResponse();
         try {
             ExtractResponse response = request.getExtractResponse();
             List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
             if (tablesList != null) {
-                map = new HashMap<String, Object>();
                 List<Map<String, List<Map<String, List<String>>>>> tableList = new ArrayList<Map<String, List<Map<String, List<String>>>>>();
-
                 for (List<List<String>> table : tablesList) {
                     List<Map<String, List<String>>> rowList = new ArrayList<Map<String, List<String>>>();
                     for (List<String> row : table) {
@@ -48,12 +40,13 @@ public class ExportToDBService implements ExportService {
                     rowMap.put(CommonConstants.ROWS, rowList);
                     tableList.add(rowMap);
                 }
+                
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put(CommonConstants.TITLE, request.getTitle() + CommonConstants.DATE_FORMATTER.format(new Date()));
                 map.put(CommonConstants.URL, request.getUrl());
                 map.put(CommonConstants.TABLES, tableList);
 
-                serviceImpl = new DataAccessServiceImpl();
-                DBCollection collection = serviceImpl.insertData(map);
+                DBCollection collection = new DataAccessServiceImpl().insertData(map);
 
                 if (collection != null) {
                     exportResponse.setSuccess(true);
@@ -64,7 +57,6 @@ public class ExportToDBService implements ExportService {
             exportResponse.setErrMsg(e.getMessage());
             exportResponse.setSuccess(false);
         }
-
         return exportResponse;
     }
 }

@@ -96,4 +96,16 @@ public final class CommonConstants {
     
     /** The Constant EXTRACT_DEFAULT_ERROR. */
     public static final String EXTRACT_DEFAULT_ERROR = "Some problem in extraction";
+    
+    /** The Constant DB_AUTHENTICATE_ERROR. */
+    public static final String DB_AUTHENTICATE_ERROR = "Database is not authenticated due to invalid credentials";
+    
+    /** The Constant DB_INSERT_ERROR. */
+    public static final String DB_INSERT_ERROR = "Problem in db insert";
+    
+    /** The Constant EXP_FILE_EXIST_ERROR. */
+    public static final String EXP_FILE_EXIST_ERROR = "Either file is directory or does not exists or open permission is denied as for file ";
+    
+    /** The Constant EXP_FILE_OPER_ERROR. */
+    public static final String EXP_FILE_OPER_ERROR = "Problem occured in file operation for ";
 }

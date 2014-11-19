@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import com.mongodb.DBCollection;
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
@@ -58,9 +59,10 @@ public class ExportToDBService implements ExportService {
                     exportResponse.setSuccess(true);
                 }
             }
-        } catch (Exception e) {
+        } catch (WebScrapperException e) {
+            logger.error(e);
+            exportResponse.setErrMsg(e.getMessage());
             exportResponse.setSuccess(false);
-            logger.warn(e);
         }
 
         return exportResponse;

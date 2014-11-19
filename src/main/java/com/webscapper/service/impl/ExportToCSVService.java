@@ -1,6 +1,7 @@
 package com.webscapper.service.impl;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,42 +24,56 @@ public class ExportToCSVService implements ExportService {
     public ExportResponse export(ExportRequest request) {
         logger.info("CSV export executing");
         ExportResponse exportResponse = new ExportResponse();
-        String fileName = null;
+        String fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_CSV);
+        FileWriter writer = null;
+		try {
+			writer = new FileWriter(fileName);
+		} catch (IOException e) {
+			logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
+			exportResponse.setErrMsg(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
+			exportResponse.setSuccess(false);
+		}
+        ExtractResponse response = request.getExtractResponse();
+        List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
         try {
-            fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_CSV);
-            FileWriter writer = new FileWriter(fileName);
-            ExtractResponse response = request.getExtractResponse();
-            List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
-            if (tablesList != null) {
-                Iterator<List<List<String>>> tableIterator = tablesList.iterator();
-                while (tableIterator.hasNext()) {
-                    List<List<String>> rowsList = tableIterator.next();
-                    Iterator<List<String>> rowIterator = rowsList.iterator();
-                    while (rowIterator.hasNext()) {
-                        int commaCounter = 0;
-                        List<String> colsList = rowIterator.next();
-                        Iterator<String> colIterator = colsList.iterator();
-                        while (colIterator.hasNext()) {
-                            if (commaCounter > 0) {
-                                writer.append(",");
-                            }
-                            writer.append(colIterator.next());
-                            commaCounter++;
-                        }
+			if (tablesList != null) {
+			    Iterator<List<List<String>>> tableIterator = tablesList.iterator();
+			    while (tableIterator.hasNext()) {
+			        List<List<String>> rowsList = tableIterator.next();
+			        Iterator<List<String>> rowIterator = rowsList.iterator();
+			        while (rowIterator.hasNext()) {
+			            int commaCounter = 0;
+			            List<String> colsList = rowIterator.next();
+			            Iterator<String> colIterator = colsList.iterator();
+			            while (colIterator.hasNext()) {
+			                if (commaCounter > 0) {
+			                    writer.append(",");
+			                }
+			                writer.append(colIterator.next());
+			                commaCounter++;
+			            }
 
-                        writer.append("\r\n");
-                    }
-                    writer.append("\r\n");
-                }
-            }
-
-            writer.close();
-
-            exportResponse.setSuccess(true);
-        } catch (Exception e) {
-            exportResponse.setSuccess(false);
-            logger.warn(e);
-        }
+			            writer.append("\r\n");
+			        }
+			        writer.append("\r\n");
+			    }
+			}
+			exportResponse.setSuccess(true);
+		} catch (IOException e) {
+			logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
+			exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
+			exportResponse.setSuccess(false);
+		} finally {
+			if (writer != null) {
+				try {
+					writer.close();
+				} catch (IOException e) {
+					logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
+					exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
+					exportResponse.setSuccess(false);
+				}
+			}
+		}
         return exportResponse;
     }
 }

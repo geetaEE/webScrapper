@@ -1,6 +1,7 @@
 package com.webscapper.service.impl;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -18,21 +19,25 @@ import com.webscrapper.service.ExportService;
 public class ExportToTextService implements ExportService {
     private static Logger logger = Logger.getLogger(ExportToTextService.class);
 
-    /*
-     * This method will export non tabular data into Text file.
-     */
     @Override
     public ExportResponse export(ExportRequest request) {
         logger.info("Text export executing");
-        String fileName = null;
         ExportResponse exportResponse = new ExportResponse();
+        String fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_TEXT);
+        FileWriter writer = null;
         try {
-            fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_TEXT);
-            FileWriter writer = new FileWriter(fileName);
-            ExtractResponse response = request.getExtractResponse();
-            List<String> tagsList = request.getTagsList();
-            Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
+            writer = new FileWriter(fileName);
+        } catch (IOException e) {
+            logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
+            exportResponse.setErrMsg(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
+            exportResponse.setSuccess(false);
+            return exportResponse;
+        }
+        ExtractResponse response = request.getExtractResponse();
+        List<String> tagsList = request.getTagsList();
+        Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
 
+        try {
             if (tagsList != null) {
                 for (String tags : tagsList) {
                     for (Map.Entry<TagType, String> entry : tagData.entrySet()) {
@@ -45,13 +50,21 @@ public class ExportToTextService implements ExportService {
                 }
                 exportResponse.setSuccess(true);
             }
-            writer.close();
-
-        } catch (Exception e) {
+        } catch (IOException e) {
+            logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
+            exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
             exportResponse.setSuccess(false);
-            logger.warn(e);
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
+                    exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
+                    exportResponse.setSuccess(false);
+                }
+            }
         }
         return exportResponse;
     }
-
 }

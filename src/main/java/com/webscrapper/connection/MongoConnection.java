@@ -57,7 +57,7 @@ public class MongoConnection {
         return db;
     }
 
-    /** @Close client */
+    /** Close client */
     public void closeClient() {
         logger.info("Entering from closeClient method.");
         if (client != null) {

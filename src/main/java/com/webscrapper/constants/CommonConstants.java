@@ -108,4 +108,16 @@ public final class CommonConstants {
     
     /** The Constant EXP_FILE_OPER_ERROR. */
     public static final String EXP_FILE_OPER_ERROR = "Problem occured in file operation for ";
+    
+    /** The Constant EXP_IMG_URL_INVALID. */
+    public static final String EXP_IMG_URL_INVALID = "Image URL is invalid";
+    
+    /** The Constant EXP_IMG_OPER_ERROR. */
+    public static final String EXP_IMG_OPER_ERROR = "Problem occured in image export";
+    
+    /** The Constant EXP_IMG_FILE_EXIST_RW_ERROR. */
+    public static final String EXP_IMG_FILE_EXIST_RW_ERROR = "File is directory or has permission problem";
+    
+    /** The Constant EXP_IMG_FILE_WRITE_ERROR. */
+    public static final String EXP_IMG_FILE_WRITE_ERROR = "File has write permission problem";
 }

@@ -2,7 +2,6 @@ package com.webscapper.service;
 
 import static org.junit.Assert.assertFalse;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,6 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.factory.ExtractServiceFactory;
 import com.webscapper.request.ExportRequest;
@@ -169,9 +169,9 @@ public class TestExportService {
 
     /** Test export table to csv.
      * 
-     * @throws IOException */
+     * @throws WebScrapperException */
     @Test
-    public void testExportTableToCSV() throws IOException {
+    public void testExportTableToCSV() throws WebScrapperException {
         String url = "http://www.w3schools.com/html/html_tables.asp";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);

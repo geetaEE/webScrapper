@@ -1,6 +1,5 @@
 package com.webscapper.service.impl;
 
-import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -8,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.CommonConstants;
@@ -18,7 +18,7 @@ public class ImageExtractService extends BaseExtractService {
     private static final Logger LOG = Logger.getLogger(ImageExtractService.class);
 
     @Override
-    public ExtractResponse extract(ExtractRequest request) throws IOException {
+    public ExtractResponse extract(ExtractRequest request) throws WebScrapperException {
         LOG.info("Method extract for Image is executing");
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());

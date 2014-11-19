@@ -1,7 +1,6 @@
 package com.webscrapper.service;
 
-import java.io.IOException;
-
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
 
@@ -12,6 +11,6 @@ public interface ExtractService {
      * @param request
      *            the request
      * @return extracted content
-     * @throws IOException */
-    ExtractResponse extract(ExtractRequest request) throws IOException;
+     * @throws WebScrapperException */
+    ExtractResponse extract(ExtractRequest request) throws WebScrapperException;
 }

@@ -93,4 +93,7 @@ public final class CommonConstants {
 
     /** The Constant EXTRACT_HTTP_ERROR. */
     public static final String EXTRACT_HTTP_ERROR = "HTTP Error with statut code ";
+    
+    /** The Constant EXTRACT_DEFAULT_ERROR. */
+    public static final String EXTRACT_DEFAULT_ERROR = "Some problem in extraction";
 }

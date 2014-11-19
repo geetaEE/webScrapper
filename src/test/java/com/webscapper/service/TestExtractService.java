@@ -1,6 +1,5 @@
 package com.webscapper.service;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.factory.ExtractServiceFactory;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
@@ -24,9 +24,9 @@ import com.webscrapper.constants.TagType;
 public class TestExtractService {
     /** Test https extraction.
      * 
-     * @throws IOException */
+     * @throws WebScrapperException */
     @Test
-    public void testExtractHttps() throws IOException {
+    public void testExtractHttps() throws WebScrapperException {
         String url = "https://www.httpsnow.org/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -39,9 +39,9 @@ public class TestExtractService {
 
     /** Test https extraction.
      * 
-     * @throws IOException */
+     * @throws WebScrapperException */
     @Test
-    public void testExtractHttp() throws IOException {
+    public void testExtractHttp() throws WebScrapperException {
         String url = "http://stackoverflow.com/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -54,9 +54,9 @@ public class TestExtractService {
 
     /** Test https extraction.
      * 
-     * @throws IOException */
+     * @throws WebScrapperException */
     @Test
-    public void testExtractText() throws IOException {
+    public void testExtractText() throws WebScrapperException {
         String url = "https://www.httpsnow.org/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -70,9 +70,9 @@ public class TestExtractService {
 
     /** Test table extraction.
      * 
-     * @throws IOException */
+     * @throws WebScrapperException */
     @Test
-    public void testExtractTable() throws IOException {
+    public void testExtractTable() throws WebScrapperException {
         String url = "http://www.w3schools.com/html/html_tables.asp";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -88,9 +88,9 @@ public class TestExtractService {
 
     /** Test image extraction.
      * 
-     * @throws IOException */
+     * @throws WebScrapperException */
     @Test
-    public void testExtractImage() throws IOException {
+    public void testExtractImage() throws WebScrapperException {
         String url = "https://www.httpsnow.org/";
         ExtractRequest request = new ExtractRequest();
         request.setUrl(url);
@@ -114,7 +114,7 @@ public class TestExtractService {
 
         try {
             ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
-        } catch (IOException e) {
+        } catch (WebScrapperException e) {
             Assert.assertEquals(CommonConstants.EXTRACT_READ_TIME_OUT, e.getMessage());
         }
     }

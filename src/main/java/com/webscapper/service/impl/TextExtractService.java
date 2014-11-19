@@ -1,6 +1,5 @@
 package com.webscapper.service.impl;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExtractResponse;
 import com.webscapper.util.ExtractTableUtil;
@@ -20,7 +20,7 @@ public class TextExtractService extends BaseExtractService {
     private static final Logger LOG = Logger.getLogger(TextExtractService.class);
 
     @Override
-    public ExtractResponse extract(ExtractRequest request) throws IOException {
+    public ExtractResponse extract(ExtractRequest request) throws WebScrapperException {
         LOG.info("Method extract for Text is executing");
         if (request != null && request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());

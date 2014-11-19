@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.factory.ExtractServiceFactory;
 import com.webscapper.request.ExportRequest;
@@ -91,7 +92,7 @@ public class WSServiceProvider {
         ExtractResponse extractResponse = null;
         try {
             extractResponse = ExtractServiceFactory.getInstance(extractRequest.getContentType()).extract(extractRequest);
-        } catch (IOException e) {
+        } catch (WebScrapperException e) {
             logger.error(e);
         }
 

@@ -20,6 +20,7 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExtractService;
 
@@ -65,27 +66,30 @@ public abstract class BaseExtractService implements ExtractService {
      * @param url
      *            the url
      * @return html document
-     * @throws IOException */
-    public Document extractDocument(String url) throws IOException {
+     * @throws WebScrapperException */
+    public Document extractDocument(String url) throws WebScrapperException {
         LOG.info("Method extractDocument is executing");
         Document doc = null;
         try {
             doc = Jsoup.connect(url).userAgent(CommonConstants.USER_AGENT).timeout(CommonConstants.EXTRACT_TIMEOUT).get();
         } catch (IllegalArgumentException e) {
             LOG.error(CommonConstants.EXTRACT_URL_INVALID, e);
-            throw new IOException(CommonConstants.EXTRACT_URL_INVALID);
+            throw new WebScrapperException(CommonConstants.EXTRACT_URL_INVALID, e);
         } catch (UnknownHostException e) {
             LOG.error(CommonConstants.EXTRACT_URL_INVALID, e);
-            throw new IOException(CommonConstants.EXTRACT_URL_INVALID);
+            throw new WebScrapperException(CommonConstants.EXTRACT_URL_INVALID, e);
         } catch (SocketTimeoutException e) {
             LOG.error(CommonConstants.EXTRACT_READ_TIME_OUT, e);
-            throw new IOException(CommonConstants.EXTRACT_READ_TIME_OUT);
+            throw new WebScrapperException(CommonConstants.EXTRACT_READ_TIME_OUT, e);
         } catch (HttpStatusException e) {
             LOG.error(CommonConstants.EXTRACT_HTTP_ERROR + e.getStatusCode(), e);
-            throw new IOException(CommonConstants.EXTRACT_HTTP_ERROR + e.getStatusCode());
+            throw new WebScrapperException(CommonConstants.EXTRACT_HTTP_ERROR + e.getStatusCode(), e);
         } catch (SSLHandshakeException e) {
             LOG.error(CommonConstants.EXTRACT_SSL_ERROR, e);
-            throw new IOException(CommonConstants.EXTRACT_SSL_ERROR);
+            throw new WebScrapperException(CommonConstants.EXTRACT_SSL_ERROR, e);
+        } catch (IOException e) {
+            LOG.error(CommonConstants.EXTRACT_DEFAULT_ERROR, e);
+            throw new WebScrapperException(CommonConstants.EXTRACT_DEFAULT_ERROR, e);
         }
         if (doc != null) {
             doc.select(CommonConstants.HIDDEN_CONTENT_EXPRESSION).remove();

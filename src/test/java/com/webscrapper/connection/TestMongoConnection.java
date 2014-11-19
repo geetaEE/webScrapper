@@ -4,9 +4,8 @@ import java.net.UnknownHostException;
 
 import javax.naming.AuthenticationException;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +13,7 @@ import org.junit.runners.JUnit4;
 
 import com.mongodb.DB;
 
+/** The Test Mongo Connection. */
 @RunWith(JUnit4.class)
 public class TestMongoConnection {
 

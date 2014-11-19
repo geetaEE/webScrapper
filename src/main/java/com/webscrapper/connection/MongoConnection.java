@@ -38,8 +38,8 @@ public class MongoConnection {
         if (db == null) {
             try {
                 client = new MongoClient(DBConstants.MONGO_SERVER, DBConstants.PORT_NO);
-            } catch (UnknownHostException e1) {
-                logger.warn("UnknownHost Exception", e1);
+            } catch (UnknownHostException e) {
+                logger.warn("UnknownHost Exception", e);
             }
             db = client.getDB(DBConstants.DB_NAME);
             db.addUser(DBConstants.USER_NAME, DBConstants.PASSWORD.toCharArray());

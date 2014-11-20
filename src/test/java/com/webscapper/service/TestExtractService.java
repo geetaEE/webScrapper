@@ -117,6 +117,7 @@ public class TestExtractService {
         } catch (WebScrapperException e) {
             Assert.assertEquals(CommonConstants.EXTRACT_READ_TIME_OUT, e.getMessage());
         }
+        setFinalStatic(CommonConstants.class.getDeclaredField("EXTRACT_TIMEOUT"), CommonConstants.EXTRACT_TIMEOUT_VAL);
     }
 
     /** FinalStatic.

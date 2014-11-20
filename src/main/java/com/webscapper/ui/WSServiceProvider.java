@@ -86,15 +86,10 @@ public class WSServiceProvider {
      * @param extractRequest
      *            the extract request
      * @return the extract response */
-    public ExtractResponse executeExtractOperation(ExtractRequest extractRequest) {
+    public ExtractResponse executeExtractOperation(ExtractRequest extractRequest) throws WebScrapperException{
         logger.info("Entering executeExtractOperation method.");
 
-        ExtractResponse extractResponse = null;
-        try {
-            extractResponse = ExtractServiceFactory.getInstance(extractRequest.getContentType()).extract(extractRequest);
-        } catch (WebScrapperException e) {
-            logger.error(e);
-        }
+        ExtractResponse extractResponse = ExtractServiceFactory.getInstance(extractRequest.getContentType()).extract(extractRequest);        
 
         logger.info("Exiting from executeExtractOperation method.");
 
@@ -106,7 +101,7 @@ public class WSServiceProvider {
      * @param exportRequest
      *            the export request
      * @return the export response */
-    public ExportResponse executeExportOperation(ExportRequest exportRequest) {
+    public ExportResponse executeExportOperation(ExportRequest exportRequest) throws WebScrapperException{
         logger.info("Entering executeExportOperation method.");
 
         ExportResponse exportResponse = ExportServiceFactory.getInstance(exportRequest.getExportType()).export(exportRequest);

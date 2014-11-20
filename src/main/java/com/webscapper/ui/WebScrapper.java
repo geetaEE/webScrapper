@@ -37,6 +37,7 @@ import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExportResponse;
@@ -54,39 +55,7 @@ public class WebScrapper extends JFrame {
     private static final long serialVersionUID = 2993601246664970663L;
 
     /** The logger. */
-    private static Logger logger = Logger.getLogger(WebScrapper.class);
-    static {
-        // Initialize for ssl communication.
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                return null;
-            }
-
-            public void checkClientTrusted(X509Certificate[] certs, String authType) {
-            }
-
-            public void checkServerTrusted(X509Certificate[] certs, String authType) {
-            }
-        } };
-
-        try {
-            SSLContext sc = SSLContext.getInstance("SSL");
-            sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-        } catch (KeyManagementException e) {
-            logger.warn(e);
-        } catch (NoSuchAlgorithmException e) {
-            logger.warn(e);
-        }
-        // Create all-trusting host name verifier
-        HostnameVerifier allHostsValid = new HostnameVerifier() {
-            public boolean verify(String hostname, SSLSession session) {
-                return true;
-            }
-        };
-        // Install the all-trusting host verifier
-        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-    }
+    private static Logger logger = Logger.getLogger(WebScrapper.class); 
 
     /** The frame. */
     private static WebScrapper frame = null;
@@ -199,7 +168,7 @@ public class WebScrapper extends JFrame {
                     populateDetailArea();
 
                 } catch (Exception e) {
-                    logger.warn(e);
+                    logger.error(e);
                     System.exit(1);
                 }
             }
@@ -221,16 +190,12 @@ public class WebScrapper extends JFrame {
         WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
         String url = wsUIControls.getUrlTextField().getText().trim();
         String keyword = wsUIControls.getTitleTextField().getText().trim();
-        if ((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)) {
+        if ((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)) 
+        {
             JOptionPane.showMessageDialog(frame, "URL and title is required.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
             return;
-        } else {
-            boolean isValid = validateUrl(url);
-            if (!isValid) {
-                JOptionPane.showMessageDialog(frame, "URL is invalid.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
-                return;
-            }
         }
+        
         String slectedValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
         wsUIControls.setUrl(url);
         wsUIControls.setTitle(keyword);
@@ -238,7 +203,15 @@ public class WebScrapper extends JFrame {
 
         wsServiceProvider = new WSServiceProvider();
         extractRequest = wsServiceProvider.buildExtractRequest(wsUIControls.getUrl(), wsUIControls.getContentType());
-        extractResponse = wsServiceProvider.executeExtractOperation(extractRequest);
+       try
+       {
+    	   extractResponse = wsServiceProvider.executeExtractOperation(extractRequest);
+       }
+       catch(WebScrapperException wsEx)
+       {
+    	   JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
+           return;
+       }
         if (null == extractResponse) {
             JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", UIConstants.WEB_SCRAPPER,
                     JOptionPane.INFORMATION_MESSAGE);
@@ -252,34 +225,7 @@ public class WebScrapper extends JFrame {
         wsUIControlsManager.expandExtractProcessPanel();
         wsUIControlsManager.disableHeaderArea();
         logger.info("Exiting from executeExtractOpertion()");
-    }
-
-    /** Validate url.
-     * 
-     * @param url
-     *            the url
-     * @return true, if successful */
-    public boolean validateUrl(String url) {
-        boolean isValidURL = false;
-        String completeUrl = "";
-        if (url.startsWith("http:") || url.startsWith("https:")) {
-            isValidURL = URLUtil.isValidURL(url);
-            completeUrl = completeUrl + url;
-        } else {
-            completeUrl = "http://" + url;
-            isValidURL = URLUtil.isValidURL(completeUrl);
-            if (!isValidURL) {
-                completeUrl = "https://" + url;
-                isValidURL = URLUtil.isValidURL(completeUrl);
-            }
-        }
-
-        if (isValidURL) {
-            isValidURL = URLUtil.isValidURLForConnection(completeUrl);
-        }
-
-        return isValidURL;
-    }
+    }    
 
     /** Method for preview operation.
      * 
@@ -458,7 +404,18 @@ public class WebScrapper extends JFrame {
                             ExportType.getExportType(extractToOptionValue), selectedHTMLControlList, selectedFile.getAbsolutePath(),
                             selectedImageURLList);
                 }
-                ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+                
+                ExportResponse exportResponse = null;
+                try
+                {
+                	exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+                }
+                catch(WebScrapperException wsEx)
+                {
+                	JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
+                    return false;
+                }
+                
                 WebScrapperUtil.showWaitingDialog(frame);
                 if (exportResponse.isSuccess()) {
                     JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
@@ -474,7 +431,16 @@ public class WebScrapper extends JFrame {
         } else {
             ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
                     ExportType.getExportType(extractToOptionValue), null, null, null);
-            ExportResponse exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+            ExportResponse exportResponse = null;
+            try
+            {
+            	exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+            }
+            catch(WebScrapperException wsEx)
+            {
+            	JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
             WebScrapperUtil.showWaitingDialog(frame);
             if (exportResponse.isSuccess()) {
                 JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);

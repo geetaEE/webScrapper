@@ -135,5 +135,5 @@ public final class CommonConstants {
     
     public static final String TABLE_NAME = "tableName";
     
-    public static final String EXP_CONNECTION_FAILED = "Mongo DB Connectin creation failed.Kindly check DB Settings";
+    public static final String EXP_CONNECTION_FAILED = "Database connection is not available, kindly check MongoDB connection on your machine and then choose export to DB option.";
 }

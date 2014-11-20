@@ -307,15 +307,17 @@ public class WebScrapper extends JFrame {
         } else {
             selectedTabularOption = "Non-Tabular";
         }
+        StringBuilder sb = new StringBuilder();
         if (selectedOptionValue.equals(ContentType.IMAGE.getType())) {
-            queryTextField.setText(url + "," + title + "," + selectedOptionValue + ","
-                    + WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).toString());
+        	sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).toString());
+            queryTextField.setText(sb.toString());
         } else {
             if (wsUIControls.getStructedRadioButton().isSelected()) {
-                queryTextField.setText(url + "," + title + "," + selectedOptionValue + "," + selectedTabularOption + "," + extractToOptionValue);
-            } else {
-                queryTextField.setText(url + "," + title + "," + selectedOptionValue + "," + selectedTabularOption + ","
-                        + WebScrapperUtil.getSelectedListItems(wsUIControls.getHtmlControlList()).toString() + "," + extractToOptionValue);
+            	sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(selectedTabularOption).append(",").append(extractToOptionValue);
+                queryTextField.setText(sb.toString());
+            } else {                
+            	sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(selectedTabularOption).append(",").append(WebScrapperUtil.getSelectedListItems(wsUIControls.getHtmlControlList()).toString()).append(",").append(extractToOptionValue);
+            	queryTextField.setText(sb.toString());
             }
         }
         queryTextField.setColumns(UIConstants.WS_COLUMN);

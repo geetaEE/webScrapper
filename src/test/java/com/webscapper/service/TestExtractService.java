@@ -114,6 +114,7 @@ public class TestExtractService {
 
         try {
             ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+            Assert.fail(CommonConstants.EXTRACT_READ_TIME_OUT);
         } catch (WebScrapperException e) {
             Assert.assertEquals(CommonConstants.EXTRACT_READ_TIME_OUT, e.getMessage());
         }

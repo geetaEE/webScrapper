@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.factory.ExportServiceFactory;
 import com.webscapper.request.ExportRequest;
 import com.webscrapper.constants.ExportType;
@@ -32,9 +33,10 @@ public class TestExportToImageService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Image List and Directory Location are Not Null. Expectation: Image should get
-     * saved successfully. */
+     * saved successfully. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToImage() {
+    public void testExportToImage() throws WebScrapperException {
         ExportRequest exportRequest = new ExportRequest();
         exportRequest.setTitle("Test");
         exportRequest.setUrl("https://www.httpsnow.org/");
@@ -48,9 +50,10 @@ public class TestExportToImageService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Directory Location is Null. Expectation: Image will not be saved & method
-     * will not throw any Exception. */
+     * will not throw any Exception. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToImageWhenDirIsNull() {
+    public void testExportToImageWhenDirIsNull() throws WebScrapperException {
         ExportRequest exportRequest = new ExportRequest();
         exportRequest.setTitle("Test");
         exportRequest.setUrl("https://www.httpsnow.org/");
@@ -64,9 +67,10 @@ public class TestExportToImageService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Image List is Null. Expectation: Image will not be saved & method will not
-     * throw any Exception. */
+     * throw any Exception. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToImageWhenImageListIsNull() {
+    public void testExportToImageWhenImageListIsNull() throws WebScrapperException {
         ExportRequest exportRequest = new ExportRequest();
         exportRequest.setTitle("Test");
         exportRequest.setUrl("https://www.httpsnow.org/");

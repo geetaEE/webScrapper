@@ -45,9 +45,10 @@ public class TestExportService {
         exportRequest.setExtractResponse(extractResponse);
     }
 
-    /** Method under test: export() Scenario: Verifying the behavior when table List is not null. Expectation: Data should be saved to DB successfully. */
+    /** Method under test: export() Scenario: Verifying the behavior when table List is not null. Expectation: Data should be saved to DB successfully. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToDB() {
+    public void testExportToDB() throws WebScrapperException {
         List<String> columnValue1 = new ArrayList<String>();
         columnValue1.add("Test1");
         columnValue1.add("Test2");
@@ -81,9 +82,10 @@ public class TestExportService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Tag Data Map and tags list are not null. Expectation: Data should be exported
-     * to doc successfully. */
+     * to doc successfully. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToDoc() {
+    public void testExportToDoc() throws WebScrapperException {
         Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
         tagDataMap.put(TagType.DIV, "Div Text");
         tagDataMap.put(TagType.SPAN, "Span Text");
@@ -106,9 +108,10 @@ public class TestExportService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when tag list is Null. Expectation: Data will not be saved & method will not throw
-     * any Exception. */
+     * any Exception. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToDocWhenTagsListIsNull() {
+    public void testExportToDocWhenTagsListIsNull() throws WebScrapperException {
         exportRequest.setTagsList(null);
         ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
         exportService.export(exportRequest);
@@ -116,9 +119,10 @@ public class TestExportService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Tag Data Map and tags list are not null. Expectation: Data should be exported
-     * to text file successfully. */
+     * to text file successfully. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToText() {
+    public void testExportToText() throws WebScrapperException {
         Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
         tagDataMap.put(TagType.DIV, "Div Text");
         tagDataMap.put(TagType.SPAN, "Span Text");
@@ -142,9 +146,10 @@ public class TestExportService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Tag Data Map and tags list are not null. Expectation: Data should be exported
-     * to csv successfully. */
+     * to csv successfully. 
+     * @throws WebScrapperException */
     @Test
-    public void testExportToCSV() {
+    public void testExportToCSV() throws WebScrapperException {
         Map<TagType, String> tagDataMap = new LinkedHashMap<TagType, String>();
         tagDataMap.put(TagType.DIV, "Div Text");
         tagDataMap.put(TagType.SPAN, "Span Text");

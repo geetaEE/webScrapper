@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExportResponse;
@@ -67,9 +68,10 @@ public class TestWSServiceProvider {
         Assert.assertEquals("ImageURLList is wrong.", selectedImageURLList, exportRequest.getImageURLList());
     }
 
-    /** Unit test for executeExtractOperation(). */
+    /** Unit test for executeExtractOperation(). 
+     * @throws WebScrapperException */
     @Test
-    public void testExecuteExtractOperation() {
+    public void testExecuteExtractOperation() throws WebScrapperException {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
         String url = "http://www.google.com";
@@ -82,9 +84,10 @@ public class TestWSServiceProvider {
         Assert.assertNotNull("ExportRequest object should not be null.", extractResponse);
     }
 
-    /** Unit test for executeExportOperation(). */
+    /** Unit test for executeExportOperation(). 
+     * @throws WebScrapperException */
     @Test
-    public void testExecuteExportOperation() {
+    public void testExecuteExportOperation() throws WebScrapperException {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
         String url = "http://www.w3schools.com/html/html_tables.asp";
@@ -115,9 +118,10 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Response should be success.", exportResponse.isSuccess());
     }
 
-    /** Unit test for fetchTabularPreviewData(). */
+    /** Unit test for fetchTabularPreviewData(). 
+     * @throws WebScrapperException */
     @Test
-    public void testFetchTabularPreviewData() {
+    public void testFetchTabularPreviewData() throws WebScrapperException {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
         String url = "http://www.w3schools.com/html/html_tables.asp";
@@ -134,9 +138,10 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Column count should be 4.", result[0].length == 4);
     }
 
-    /** Unit test for fetchColumnNameForPreview(). */
+    /** Unit test for fetchColumnNameForPreview(). 
+     * @throws WebScrapperException */
     @Test
-    public void testFetchColumnNameForPreview() {
+    public void testFetchColumnNameForPreview() throws WebScrapperException {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
         String url = "http://www.w3schools.com/html/html_tables.asp";
@@ -151,9 +156,10 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Column count should be 4.", columns.length == 4);
     }
 
-    /** Unit test for fetchNonTabularPreviewData(). */
+    /** Unit test for fetchNonTabularPreviewData(). 
+     * @throws WebScrapperException */
     @Test
-    public void testFetchNonTabularPreviewData() {
+    public void testFetchNonTabularPreviewData() throws WebScrapperException {
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
 
         String url = "http://www.w3schools.com/html/html_tables.asp";

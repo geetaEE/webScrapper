@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
@@ -20,7 +21,7 @@ public class ExportToDocService implements ExportService {
     private static final Logger logger = Logger.getLogger(ExportToDocService.class);
 
     @Override
-    public ExportResponse export(ExportRequest request) {
+    public ExportResponse export(ExportRequest request) throws WebScrapperException {
         String fileName = null;
         ExportResponse exportResponse = new ExportResponse();
         ExtractResponse response = null;
@@ -35,9 +36,7 @@ public class ExportToDocService implements ExportService {
             writer = new FileWriter(fileName);
         } catch (IOException e) {
             logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
-            exportResponse.setErrMsg(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
-            exportResponse.setSuccess(false);
-            return exportResponse;
+            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);           
         }
 
         Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
@@ -54,18 +53,18 @@ public class ExportToDocService implements ExportService {
                 }
                 exportResponse.setSuccess(true);
             }
-        } catch (IOException e) {
-            logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
-            exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
-            exportResponse.setSuccess(false);
+        } 
+        catch (IOException e) 
+        {
+            logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);            
+            throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);            
         } finally {
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e) {
                     logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
-                    exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
-                    exportResponse.setSuccess(false);
+                    throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);                    
                 }
             }
         }

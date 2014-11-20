@@ -23,7 +23,7 @@ public class ExportToImageService implements ExportService {
     private static Logger logger = Logger.getLogger(ExportToImageService.class);
 
     @Override
-    public ExportResponse export(ExportRequest request) {
+    public ExportResponse export(ExportRequest request) throws WebScrapperException {
         logger.info("Image export executing");
         ExportResponse exportResponse = new ExportResponse();
         if (null != request) {
@@ -35,13 +35,9 @@ public class ExportToImageService implements ExportService {
             boolean titleExists = title != null && !title.isEmpty();
             if (imageExists && dirLocExists && titleExists) {
                 dirLocation = dirLocation + File.separator + title + CommonConstants.DATE_FORMATTER.format(new Date());
-                try {
-                    saveImages(imageList, dirLocation);
-                    exportResponse.setSuccess(true);
-                } catch (WebScrapperException e) {
-                    exportResponse.setErrMsg(e.getMessage());
-                    exportResponse.setSuccess(false);
-                }
+                 saveImages(imageList, dirLocation);
+                 exportResponse.setSuccess(true);
+                
             }
         }
         return exportResponse;

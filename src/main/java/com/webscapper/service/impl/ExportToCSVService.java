@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
@@ -19,7 +20,7 @@ public class ExportToCSVService implements ExportService {
     private static final Logger logger = Logger.getLogger(ExportToCSVService.class);
 
     @Override
-    public ExportResponse export(ExportRequest request) {
+    public ExportResponse export(ExportRequest request) throws WebScrapperException {
         logger.info("CSV export executing");
         ExportResponse exportResponse = new ExportResponse();
         String fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_CSV);
@@ -28,9 +29,7 @@ public class ExportToCSVService implements ExportService {
 			writer = new FileWriter(fileName);
 		} catch (IOException e) {
 			logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
-			exportResponse.setErrMsg(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
-			exportResponse.setSuccess(false);
-			return exportResponse;
+			throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);			
 		}
         ExtractResponse response = request.getExtractResponse();
         List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
@@ -58,18 +57,18 @@ public class ExportToCSVService implements ExportService {
 			    }
 			}
 			exportResponse.setSuccess(true);
-		} catch (IOException e) {
+		} catch (IOException e) 
+		{
 			logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
-			exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
-			exportResponse.setSuccess(false);
+			throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
+			
 		} finally {
 			if (writer != null) {
 				try {
 					writer.close();
 				} catch (IOException e) {
 					logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
-					exportResponse.setErrMsg(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
-					exportResponse.setSuccess(false);
+					throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);					
 				}
 			}
 		}

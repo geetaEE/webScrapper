@@ -101,6 +101,51 @@ public class TestExtractService {
         Assert.assertEquals("https://www.httpsnow.org/images/httpsnow_banner.png", imageUrls.iterator().next());
     }
 
+    /** Test Invalid url. */
+    @Test
+    public void testInvalidUrl() {
+        String url = "Invalid";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.IMAGE);
+        try {
+            ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+            Assert.fail(CommonConstants.EXTRACT_URL_INVALID);
+        } catch (WebScrapperException e) {
+            Assert.assertEquals(CommonConstants.EXTRACT_URL_INVALID, e.getMessage());
+        }
+    }
+
+    /** Test Invalid host. */
+    @Test
+    public void testInvalidHost() {
+        String url = "http://invalidhost999666";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.IMAGE);
+        try {
+            ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+            Assert.fail(CommonConstants.EXTRACT_URL_INVALID);
+        } catch (WebScrapperException e) {
+            Assert.assertEquals(CommonConstants.EXTRACT_URL_INVALID, e.getMessage());
+        }
+    }
+
+    /** Test http error. */
+    @Test
+    public void testHttpError() {
+        String url = "http://google.com/status404";
+        ExtractRequest request = new ExtractRequest();
+        request.setUrl(url);
+        request.setContentType(ContentType.IMAGE);
+        try {
+            ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
+            Assert.fail(CommonConstants.EXTRACT_HTTP_ERROR);
+        } catch (WebScrapperException e) {
+            Assert.assertEquals(CommonConstants.EXTRACT_HTTP_ERROR + "404", e.getMessage());
+        }
+    }
+
     /** Test extract timeout.
      * 
      * @throws Exception */

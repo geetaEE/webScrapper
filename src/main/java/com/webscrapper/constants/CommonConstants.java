@@ -120,4 +120,20 @@ public final class CommonConstants {
     
     /** The Constant EXP_IMG_FILE_WRITE_ERROR. */
     public static final String EXP_IMG_FILE_WRITE_ERROR = "File has write permission problem";
+    
+    public static final String EXP_LOAD_RESOURCES_ERROR = "Unable to load property file entry.";
+    
+    public static final String DB_NAME = "dbName";
+    
+    public static final String MONGO_SERVER = "mongoServer";
+    
+    public static final String PORT_NO = "port";
+    
+    public static final String USER_NAME = "userName";
+    
+    public static final String PASSWORD = "password";
+    
+    public static final String TABLE_NAME = "tableName";
+    
+    public static final String EXP_CONNECTION_FAILED = "Mongo DB Connectin creation failed.Kindly check DB Settings";
 }

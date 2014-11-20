@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import com.mongodb.DB;
+import com.webscapper.exception.WebScrapperException;
 
 /** The Test Mongo Connection. */
 @RunWith(JUnit4.class)
@@ -29,7 +30,8 @@ public class TestMongoConnection {
      * 
      * @throws AuthenticationException */
     @Test
-    public void testGetDbConnection() throws AuthenticationException {
+    public void testGetDbConnection() throws WebScrapperException 
+    {
         DB db = mongoConnection.getDbConnection();
         Assert.assertNotNull(db);
     }

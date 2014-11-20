@@ -11,9 +11,9 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoException;
 import com.webscapper.exception.WebScrapperException;
+import com.webscapper.util.WSResource;
 import com.webscrapper.connection.MongoConnectionManager;
 import com.webscrapper.constants.CommonConstants;
-import com.webscrapper.constants.DBConstants;
 import com.webscrapper.service.DataAccessService;
 
 /** @author ruby.jha DataAccessServiceImpl */
@@ -24,14 +24,9 @@ public class DataAccessServiceImpl implements DataAccessService {
      * @throws WebScrapperException */
     @Override
     public DBCollection insertData(Map<String, Object> map) throws WebScrapperException {
-        DB db = null;
-        try {
-            db = MongoConnectionManager.getInstance().getConnection().getDbConnection();
-        } catch (AuthenticationException e) {
-            logger.error(e);
-            throw new WebScrapperException(CommonConstants.DB_AUTHENTICATE_ERROR, e);
-        }
-        DBCollection table = db.getCollection(DBConstants.TABLE_NAME);
+        DB db = MongoConnectionManager.getInstance().getConnection().getDbConnection();
+        
+        DBCollection table = db.getCollection(WSResource.getValue(CommonConstants.TABLE_NAME));
         try {
 			table.insert(new BasicDBObject(map));
 		} catch (MongoException e) {

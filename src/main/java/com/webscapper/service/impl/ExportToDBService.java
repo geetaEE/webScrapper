@@ -21,10 +21,9 @@ public class ExportToDBService implements ExportService {
     private static final Logger logger = Logger.getLogger(ExportToDBService.class);
 
     @Override
-    public ExportResponse export(ExportRequest request) throws WebScrapperException 
-    {
+    public ExportResponse export(ExportRequest request) throws WebScrapperException {
         ExportResponse exportResponse = new ExportResponse();
-        
+
         ExtractResponse response = request.getExtractResponse();
         List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
         if (tablesList != null) {
@@ -41,7 +40,7 @@ public class ExportToDBService implements ExportService {
                 rowMap.put(CommonConstants.ROWS, rowList);
                 tableList.add(rowMap);
             }
-            
+
             Map<String, Object> map = new HashMap<String, Object>();
             map.put(CommonConstants.TITLE, request.getTitle() + CommonConstants.DATE_FORMATTER.format(new Date()));
             map.put(CommonConstants.URL, request.getUrl());
@@ -53,7 +52,7 @@ public class ExportToDBService implements ExportService {
                 exportResponse.setSuccess(true);
             }
         }
-       
+
         return exportResponse;
     }
 }

@@ -68,7 +68,8 @@ public class TestWSServiceProvider {
         Assert.assertEquals("ImageURLList is wrong.", selectedImageURLList, exportRequest.getImageURLList());
     }
 
-    /** Unit test for executeExtractOperation(). 
+    /** Unit test for executeExtractOperation().
+     * 
      * @throws WebScrapperException */
     @Test
     public void testExecuteExtractOperation() throws WebScrapperException {
@@ -84,7 +85,8 @@ public class TestWSServiceProvider {
         Assert.assertNotNull("ExportRequest object should not be null.", extractResponse);
     }
 
-    /** Unit test for executeExportOperation(). 
+    /** Unit test for executeExportOperation().
+     * 
      * @throws WebScrapperException */
     @Test
     public void testExecuteExportOperation() throws WebScrapperException {
@@ -118,7 +120,8 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Response should be success.", exportResponse.isSuccess());
     }
 
-    /** Unit test for fetchTabularPreviewData(). 
+    /** Unit test for fetchTabularPreviewData().
+     * 
      * @throws WebScrapperException */
     @Test
     public void testFetchTabularPreviewData() throws WebScrapperException {
@@ -138,7 +141,8 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Column count should be 4.", result[0].length == 4);
     }
 
-    /** Unit test for fetchColumnNameForPreview(). 
+    /** Unit test for fetchColumnNameForPreview().
+     * 
      * @throws WebScrapperException */
     @Test
     public void testFetchColumnNameForPreview() throws WebScrapperException {
@@ -156,7 +160,8 @@ public class TestWSServiceProvider {
         Assert.assertTrue("Column count should be 4.", columns.length == 4);
     }
 
-    /** Unit test for fetchNonTabularPreviewData(). 
+    /** Unit test for fetchNonTabularPreviewData().
+     * 
      * @throws WebScrapperException */
     @Test
     public void testFetchNonTabularPreviewData() throws WebScrapperException {

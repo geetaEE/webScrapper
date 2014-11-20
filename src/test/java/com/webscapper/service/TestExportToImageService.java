@@ -33,7 +33,8 @@ public class TestExportToImageService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Image List and Directory Location are Not Null. Expectation: Image should get
-     * saved successfully. 
+     * saved successfully.
+     * 
      * @throws WebScrapperException */
     @Test
     public void testExportToImage() throws WebScrapperException {
@@ -50,7 +51,8 @@ public class TestExportToImageService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Directory Location is Null. Expectation: Image will not be saved & method
-     * will not throw any Exception. 
+     * will not throw any Exception.
+     * 
      * @throws WebScrapperException */
     @Test
     public void testExportToImageWhenDirIsNull() throws WebScrapperException {
@@ -67,7 +69,8 @@ public class TestExportToImageService {
     }
 
     /** Method under test: export() Scenario: Verifying the behavior when Image List is Null. Expectation: Image will not be saved & method will not
-     * throw any Exception. 
+     * throw any Exception.
+     * 
      * @throws WebScrapperException */
     @Test
     public void testExportToImageWhenImageListIsNull() throws WebScrapperException {

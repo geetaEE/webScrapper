@@ -55,7 +55,7 @@ public class WebScrapper extends JFrame {
     private static final long serialVersionUID = 2993601246664970663L;
 
     /** The logger. */
-    private static Logger logger = Logger.getLogger(WebScrapper.class); 
+    private static Logger logger = Logger.getLogger(WebScrapper.class);
 
     /** The frame. */
     private static WebScrapper frame = null;
@@ -190,12 +190,11 @@ public class WebScrapper extends JFrame {
         WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
         String url = wsUIControls.getUrlTextField().getText().trim();
         String keyword = wsUIControls.getTitleTextField().getText().trim();
-        if ((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)) 
-        {
+        if ((null == url) || UIConstants.BLANK.equals(url) || (null == keyword) || UIConstants.BLANK.equals(keyword)) {
             JOptionPane.showMessageDialog(frame, "URL and title is required.", UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         String slectedValue = wsUIControls.getExtractDataTypeComboBox().getSelectedItem().toString();
         wsUIControls.setUrl(url);
         wsUIControls.setTitle(keyword);
@@ -203,15 +202,12 @@ public class WebScrapper extends JFrame {
 
         wsServiceProvider = new WSServiceProvider();
         extractRequest = wsServiceProvider.buildExtractRequest(wsUIControls.getUrl(), wsUIControls.getContentType());
-       try
-       {
-    	   extractResponse = wsServiceProvider.executeExtractOperation(extractRequest);
-       }
-       catch(WebScrapperException wsEx)
-       {
-    	   JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
-           return;
-       }
+        try {
+            extractResponse = wsServiceProvider.executeExtractOperation(extractRequest);
+        } catch (WebScrapperException wsEx) {
+            JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         if (null == extractResponse) {
             JOptionPane.showMessageDialog(frame, "Selected Option Data is not available on the web page.", UIConstants.WEB_SCRAPPER,
                     JOptionPane.INFORMATION_MESSAGE);
@@ -225,7 +221,7 @@ public class WebScrapper extends JFrame {
         wsUIControlsManager.expandExtractProcessPanel();
         wsUIControlsManager.disableHeaderArea();
         logger.info("Exiting from executeExtractOpertion()");
-    }    
+    }
 
     /** Method for preview operation.
      * 
@@ -309,15 +305,19 @@ public class WebScrapper extends JFrame {
         }
         StringBuilder sb = new StringBuilder();
         if (selectedOptionValue.equals(ContentType.IMAGE.getType())) {
-        	sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).toString());
+            sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",")
+                    .append(WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).toString());
             queryTextField.setText(sb.toString());
         } else {
             if (wsUIControls.getStructedRadioButton().isSelected()) {
-            	sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(selectedTabularOption).append(",").append(extractToOptionValue);
+                sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(selectedTabularOption)
+                        .append(",").append(extractToOptionValue);
                 queryTextField.setText(sb.toString());
-            } else {                
-            	sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(selectedTabularOption).append(",").append(WebScrapperUtil.getSelectedListItems(wsUIControls.getHtmlControlList()).toString()).append(",").append(extractToOptionValue);
-            	queryTextField.setText(sb.toString());
+            } else {
+                sb.append(url).append(",").append(title).append(",").append(selectedOptionValue).append(",").append(selectedTabularOption)
+                        .append(",").append(WebScrapperUtil.getSelectedListItems(wsUIControls.getHtmlControlList()).toString()).append(",")
+                        .append(extractToOptionValue);
+                queryTextField.setText(sb.toString());
             }
         }
         queryTextField.setColumns(UIConstants.WS_COLUMN);
@@ -406,18 +406,15 @@ public class WebScrapper extends JFrame {
                             ExportType.getExportType(extractToOptionValue), selectedHTMLControlList, selectedFile.getAbsolutePath(),
                             selectedImageURLList);
                 }
-                
+
                 ExportResponse exportResponse = null;
-                try
-                {
-                	exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
-                }
-                catch(WebScrapperException wsEx)
-                {
-                	JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
+                try {
+                    exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+                } catch (WebScrapperException wsEx) {
+                    JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
-                
+
                 WebScrapperUtil.showWaitingDialog(frame);
                 if (exportResponse.isSuccess()) {
                     JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
@@ -434,13 +431,10 @@ public class WebScrapper extends JFrame {
             ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
                     ExportType.getExportType(extractToOptionValue), null, null, null);
             ExportResponse exportResponse = null;
-            try
-            {
-            	exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
-            }
-            catch(WebScrapperException wsEx)
-            {
-            	JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
+            try {
+                exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+            } catch (WebScrapperException wsEx) {
+                JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             WebScrapperUtil.showWaitingDialog(frame);

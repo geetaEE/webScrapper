@@ -17,7 +17,7 @@ public class ExportResponse {
     public void setSuccess(boolean success) {
         this.success = success;
     }
-    
+
     /** @return the errMsg */
     public String getErrMsg() {
         return errMsg;

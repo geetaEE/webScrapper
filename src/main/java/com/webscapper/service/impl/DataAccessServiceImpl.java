@@ -20,19 +20,20 @@ import com.webscrapper.service.DataAccessService;
 public class DataAccessServiceImpl implements DataAccessService {
     private static Logger logger = Logger.getLogger(DataAccessServiceImpl.class);
 
-    /** This method is used to insert the tabular data into DB 
+    /** This method is used to insert the tabular data into DB
+     * 
      * @throws WebScrapperException */
     @Override
     public DBCollection insertData(Map<String, Object> map) throws WebScrapperException {
         DB db = MongoConnectionManager.getInstance().getConnection().getDbConnection();
-        
+
         DBCollection table = db.getCollection(WSResource.getValue(CommonConstants.TABLE_NAME));
         try {
-			table.insert(new BasicDBObject(map));
-		} catch (MongoException e) {
-			logger.error(e);
+            table.insert(new BasicDBObject(map));
+        } catch (MongoException e) {
+            logger.error(e);
             throw new WebScrapperException(CommonConstants.DB_INSERT_ERROR, e);
-		}
+        }
         return table;
     }
 }

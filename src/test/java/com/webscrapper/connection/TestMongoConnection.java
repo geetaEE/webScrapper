@@ -30,8 +30,7 @@ public class TestMongoConnection {
      * 
      * @throws AuthenticationException */
     @Test
-    public void testGetDbConnection() throws WebScrapperException 
-    {
+    public void testGetDbConnection() throws WebScrapperException {
         DB db = mongoConnection.getDbConnection();
         Assert.assertNotNull(db);
     }

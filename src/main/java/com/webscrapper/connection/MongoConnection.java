@@ -35,43 +35,35 @@ public class MongoConnection {
     }
 
     /** @return the db connection */
-    public DB getDbConnection() throws WebScrapperException 
-    {
+    public DB getDbConnection() throws WebScrapperException {
         logger.info("Entering from getDbConnection method.");
-        if (db == null) 
-        {
-        	boolean auth = false;
-        	String server = WSResource.getValue(CommonConstants.MONGO_SERVER);
-            String port =  WSResource.getValue(CommonConstants.PORT_NO);
+        if (db == null) {
+            boolean auth = false;
+            String server = WSResource.getValue(CommonConstants.MONGO_SERVER);
+            String port = WSResource.getValue(CommonConstants.PORT_NO);
             int portNo = 0;
-            
-        	try 
-            {        	
-	            if(null != port && !port.isEmpty())
-	            {
-	            	portNo = Integer.parseInt(port);;
-	            }
-	            
-	            client = new MongoClient(server, portNo);
-	             
-	            db = client.getDB(WSResource.getValue(CommonConstants.DB_NAME));
-	            db.addUser(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD).toCharArray());            
-	           
-	            auth = db.authenticate(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD).toCharArray());
-            }
-        	catch (UnknownHostException e) 
-        	{
+
+            try {
+                if (null != port && !port.isEmpty()) {
+                    portNo = Integer.parseInt(port);
+                    ;
+                }
+
+                client = new MongoClient(server, portNo);
+
+                db = client.getDB(WSResource.getValue(CommonConstants.DB_NAME));
+                db.addUser(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD).toCharArray());
+
+                auth = db.authenticate(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD).toCharArray());
+            } catch (UnknownHostException e) {
                 logger.error("UnknownHost Exception", e);
                 throw new WebScrapperException(CommonConstants.EXP_CONNECTION_FAILED, e);
-            }
-            catch (MongoException e) 
-            {
+            } catch (MongoException e) {
                 logger.error("Authentication Fail.", e);
                 throw new WebScrapperException(CommonConstants.EXP_CONNECTION_FAILED, e);
             }
-            
-            if (!auth) 
-            {
+
+            if (!auth) {
                 throw new WebScrapperException("Authentication Fail");
             }
         }

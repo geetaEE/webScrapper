@@ -30,7 +30,7 @@ public class ExportToTextService implements ExportService {
             writer = new FileWriter(fileName);
         } catch (IOException e) {
             logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
-            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);            
+            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
         }
         ExtractResponse response = request.getExtractResponse();
         List<String> tagsList = request.getTagsList();
@@ -52,14 +52,14 @@ public class ExportToTextService implements ExportService {
         } catch (IOException e) {
             logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
             throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
-            
+
         } finally {
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException e) {
                     logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
-                    throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);                    
+                    throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
                 }
             }
         }

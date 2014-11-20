@@ -35,9 +35,9 @@ public class ExportToImageService implements ExportService {
             boolean titleExists = title != null && !title.isEmpty();
             if (imageExists && dirLocExists && titleExists) {
                 dirLocation = dirLocation + File.separator + title + CommonConstants.DATE_FORMATTER.format(new Date());
-                 saveImages(imageList, dirLocation);
-                 exportResponse.setSuccess(true);
-                
+                saveImages(imageList, dirLocation);
+                exportResponse.setSuccess(true);
+
             }
         }
         return exportResponse;

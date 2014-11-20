@@ -93,47 +93,47 @@ public final class CommonConstants {
 
     /** The Constant EXTRACT_HTTP_ERROR. */
     public static final String EXTRACT_HTTP_ERROR = "HTTP Error with statut code ";
-    
+
     /** The Constant EXTRACT_DEFAULT_ERROR. */
     public static final String EXTRACT_DEFAULT_ERROR = "Some problem in extraction";
-    
+
     /** The Constant DB_AUTHENTICATE_ERROR. */
     public static final String DB_AUTHENTICATE_ERROR = "Database is not authenticated due to invalid credentials";
-    
+
     /** The Constant DB_INSERT_ERROR. */
     public static final String DB_INSERT_ERROR = "Problem in db insert";
-    
+
     /** The Constant EXP_FILE_EXIST_ERROR. */
     public static final String EXP_FILE_EXIST_ERROR = "Either file is directory or does not exists or open permission is denied as for file ";
-    
+
     /** The Constant EXP_FILE_OPER_ERROR. */
     public static final String EXP_FILE_OPER_ERROR = "Problem occured in file operation for ";
-    
+
     /** The Constant EXP_IMG_URL_INVALID. */
     public static final String EXP_IMG_URL_INVALID = "Image URL is invalid";
-    
+
     /** The Constant EXP_IMG_OPER_ERROR. */
     public static final String EXP_IMG_OPER_ERROR = "Problem occured in image export";
-    
+
     /** The Constant EXP_IMG_FILE_EXIST_RW_ERROR. */
     public static final String EXP_IMG_FILE_EXIST_RW_ERROR = "File is directory or has permission problem";
-    
+
     /** The Constant EXP_IMG_FILE_WRITE_ERROR. */
     public static final String EXP_IMG_FILE_WRITE_ERROR = "File has write permission problem";
-    
+
     public static final String EXP_LOAD_RESOURCES_ERROR = "Unable to load property file entry.";
-    
+
     public static final String DB_NAME = "dbName";
-    
+
     public static final String MONGO_SERVER = "mongoServer";
-    
+
     public static final String PORT_NO = "port";
-    
+
     public static final String USER_NAME = "userName";
-    
+
     public static final String PASSWORD = "password";
-    
+
     public static final String TABLE_NAME = "tableName";
-    
+
     public static final String EXP_CONNECTION_FAILED = "Database connection is not available, kindly check MongoDB connection on your machine and then choose export to DB option.";
 }

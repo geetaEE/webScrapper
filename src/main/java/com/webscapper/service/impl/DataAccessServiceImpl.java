@@ -2,8 +2,6 @@ package com.webscapper.service.impl;
 
 import java.util.Map;
 
-import javax.naming.AuthenticationException;
-
 import org.apache.log4j.Logger;
 
 import com.mongodb.BasicDBObject;

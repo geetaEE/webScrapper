@@ -46,7 +46,7 @@ public class ExportToTextService implements ExportService {
             }
         } catch (IOException e) {
             logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
-            throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
+            throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
 
         } finally {
             ExportUtil.closeFileWriter(writer, fileName);

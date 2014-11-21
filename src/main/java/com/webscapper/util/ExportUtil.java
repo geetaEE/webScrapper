@@ -25,8 +25,7 @@ public final class ExportUtil {
      * @throws WebScrapperException */
     public static FileWriter getFileWriter(String fileName) throws WebScrapperException {
         try {
-            FileWriter writer = new FileWriter(fileName);
-            return writer;
+            return new FileWriter(fileName);
         } catch (IOException e) {
             LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
             throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);

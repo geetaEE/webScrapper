@@ -37,8 +37,8 @@ public final class ImageUtil {
         InputStream is = null;
         OutputStream os = null;
         String[] fileSeparatorArr = fileName.split("/");
-        fileName = fileSeparatorArr[fileSeparatorArr.length - 1];
-        String destName = imageStorePath + File.separator + fileName;
+        String actaulFileName = fileSeparatorArr[fileSeparatorArr.length - 1];
+        String destName = imageStorePath + File.separator + actaulFileName;
         File destDir = new File(imageStorePath);
         destDir.mkdirs();
         try {

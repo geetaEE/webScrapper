@@ -22,7 +22,7 @@ public class TextExtractService extends BaseExtractService {
     @Override
     public ExtractResponse extract(ExtractRequest request) throws WebScrapperException {
         LOG.info("Method extract for Text is executing");
-        if (request != null && request.getUrl() != null) {
+        if (request.getUrl() != null) {
             Document doc = extractDocument(request.getUrl());
             if (doc != null) {
                 doc = Jsoup.parse(doc.html());

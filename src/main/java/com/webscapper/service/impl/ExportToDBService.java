@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import com.mongodb.DBCollection;
 import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
@@ -18,7 +16,6 @@ import com.webscrapper.service.ExportService;
 
 /** Export to DB service. */
 public class ExportToDBService implements ExportService {
-    private static final Logger logger = Logger.getLogger(ExportToDBService.class);
 
     @Override
     public ExportResponse export(ExportRequest request) throws WebScrapperException {

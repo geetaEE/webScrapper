@@ -12,6 +12,7 @@ import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
 import com.webscapper.util.CommonUtil;
+import com.webscapper.util.ExportUtil;
 import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
@@ -25,13 +26,7 @@ public class ExportToTextService implements ExportService {
         logger.info("Text export executing");
         ExportResponse exportResponse = new ExportResponse();
         String fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_TEXT);
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(fileName);
-        } catch (IOException e) {
-            logger.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
-            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
-        }
+        FileWriter writer = ExportUtil.getFileWriter(fileName);
         ExtractResponse response = request.getExtractResponse();
         List<String> tagsList = request.getTagsList();
         Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
@@ -54,14 +49,7 @@ public class ExportToTextService implements ExportService {
             throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
 
         } finally {
-            if (writer != null) {
-                try {
-                    writer.close();
-                } catch (IOException e) {
-                    logger.error(CommonConstants.EXP_FILE_OPER_ERROR + fileName, e);
-                    throw new WebScrapperException(CommonConstants.EXP_FILE_OPER_ERROR + fileName);
-                }
-            }
+            ExportUtil.closeFileWriter(writer, fileName);
         }
         return exportResponse;
     }

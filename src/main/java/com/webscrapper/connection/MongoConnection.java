@@ -2,8 +2,6 @@ package com.webscrapper.connection;
 
 import java.net.UnknownHostException;
 
-import javax.naming.AuthenticationException;
-
 import org.apache.log4j.Logger;
 
 import com.mongodb.DB;
@@ -45,8 +43,7 @@ public class MongoConnection {
 
             try {
                 if (null != port && !port.isEmpty()) {
-                    portNo = Integer.parseInt(port);
-                    ;
+                    portNo = Integer.parseInt(port);                  
                 }
 
                 client = new MongoClient(server, portNo);

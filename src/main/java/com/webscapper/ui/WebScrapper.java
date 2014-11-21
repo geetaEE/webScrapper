@@ -8,19 +8,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -376,7 +367,6 @@ public class WebScrapper extends JFrame {
     private boolean executeExportOperation(String extractToOptionValue, String selectedOptionValue) {
         logger.info("Entering in executeExportOperation()");
         WSUIControls wsUIControls = wsUIControlsManager.getWsUIControls();
-
         List<String> selectedImageURLList = new ArrayList<String>();
         List<String> selectedHTMLControlList = new ArrayList<String>();
         if (selectedOptionValue.equals(ContentType.IMAGE.getType())) {
@@ -384,7 +374,6 @@ public class WebScrapper extends JFrame {
         } else {
             selectedHTMLControlList = WebScrapperUtil.getSelectedListItemValues(wsUIControls.getHtmlControlList());
         }
-
         String msg = "All data exported successfully.";
         if (!"DB".equals(extractToOptionValue)) {
             JFileChooser fc = new JFileChooser();
@@ -396,17 +385,13 @@ public class WebScrapper extends JFrame {
                 if (selectedOptionValue.equals(ContentType.IMAGE.getType())) {
                     msg = "All Images exported successfully.";
                 }
-
                 ExportRequest exportRequest = null;
                 if (selectedOptionValue.equals(ContentType.IMAGE.getType())) {
-                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
-                            ExportType.IMAGE, selectedHTMLControlList, selectedFile.getAbsolutePath(), selectedImageURLList);
+                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,ExportType.IMAGE, selectedHTMLControlList, selectedFile.getAbsolutePath(), selectedImageURLList);
                 } else {
-                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
-                            ExportType.getExportType(extractToOptionValue), selectedHTMLControlList, selectedFile.getAbsolutePath(),
+                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse, ExportType.getExportType(extractToOptionValue), selectedHTMLControlList, selectedFile.getAbsolutePath(),
                             selectedImageURLList);
                 }
-
                 ExportResponse exportResponse = null;
                 try {
                     exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
@@ -414,7 +399,6 @@ public class WebScrapper extends JFrame {
                     JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
                     return false;
                 }
-
                 WebScrapperUtil.showWaitingDialog(frame);
                 if (exportResponse.isSuccess()) {
                     JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
@@ -428,8 +412,7 @@ public class WebScrapper extends JFrame {
                 return false;
             }
         } else {
-            ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
-                    ExportType.getExportType(extractToOptionValue), null, null, null);
+            ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,ExportType.getExportType(extractToOptionValue), null, null, null);
             ExportResponse exportResponse = null;
             try {
                 exportResponse = wsServiceProvider.executeExportOperation(exportRequest);

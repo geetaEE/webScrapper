@@ -4,14 +4,18 @@ import java.util.Properties;
 
 import com.webscapper.exception.WebScrapperException;
 
-public class WSResource {
-    public static String getValue(String key) throws WebScrapperException {
+public class WSResource 
+{
+    private WSResource(){}
+    
+	public static String getValue(String key) throws WebScrapperException {
+		String value = null;
         if (key != null && !key.isEmpty()) {
             Properties config = WSResourceLoader.getPropertiesMap();
-            String value = config.getProperty(key);
+            value = config.getProperty(key);
             return value;
         }
 
-        return null;
+        return value;
     }
 }

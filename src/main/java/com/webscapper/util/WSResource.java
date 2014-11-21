@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import com.webscapper.exception.WebScrapperException;
 
-public class WSResource 
+public final class WSResource 
 {
     private WSResource(){}
     

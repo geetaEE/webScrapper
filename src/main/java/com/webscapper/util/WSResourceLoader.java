@@ -7,7 +7,7 @@ import java.util.Properties;
 import com.webscapper.exception.WebScrapperException;
 import com.webscrapper.constants.CommonConstants;
 
-public class WSResourceLoader {
+public final class WSResourceLoader {
     private static Properties config = null;
 
     private WSResourceLoader(){}

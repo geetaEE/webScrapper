@@ -395,19 +395,15 @@ public class WebScrapper extends JFrame {
                 ExportResponse exportResponse = null;
                 try {
                     exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+                    WebScrapperUtil.showWaitingDialog(frame);
+                    if (exportResponse.isSuccess()) {
+                        JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
+                        return true;
+                    }
                 } catch (WebScrapperException wsEx) {
                     JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
                     return false;
-                }
-                WebScrapperUtil.showWaitingDialog(frame);
-                if (exportResponse.isSuccess()) {
-                    JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
-                    return true;
-                } else {
-                    msg = "Issue in data export operation, kinldy check settings.";
-                    JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
-                    return false;
-                }
+                }                
             } else {
                 return false;
             }
@@ -416,19 +412,16 @@ public class WebScrapper extends JFrame {
             ExportResponse exportResponse = null;
             try {
                 exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
+                WebScrapperUtil.showWaitingDialog(frame);
+                if (exportResponse.isSuccess()) {
+                    JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
+                    return true;
+                }
             } catch (WebScrapperException wsEx) {
                 JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
                 return false;
-            }
-            WebScrapperUtil.showWaitingDialog(frame);
-            if (exportResponse.isSuccess()) {
-                JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
-                return true;
-            } else {
-                msg = "Database connection is not available, kindly check MongoDB connection on your machine and then choose export to DB option.";
-                JOptionPane.showMessageDialog(frame, msg, UIConstants.WEB_SCRAPPER, JOptionPane.INFORMATION_MESSAGE);
-                return false;
-            }
+            }            
         }
+		return rootPaneCheckingEnabled;
     }
 }

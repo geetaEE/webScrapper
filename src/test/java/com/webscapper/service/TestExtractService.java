@@ -166,6 +166,26 @@ public class TestExtractService {
         setFinalStatic(CommonConstants.class.getDeclaredField("EXTRACT_TIMEOUT"), CommonConstants.EXTRACT_TIMEOUT_VAL);
     }
 
+    /** Test blank url for text.
+     * 
+     * @throws Exception */
+    @Test
+    public void testEmptyUrlInText() throws WebScrapperException {
+        ExtractRequest request = new ExtractRequest();
+        request.setContentType(ContentType.TEXT);
+        Assert.assertNull(ExtractServiceFactory.getInstance(request.getContentType()).extract(request));
+    }
+
+    /** Test blank url for image.
+     * 
+     * @throws Exception */
+    @Test
+    public void testEmptyUrlInImage() throws WebScrapperException {
+        ExtractRequest request = new ExtractRequest();
+        request.setContentType(ContentType.IMAGE);
+        Assert.assertNull(ExtractServiceFactory.getInstance(request.getContentType()).extract(request));
+    }
+
     /** FinalStatic.
      * 
      * @param field

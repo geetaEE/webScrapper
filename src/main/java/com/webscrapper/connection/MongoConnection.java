@@ -43,7 +43,7 @@ public class MongoConnection {
 
             try {
                 if (null != port && !port.isEmpty()) {
-                    portNo = Integer.parseInt(port);                  
+                    portNo = Integer.parseInt(port);
                 }
 
                 client = new MongoClient(server, portNo);

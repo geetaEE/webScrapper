@@ -16,12 +16,12 @@ import com.webscapper.exception.WebScrapperException;
 public class TestWSResourceLoader {
     // ~ Methods ------------------------------------------------------------------------------------------------------
 
-    /** Unit Test for getPropertiesMap(). 
+    /** Unit Test for getPropertiesMap().
+     * 
      * @throws WebScrapperException */
     @Test
-    public void testGetPropertiesMap() throws WebScrapperException 
-    {
-    	Properties config = WSResourceLoader.getPropertiesMap();
-    	Assert.assertNotNull("Properties object is null.", config);
-    }   
+    public void testGetPropertiesMap() throws WebScrapperException {
+        Properties config = WSResourceLoader.getPropertiesMap();
+        Assert.assertNotNull("Properties object is null.", config);
+    }
 }

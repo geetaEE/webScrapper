@@ -10,8 +10,9 @@ import com.webscrapper.constants.CommonConstants;
 public final class WSResourceLoader {
     private static Properties config = null;
 
-    private WSResourceLoader(){}
-    
+    private WSResourceLoader() {
+    }
+
     /** @param args
      * @throws WebScrapperException */
     public static Properties fetchAndLoadDBProperties() throws WebScrapperException {

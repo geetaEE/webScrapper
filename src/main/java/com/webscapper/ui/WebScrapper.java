@@ -387,9 +387,11 @@ public class WebScrapper extends JFrame {
                 }
                 ExportRequest exportRequest = null;
                 if (selectedOptionValue.equals(ContentType.IMAGE.getType())) {
-                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,ExportType.IMAGE, selectedHTMLControlList, selectedFile.getAbsolutePath(), selectedImageURLList);
+                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
+                            ExportType.IMAGE, selectedHTMLControlList, selectedFile.getAbsolutePath(), selectedImageURLList);
                 } else {
-                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse, ExportType.getExportType(extractToOptionValue), selectedHTMLControlList, selectedFile.getAbsolutePath(),
+                    exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
+                            ExportType.getExportType(extractToOptionValue), selectedHTMLControlList, selectedFile.getAbsolutePath(),
                             selectedImageURLList);
                 }
                 ExportResponse exportResponse = null;
@@ -403,12 +405,13 @@ public class WebScrapper extends JFrame {
                 } catch (WebScrapperException wsEx) {
                     JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
                     return false;
-                }                
+                }
             } else {
                 return false;
             }
         } else {
-            ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,ExportType.getExportType(extractToOptionValue), null, null, null);
+            ExportRequest exportRequest = wsServiceProvider.buildExportRequest(wsUIControls.getUrl(), wsUIControls.getTitle(), extractResponse,
+                    ExportType.getExportType(extractToOptionValue), null, null, null);
             ExportResponse exportResponse = null;
             try {
                 exportResponse = wsServiceProvider.executeExportOperation(exportRequest);
@@ -420,8 +423,8 @@ public class WebScrapper extends JFrame {
             } catch (WebScrapperException wsEx) {
                 JOptionPane.showMessageDialog(frame, wsEx.getMessage(), UIConstants.WEB_SCRAPPER, JOptionPane.ERROR_MESSAGE);
                 return false;
-            }            
+            }
         }
-		return rootPaneCheckingEnabled;
+        return rootPaneCheckingEnabled;
     }
 }

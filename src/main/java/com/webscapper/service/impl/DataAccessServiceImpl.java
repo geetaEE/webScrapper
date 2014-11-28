@@ -20,7 +20,7 @@ public class DataAccessServiceImpl implements DataAccessService {
 
     @Override
     public DBCollection insertData(Map<String, Object> map) throws WebScrapperException {
-        DB db = MongoConnectionManager.getInstance().getConnection().getDbConnection();
+        DB db = MongoConnectionManager.INSTANCE.getConnection().getDbConnection();
 
         DBCollection table = db.getCollection(WSResource.getValue(CommonConstants.TABLE_NAME));
         try {

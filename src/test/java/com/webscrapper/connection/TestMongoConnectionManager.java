@@ -18,7 +18,7 @@ public class TestMongoConnectionManager {
 
     @Before
     public void setUp() {
-        connectionManager = MongoConnectionManager.getInstance();
+        connectionManager = MongoConnectionManager.INSTANCE;
     }
 
     /** Method under test: getInstance() Scenario: Verifying the behavior when connectionManager is null. Expectation: Should return connectionManager. */

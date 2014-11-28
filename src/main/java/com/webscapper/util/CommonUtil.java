@@ -1,6 +1,7 @@
 package com.webscapper.util;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.log4j.Logger;
@@ -30,7 +31,7 @@ public final class CommonUtil {
      * @return the file name */
     public static String getFileName(String location, String title, String ext) {
         logger.info("Entering getFileName method.");
-        String fileName = location + File.separator + title + CommonConstants.DATE_FORMATTER.format(new Date()) + ext;
+        String fileName = location + File.separator + title + new SimpleDateFormat(CommonConstants.DATE_FORMAT).format(new Date()) + ext;
         logger.info("Exiting from getFileName method.");
         return fileName;
     }

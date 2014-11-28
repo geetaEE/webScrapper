@@ -41,7 +41,7 @@ public final class MongoConnectionManager {
         return connection;
     }
 
-    /** Release connection */
+    /** Release connection. */
     public void releaseConnection() {
         logger.info("Entering from releaseConnection method.");
         if (connection != null) {

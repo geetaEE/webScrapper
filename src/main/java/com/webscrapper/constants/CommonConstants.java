@@ -1,8 +1,6 @@
 package com.webscrapper.constants;
 
-import java.text.SimpleDateFormat;
 
-// TODO: Auto-generated Javadoc
 /** The Class CommonConstants.
  * 
  * @author ruby.jha Common Constants */
@@ -35,9 +33,6 @@ public final class CommonConstants {
 
     /** The Constant EXTRACT_TIMEOUT. */
     public static final int EXTRACT_TIMEOUT_VAL = 30000;
-
-    /** The Constant DATE_FORMATTER. */
-    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 
     /** The Constant EXT_DOC. */
     public static final String EXT_DOC = ".doc";

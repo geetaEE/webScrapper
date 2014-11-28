@@ -18,7 +18,8 @@ import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
 /** Export To Doc Service */
-public class ExportToDocService implements ExportService {
+public enum ExportToDocService implements ExportService {
+    INSTANCE;
     private static final Logger LOG = Logger.getLogger(ExportToDocService.class);
 
     @Override

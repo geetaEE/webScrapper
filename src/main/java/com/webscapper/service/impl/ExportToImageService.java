@@ -3,6 +3,7 @@ package com.webscapper.service.impl;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 /** Export Image Service class. */
-public class ExportToImageService implements ExportService {
+public enum ExportToImageService implements ExportService {
+    INSTANCE;
     private static Logger logger = Logger.getLogger(ExportToImageService.class);
 
     @Override
@@ -31,7 +33,7 @@ public class ExportToImageService implements ExportService {
             boolean dirLocExists = null != dirLocation && !dirLocation.isEmpty();
             boolean titleExists = title != null && !title.isEmpty();
             if (imageExists && dirLocExists && titleExists) {
-                dirLocation = dirLocation + File.separator + title + CommonConstants.DATE_FORMATTER.format(new Date());
+                dirLocation = dirLocation + File.separator + title + new SimpleDateFormat(CommonConstants.DATE_FORMAT).format(new Date());
                 saveImages(imageList, dirLocation);
                 exportResponse.setSuccess(true);
             }
@@ -42,8 +44,11 @@ public class ExportToImageService implements ExportService {
     /** Save Images.
      * 
      * @param imageUrlList
+     *            imageUrlList
      * @param imageStorePath
-     * @throws WebScrapperException */
+     *            imageStorePath
+     * @throws WebScrapperException
+     *             exception */
     private void saveImages(List<String> imageUrlList, String imageStorePath) throws WebScrapperException {
         for (String imageUrl : imageUrlList) {
             URL url;

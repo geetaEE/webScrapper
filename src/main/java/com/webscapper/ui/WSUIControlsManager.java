@@ -39,7 +39,7 @@ import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
 
-// TODO: Auto-generated Javadoc
+
 /** The Class WSUIControlsManager. */
 public class WSUIControlsManager {
 
@@ -248,6 +248,7 @@ public class WSUIControlsManager {
                 try {
                     frame.executePreviewOperation();
                 } catch (Exception e1) {
+                    logger.error("Problem in preview data", e1);
                 }
             }
         });

@@ -16,7 +16,8 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 /** Export to CSV service. */
-public class ExportToCSVService implements ExportService {
+public enum ExportToCSVService implements ExportService {
+    INSTANCE;
     private static final Logger LOG = Logger.getLogger(ExportToCSVService.class);
 
     @Override

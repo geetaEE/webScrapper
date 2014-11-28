@@ -1,6 +1,6 @@
 package com.webscrapper.constants;
 
-// TODO: Auto-generated Javadoc
+
 /** The Class UIConstants. */
 public final class UIConstants {
 

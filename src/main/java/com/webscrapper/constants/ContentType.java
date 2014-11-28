@@ -42,11 +42,9 @@ public enum ContentType {
         return null;
     }
 
-    /** Gets the ContentType.
+    /** Gets the ContentArray.
      * 
-     * @param type
-     *            the type
-     * @return the ContentType */
+     * @return the ContentArray */
     public static String[] getContentArray() {
         List<String> values = new ArrayList<String>();
         for (ContentType contentType : ContentType.values()) {

@@ -20,7 +20,7 @@ public class MongoConnection {
     /** The client. */
     private MongoClient client;
 
-    /** Close connection */
+    /** Close connection. */
     public void closeConnection() {
         if (client != null) {
             closeClient();
@@ -32,7 +32,11 @@ public class MongoConnection {
         return db;
     }
 
-    /** @return the db connection */
+    /** Get db connection.
+     * 
+     * @return db connection
+     * @throws WebScrapperException
+     *             exception */
     public DB getDbConnection() throws WebScrapperException {
         logger.info("Entering from getDbConnection method.");
         if (db == null) {
@@ -68,7 +72,7 @@ public class MongoConnection {
         return db;
     }
 
-    /** Close client */
+    /** Close client. */
     public void closeClient() {
         logger.info("Entering from closeClient method.");
         if (client != null) {

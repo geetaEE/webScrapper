@@ -8,7 +8,13 @@ import com.webscapper.exception.WebScrapperException;
 /** @author ruby.jha DataAccessService */
 
 public interface DataAccessService {
-    /** insert tabular data to DB */
+    /** Insert tabular data to DB.
+     * 
+     * @param map
+     *            map
+     * @return db collection
+     * @throws WebScrapperException
+     *             exception */
     DBCollection insertData(Map<String, Object> map) throws WebScrapperException;
 
 }

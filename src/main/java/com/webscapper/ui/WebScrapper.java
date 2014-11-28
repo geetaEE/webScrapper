@@ -37,7 +37,7 @@ import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.UIConstants;
 
-// TODO: Auto-generated Javadoc
+
 
 /** The Class WebScrapper. */
 public class WebScrapper extends JFrame {
@@ -227,16 +227,19 @@ public class WebScrapper extends JFrame {
             if (lists.size() > 0) {
                 InputStream stream = wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).get(0)
                         .toString());
-                BufferedImage bufferedImage = null;
-                try {
-                    bufferedImage = ImageIO.read(stream);
-                } catch (IOException e1) {
+                if (stream != null) {
+                    try {
+                        BufferedImage bufferedImage = ImageIO.read(stream);
+                        ImageIcon image = new ImageIcon(bufferedImage);
+                        Image scaleImage = image.getImage().getScaledInstance(UIConstants.WS_IMAGE_WIDTH, UIConstants.WS_IMAGE_HEIGHT,
+                                Image.SCALE_DEFAULT);
+                        image = new ImageIcon(scaleImage);
+                        JLabel lbl = new JLabel(image);
+                        JOptionPane.showMessageDialog(frame, lbl, "Image Preview", -1);
+                    } finally {
+                        stream.close();
+                    }
                 }
-                ImageIcon image = new ImageIcon(bufferedImage);
-                Image scaleImage = image.getImage().getScaledInstance(UIConstants.WS_IMAGE_WIDTH, UIConstants.WS_IMAGE_HEIGHT, Image.SCALE_DEFAULT);
-                image = new ImageIcon(scaleImage);
-                JLabel lbl = new JLabel(image);
-                JOptionPane.showMessageDialog(frame, lbl, "Image Preview", -1);
             } else {
                 JOptionPane.showMessageDialog(frame, "No Image Preview available, kindly select image.", UIConstants.WEB_SCRAPPER,
                         JOptionPane.INFORMATION_MESSAGE);
@@ -245,8 +248,8 @@ public class WebScrapper extends JFrame {
         } else {
             JScrollPane scrollPane = null;
             if (wsUIControls.getStructedRadioButton().isSelected()) {
-                String columnNames[] = wsServiceProvider.fetchColumnNameForPreview(extractResponse);
-                String dataValues[][] = wsServiceProvider.fetchTabularPreviewData(extractResponse);
+                String[] columnNames = wsServiceProvider.fetchColumnNameForPreview(extractResponse);
+                String[][] dataValues = wsServiceProvider.fetchTabularPreviewData(extractResponse);
                 JTable table = new JTable(dataValues, columnNames);
                 table.setTableHeader(null);
                 table.setEnabled(false);

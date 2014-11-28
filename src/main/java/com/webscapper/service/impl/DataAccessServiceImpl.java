@@ -18,9 +18,6 @@ import com.webscrapper.service.DataAccessService;
 public class DataAccessServiceImpl implements DataAccessService {
     private static Logger logger = Logger.getLogger(DataAccessServiceImpl.class);
 
-    /** This method is used to insert the tabular data into DB
-     * 
-     * @throws WebScrapperException */
     @Override
     public DBCollection insertData(Map<String, Object> map) throws WebScrapperException {
         DB db = MongoConnectionManager.getInstance().getConnection().getDbConnection();

@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 
 import com.webscrapper.constants.UIConstants;
 
-// TODO: Auto-generated Javadoc
+
 /** The Class DialogDisplay. */
 public class DialogDisplay {
 

@@ -1,4 +1,4 @@
-package com.webscapper.service.impl;
+package com.webscapper.util;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
@@ -22,11 +22,10 @@ import org.jsoup.nodes.Document;
 
 import com.webscapper.exception.WebScrapperException;
 import com.webscrapper.constants.CommonConstants;
-import com.webscrapper.service.ExtractService;
 
-/** The base extract service. */
-public abstract class BaseExtractService implements ExtractService {
-    private static final Logger LOG = Logger.getLogger(BaseExtractService.class);
+/** The Class ExtractUtil. */
+public final class ExtractUtil {
+    private static final Logger LOG = Logger.getLogger(ExtractUtil.class);
 
     static {
         // Initialize for ssl communication.
@@ -61,13 +60,17 @@ public abstract class BaseExtractService implements ExtractService {
         HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
     }
 
+    /** Instantiates a new ExtractUtil. */
+    private ExtractUtil() {
+    }
+
     /** Extract html document.
      * 
      * @param url
      *            the url
      * @return html document
      * @throws WebScrapperException */
-    public Document extractDocument(String url) throws WebScrapperException {
+    public static Document extractDocument(String url) throws WebScrapperException {
         LOG.info("Method extractDocument is executing");
         Document doc = null;
         try {

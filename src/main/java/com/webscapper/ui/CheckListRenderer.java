@@ -14,10 +14,7 @@ public class CheckListRenderer extends JCheckBox implements ListCellRenderer {
     /** The logger. */
     private static Logger logger = Logger.getLogger(CheckListRenderer.class);
 
-    /*
-     * (non-Javadoc)
-     * @see javax.swing.ListCellRenderer#getListCellRendererComponent(javax.swing.JList, java.lang.Object, int, boolean, boolean)
-     */
+    @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
         logger.info("Entering getListCellRendererComponent()");
 

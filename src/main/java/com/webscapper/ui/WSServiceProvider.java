@@ -20,7 +20,7 @@ import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 
-// TODO: Auto-generated Javadoc
+
 /** The Class WSServiceProvider. */
 public class WSServiceProvider {
 
@@ -85,7 +85,9 @@ public class WSServiceProvider {
      * 
      * @param extractRequest
      *            the extract request
-     * @return the extract response */
+     * @return the extract response
+     * @throws WebScrapperException
+     *             exception */
     public ExtractResponse executeExtractOperation(ExtractRequest extractRequest) throws WebScrapperException {
         logger.info("Entering executeExtractOperation method.");
 
@@ -100,7 +102,9 @@ public class WSServiceProvider {
      * 
      * @param exportRequest
      *            the export request
-     * @return the export response */
+     * @return the export response
+     * @throws WebScrapperException
+     *             exception */
     public ExportResponse executeExportOperation(ExportRequest exportRequest) throws WebScrapperException {
         logger.info("Entering executeExportOperation method.");
 

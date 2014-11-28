@@ -1,5 +1,6 @@
 package com.webscapper.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,8 +16,8 @@ import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.ExportService;
 
 /** Export to DB service. */
-public class ExportToDBService implements ExportService {
-
+public enum ExportToDBService implements ExportService {
+    INSTANCE;
     @Override
     public ExportResponse export(ExportRequest request) throws WebScrapperException {
         ExportResponse exportResponse = new ExportResponse();
@@ -39,7 +40,7 @@ public class ExportToDBService implements ExportService {
             }
 
             Map<String, Object> map = new HashMap<String, Object>();
-            map.put(CommonConstants.TITLE, request.getTitle() + CommonConstants.DATE_FORMATTER.format(new Date()));
+            map.put(CommonConstants.TITLE, request.getTitle() + new SimpleDateFormat(CommonConstants.DATE_FORMAT).format(new Date()));
             map.put(CommonConstants.URL, request.getUrl());
             map.put(CommonConstants.TABLES, tableList);
 

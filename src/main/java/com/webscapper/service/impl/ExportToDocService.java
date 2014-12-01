@@ -1,7 +1,7 @@
 package com.webscapper.service.impl;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public enum ExportToDocService implements ExportService {
             response = request.getExtractResponse();
             tagsList = request.getTagsList();
         }
-        FileWriter writer = ExportUtil.getFileWriter(fileName);
+        Writer writer = ExportUtil.getFileWriter(fileName);
 
         Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
         try {

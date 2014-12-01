@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
 import com.webscapper.exception.WebScrapperException;
 import com.webscrapper.constants.CommonConstants;
 
 /** WSResourceLoader class. */
 public final class WSResourceLoader {
+    /** The logger. */
+    private static final Logger LOG = Logger.getLogger(WSResourceLoader.class);
     private static Properties config = new Properties();
 
     /** Default constructor. */
@@ -21,11 +25,22 @@ public final class WSResourceLoader {
      * @throws WebScrapperException */
     public static Properties fetchAndLoadDBProperties() throws WebScrapperException {
         if (config.isEmpty()) {
+            InputStream in = null;
             try {
-                InputStream in = WSResourceLoader.class.getResourceAsStream("/configuration.properties");
+                in = WSResourceLoader.class.getResourceAsStream("/configuration.properties");
                 config.load(in);
             } catch (IOException ioEx) {
+                LOG.error(CommonConstants.EXP_LOAD_RESOURCES_ERROR, ioEx);
                 throw new WebScrapperException(CommonConstants.EXP_LOAD_RESOURCES_ERROR, ioEx);
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                        LOG.error(CommonConstants.EXP_LOAD_RESOURCES_ERROR, e);
+                        throw new WebScrapperException(CommonConstants.EXP_LOAD_RESOURCES_ERROR, e);
+                    }
+                }
             }
         }
 

@@ -1,7 +1,10 @@
 package com.webscapper.util;
 
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import org.apache.log4j.Logger;
 
@@ -23,10 +26,14 @@ public final class ExportUtil {
      *            file name
      * @return file writer
      * @throws WebScrapperException */
-    public static FileWriter getFileWriter(String fileName) throws WebScrapperException {
+    public static Writer getFileWriter(String fileName) throws WebScrapperException {
         try {
-            return new FileWriter(fileName);
+            File file = new File(fileName);
+            return new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
         } catch (IOException e) {
+            LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
+            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
+        } catch (NullPointerException e) {
             LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
             throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
         }
@@ -39,7 +46,7 @@ public final class ExportUtil {
      * @param fileName
      *            file name
      * @throws WebScrapperException */
-    public static void closeFileWriter(FileWriter writer, String fileName) throws WebScrapperException {
+    public static void closeFileWriter(Writer writer, String fileName) throws WebScrapperException {
         if (writer != null) {
             try {
                 writer.close();

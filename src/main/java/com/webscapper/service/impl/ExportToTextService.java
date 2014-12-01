@@ -1,7 +1,7 @@
 package com.webscapper.service.impl;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public enum ExportToTextService implements ExportService {
         logger.info("Text export executing");
         ExportResponse exportResponse = new ExportResponse();
         String fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_TEXT);
-        FileWriter writer = ExportUtil.getFileWriter(fileName);
+        Writer writer = ExportUtil.getFileWriter(fileName);
         ExtractResponse response = request.getExtractResponse();
         List<String> tagsList = request.getTagsList();
         Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;

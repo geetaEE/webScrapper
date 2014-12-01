@@ -40,45 +40,42 @@ public final class ImageUtil {
         String actaulFileName = fileSeparatorArr[fileSeparatorArr.length - 1];
         String destName = imageStorePath + File.separator + actaulFileName;
         File destDir = new File(imageStorePath);
-        destDir.mkdirs();
-        try {
-            is = url.openStream();
-        } catch (IOException e) {
-            LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
-            throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
+        boolean isCreated = destDir.mkdirs();
+        if (isCreated) {
+            LOG.info("Directory created with path: " + destDir.getAbsolutePath());
         }
         try {
+            is = url.openStream();
             os = new FileOutputStream(destName);
+            byte[] img = new byte[CommonConstants.DEFAULT_BYTE_ARR_SIZE];
+            int length;
+            while ((length = is.read(img)) != -1) {
+                os.write(img, 0, length);
+            }
         } catch (FileNotFoundException e) {
             LOG.error(destName + CommonConstants.EXP_IMG_FILE_EXIST_RW_ERROR, e);
             throw new WebScrapperException(CommonConstants.EXP_IMG_FILE_EXIST_RW_ERROR, e);
         } catch (SecurityException e) {
             LOG.error(destName + CommonConstants.EXP_IMG_FILE_WRITE_ERROR, e);
             throw new WebScrapperException(CommonConstants.EXP_IMG_FILE_WRITE_ERROR, e);
-        }
-        byte[] img = new byte[CommonConstants.DEFAULT_BYTE_ARR_SIZE];
-        int length;
-        try {
-            while ((length = is.read(img)) != -1) {
-                os.write(img, 0, length);
-            }
         } catch (IOException e) {
             LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
             throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
         } finally {
+            if (os != null) {
+                try {
+                    os.flush();
+                    os.close();
+                } catch (IOException e) {
+                    LOG.error(CommonConstants.EXP_IMG_OPER_ERROR, e);
+                    throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
+                }
+            }
             if (is != null) {
                 try {
                     is.close();
                 } catch (IOException e) {
-                    LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
-                    throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
-                }
-            }
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
+                    LOG.error(CommonConstants.EXP_IMG_OPER_ERROR, e);
                     throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
                 }
             }

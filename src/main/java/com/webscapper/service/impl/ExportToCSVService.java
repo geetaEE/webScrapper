@@ -1,7 +1,7 @@
 package com.webscapper.service.impl;
 
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -25,7 +25,7 @@ public enum ExportToCSVService implements ExportService {
         LOG.info("CSV export executing");
         ExportResponse exportResponse = new ExportResponse();
         String fileName = CommonUtil.getFileName(request.getLocation(), request.getTitle(), CommonConstants.EXT_CSV);
-        FileWriter writer = ExportUtil.getFileWriter(fileName);
+        Writer writer = ExportUtil.getFileWriter(fileName);
         ExtractResponse response = request.getExtractResponse();
         List<List<List<String>>> tablesList = response != null ? response.getTables() : null;
         try {

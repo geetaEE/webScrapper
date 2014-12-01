@@ -229,7 +229,6 @@ public class WebScrapper extends JFrame {
                 InputStream stream = wsServiceProvider.fetchImagePreviewData(WebScrapperUtil.getSelectedListItems(wsUIControls.getImageList()).get(0)
                         .toString());
                 if (stream != null) {
-                    stream = null;
                     try {
                         BufferedImage bufferedImage = ImageIO.read(stream);
                         ImageIcon image = new ImageIcon(bufferedImage);

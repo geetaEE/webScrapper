@@ -5,7 +5,7 @@ import java.util.List;
 import com.webscapper.response.ExtractResponse;
 import com.webscrapper.constants.ExportType;
 
-/** @author ruby.jha Export request. */
+/** Export request. */
 public class ExportRequest {
     /** The url. */
     private String url;

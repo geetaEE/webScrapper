@@ -5,7 +5,7 @@ import java.util.Map;
 import com.mongodb.DBCollection;
 import com.webscapper.exception.WebScrapperException;
 
-/** @author ruby.jha DataAccessService */
+/** DataAccessService. */
 
 public interface DataAccessService {
     /** Insert tabular data to DB.

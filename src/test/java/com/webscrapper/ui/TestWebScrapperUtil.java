@@ -17,9 +17,7 @@ import java.util.List;
 
 import javax.swing.JList;
 
-/** The Class TestWebScrapperUtil.
- * 
- * @author vivek.yadav */
+/** The Class TestWebScrapperUtil. */
 @RunWith(JUnit4.class)
 public class TestWebScrapperUtil {
     // ~ Methods ------------------------------------------------------------------------------------------------------

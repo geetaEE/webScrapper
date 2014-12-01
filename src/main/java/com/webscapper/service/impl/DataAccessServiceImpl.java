@@ -14,7 +14,7 @@ import com.webscrapper.connection.MongoConnectionManager;
 import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.service.DataAccessService;
 
-/** @author ruby.jha DataAccessServiceImpl */
+/** DataAccessServiceImpl */
 public class DataAccessServiceImpl implements DataAccessService {
     private static Logger logger = Logger.getLogger(DataAccessServiceImpl.class);
 

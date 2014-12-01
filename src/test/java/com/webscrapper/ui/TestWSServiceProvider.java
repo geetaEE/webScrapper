@@ -22,9 +22,7 @@ import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 
-/** The Class TestWSServiceProvider.
- * 
- * @author vivek.yadav */
+/** The Class TestWSServiceProvider. */
 @RunWith(JUnit4.class)
 public class TestWSServiceProvider {
     // ~ Methods ------------------------------------------------------------------------------------------------------

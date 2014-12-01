@@ -3,7 +3,7 @@ package com.webscrapper.constants;
 
 /** The Class CommonConstants.
  * 
- * @author ruby.jha Common Constants */
+ * Common Constants. */
 public final class CommonConstants {
 
     /** Instantiates a new common constants. */

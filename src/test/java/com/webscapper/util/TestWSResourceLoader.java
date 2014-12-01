@@ -9,9 +9,7 @@ import org.junit.runners.JUnit4;
 
 import com.webscapper.exception.WebScrapperException;
 
-/** The Class TestWebScrapperUtil.
- * 
- * @author vivek.yadav */
+/** The Class TestWebScrapperUtil. */
 @RunWith(JUnit4.class)
 public class TestWSResourceLoader {
     // ~ Methods ------------------------------------------------------------------------------------------------------

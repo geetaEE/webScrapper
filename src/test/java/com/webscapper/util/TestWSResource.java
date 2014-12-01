@@ -8,7 +8,7 @@ import org.junit.runners.JUnit4;
 import com.webscapper.exception.WebScrapperException;
 import com.webscrapper.constants.CommonConstants;
 
-/** @author vivek.yadav */
+/** TestWSResource. */
 @RunWith(JUnit4.class)
 public class TestWSResource {
     // ~ Methods ------------------------------------------------------------------------------------------------------

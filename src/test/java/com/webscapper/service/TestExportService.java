@@ -26,7 +26,7 @@ import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.service.ExportService;
 
-/** @author ruby.jha Test export service. */
+/** Test export service. */
 @RunWith(JUnit4.class)
 public class TestExportService {
 

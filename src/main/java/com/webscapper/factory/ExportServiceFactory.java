@@ -8,7 +8,7 @@ import com.webscapper.service.impl.ExportToTextService;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
 
-/** @author ruby.jha A factory for creating export service objects. */
+/** A factory for creating export service objects. */
 public abstract class ExportServiceFactory {
     /** Get export service instance.
      * 

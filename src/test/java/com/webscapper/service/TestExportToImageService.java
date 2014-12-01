@@ -21,7 +21,7 @@ import com.webscapper.request.ExportRequest;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.service.ExportService;
 
-/** @author gaurav.bhattacharya JUnit class to test the Export To Image Functionality. */
+/** JUnit class to test the Export To Image Functionality. */
 @RunWith(JUnit4.class)
 public class TestExportToImageService {
     private List<String> imageUrlsList;

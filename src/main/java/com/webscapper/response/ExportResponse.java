@@ -1,6 +1,6 @@
 package com.webscapper.response;
 
-/** @author ruby.jha Export response. */
+/** Export response. */
 public class ExportResponse {
     /** The success. **/
     private boolean success;

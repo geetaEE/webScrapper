@@ -10,7 +10,7 @@ import com.webscrapper.constants.CommonConstants;
 
 /** The Class CommonUtil.
  * 
- * @author ruby.jha Common Util */
+ * Common Util. */
 public final class CommonUtil {
 
     /** The logger. */

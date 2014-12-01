@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-/** @author ruby.jha Mongo Connection Manager JUnit Test */
+/** Mongo Connection Manager JUnit Test */
 @RunWith(JUnit4.class)
 public class TestMongoConnectionManager {
 

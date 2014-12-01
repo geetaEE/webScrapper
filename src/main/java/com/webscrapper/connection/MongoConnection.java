@@ -11,7 +11,7 @@ import com.webscapper.exception.WebScrapperException;
 import com.webscapper.util.WSResource;
 import com.webscrapper.constants.CommonConstants;
 
-/** @author ruby.jha MongoConnection */
+/** MongoConnection. */
 public class MongoConnection {
     private static Logger logger = Logger.getLogger(MongoConnection.class);
 

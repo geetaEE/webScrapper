@@ -2,7 +2,7 @@ package com.webscrapper.connection;
 
 import org.apache.log4j.Logger;
 
-/** @author ruby.jha Mongo Connection Manager */
+/** Mongo Connection Manager. */
 public enum MongoConnectionManager {
     INSTANCE;
     private static Logger logger = Logger.getLogger(MongoConnectionManager.class);

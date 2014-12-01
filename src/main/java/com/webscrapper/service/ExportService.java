@@ -4,7 +4,7 @@ import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
 
-/** @author ruby.jha Export Service */
+/** Export Service */
 public interface ExportService {
     /** This method is used to insert the tabular data into DB based on the ExportType.
      * 

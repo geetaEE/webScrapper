@@ -27,13 +27,14 @@ public final class ExportUtil {
      * @return file writer
      * @throws WebScrapperException */
     public static Writer getFileWriter(String fileName) throws WebScrapperException {
+        if (fileName == null) {
+            LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
+            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
+        }
         try {
             File file = new File(fileName);
             return new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
         } catch (IOException e) {
-            LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
-            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
-        } catch (NullPointerException e) {
             LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
             throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName, e);
         }

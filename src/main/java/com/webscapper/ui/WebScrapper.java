@@ -49,7 +49,7 @@ public class WebScrapper extends JFrame {
     private static Logger logger = Logger.getLogger(WebScrapper.class);
 
     /** The frame. */
-    private static WebScrapper frame = null;
+    private WebScrapper frame = null;
 
     /** The extract request. */
     private ExtractRequest extractRequest;
@@ -152,10 +152,11 @@ public class WebScrapper extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    frame = new WebScrapper();
+                	WebScrapper frame = new WebScrapper();
                     frame.setVisible(true);
                     frame.setLocationRelativeTo(null);
                     wsUIControlsManager = new WSUIControlsManager(frame);
+                    frame.setFrame(frame);
                     populateDetailArea();
 
                 } catch (Exception e) {

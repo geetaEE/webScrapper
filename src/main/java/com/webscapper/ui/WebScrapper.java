@@ -152,11 +152,11 @@ public class WebScrapper extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                	WebScrapper frame = new WebScrapper();
-                    frame.setVisible(true);
-                    frame.setLocationRelativeTo(null);
-                    wsUIControlsManager = new WSUIControlsManager(frame);
-                    frame.setFrame(frame);
+                	WebScrapper webScrapper = new WebScrapper();
+                	webScrapper.setVisible(true);
+                	webScrapper.setLocationRelativeTo(null);
+                    wsUIControlsManager = new WSUIControlsManager(webScrapper);
+                    webScrapper.setFrame(webScrapper);
                     populateDetailArea();
 
                 } catch (Exception e) {

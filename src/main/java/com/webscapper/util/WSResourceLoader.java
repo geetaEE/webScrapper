@@ -27,7 +27,7 @@ public final class WSResourceLoader {
         if (config.isEmpty()) {
             InputStream in = null;
             try {
-                in = WSResourceLoader.class.getResourceAsStream("/configuration.properties");
+                in = WSResourceLoader.class.getResourceAsStream(CommonConstants.CONFIG_PROP_FILE);
                 config.load(in);
             } catch (IOException ioEx) {
                 LOG.error(CommonConstants.EXP_LOAD_RESOURCES_ERROR, ioEx);

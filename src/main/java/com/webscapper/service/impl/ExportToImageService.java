@@ -1,6 +1,7 @@
 package com.webscapper.service.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -60,7 +61,12 @@ public enum ExportToImageService implements ExportService {
             }
             String fileName = url.getFile();
             if (null != fileName && fileName.contains("/")) {
-                ImageUtil.saveImage(imageUrl, url, fileName, imageStorePath);
+                try {
+					ImageUtil.saveImage(imageUrl, url, fileName, imageStorePath);
+				} catch (IOException e) {
+					logger.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
+		            throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
+				}
             }
         }
     }

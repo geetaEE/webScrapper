@@ -32,8 +32,9 @@ public final class ImageUtil {
      *            file name
      * @param imageStorePath
      *            image directory
-     * @throws WebScrapperException */
-    public static void saveImage(String imageUrl, URL url, String fileName, String imageStorePath) throws WebScrapperException {
+     * @throws WebScrapperException 
+     * @throws IOException */
+    public static void saveImage(String imageUrl, URL url, String fileName, String imageStorePath) throws WebScrapperException, IOException {
         InputStream is = null;
         OutputStream os = null;
         String[] fileSeparatorArr = fileName.split("/");
@@ -52,33 +53,12 @@ public final class ImageUtil {
             while ((length = is.read(img)) != -1) {
                 os.write(img, 0, length);
             }
-        } catch (FileNotFoundException e) {
-            LOG.error(destName + CommonConstants.EXP_IMG_FILE_EXIST_RW_ERROR, e);
-            throw new WebScrapperException(CommonConstants.EXP_IMG_FILE_EXIST_RW_ERROR, e);
-        } catch (SecurityException e) {
-            LOG.error(destName + CommonConstants.EXP_IMG_FILE_WRITE_ERROR, e);
-            throw new WebScrapperException(CommonConstants.EXP_IMG_FILE_WRITE_ERROR, e);
-        } catch (IOException e) {
-            LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
+        } catch(final IOException e){
+        	LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
             throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
-        } finally {
-            if (os != null) {
-                try {
-                    os.flush();
-                    os.close();
-                } catch (IOException e) {
-                    LOG.error(CommonConstants.EXP_IMG_OPER_ERROR, e);
-                    throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
-                }
-            }
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    LOG.error(CommonConstants.EXP_IMG_OPER_ERROR, e);
-                    throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
-                }
-            }
+        }finally{
+            if(os != null){os.close();}
+            if(is != null){is.close();}
         }
     }
 }

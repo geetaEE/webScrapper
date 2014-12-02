@@ -27,11 +27,6 @@ public class MongoConnection {
         }
     }
 
-    /** @return the db */
-    public DB getDb() {
-        return db;
-    }
-
     /** Get db connection.
      * 
      * @return db connection

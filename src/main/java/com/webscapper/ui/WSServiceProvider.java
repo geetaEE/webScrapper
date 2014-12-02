@@ -20,7 +20,6 @@ import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 
-
 /** The Class WSServiceProvider. */
 public class WSServiceProvider {
 
@@ -228,28 +227,25 @@ public class WSServiceProvider {
     public String fetchNonTabularPreviewData(ExtractResponse response, List<String> tagsList) {
         logger.info("Entering fetchNonTabularPreviewData method.");
 
-        String previewData = "";
+        StringBuilder previewDataBuilder = new StringBuilder();
         Map<TagType, String> tagData = response != null ? response.getTagDataMap() : null;
 
         if (tagsList != null) {
             for (String tags : tagsList) {
                 for (Map.Entry<TagType, String> entry : tagData.entrySet()) {
                     if (entry.getKey().getDisplayName().equals(tags)) {
-                        previewData = previewData + entry.getKey() + "\n";
+                        previewDataBuilder.append(entry.getKey()).append("\n");
                         String value = entry.getValue();
                         if (value.length() > UIConstants.WSSP_ROW_COUNTER_TEXT_LENGTH) {
                             value = value.substring(0, UIConstants.WSSP_ROW_COUNTER_TEXT_LENGTH);
                         }
-                        previewData = previewData + value + "\n";
-                        previewData = previewData + "\n";
+                        previewDataBuilder.append(value).append("\n").append("\n");
                     }
                 }
             }
         }
-
         logger.info("Exiting from fetchNonTabularPreviewData method.");
-
-        return previewData;
+        return previewDataBuilder.toString();
     }
 
     /** Fetch image preview data.

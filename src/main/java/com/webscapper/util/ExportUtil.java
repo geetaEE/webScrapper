@@ -28,8 +28,8 @@ public final class ExportUtil {
      * @throws WebScrapperException */
     public static Writer getFileWriter(String fileName) throws WebScrapperException {
         if (fileName == null) {
-            LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
-            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR + fileName);
+            LOG.error(CommonConstants.EXP_FILE_EXIST_ERROR);
+            throw new WebScrapperException(CommonConstants.EXP_FILE_EXIST_ERROR);
         }
         try {
             File file = new File(fileName);

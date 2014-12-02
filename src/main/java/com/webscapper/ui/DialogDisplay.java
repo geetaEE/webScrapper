@@ -46,8 +46,6 @@ public class DialogDisplay {
         mainPanel.add(progressBar, BorderLayout.CENTER);
 
         final SwingWorker task = new SwingWorker<Void, Void>() {
-            private int value = 0;
-
             @Override
             protected Void doInBackground() throws InterruptedException {
                 for (int i = 0; i < UIConstants.DAILOG_COUNTER; i++) {

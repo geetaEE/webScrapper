@@ -37,8 +37,6 @@ import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.UIConstants;
 
-
-
 /** The Class WebScrapper. */
 public class WebScrapper extends JFrame {
 
@@ -152,9 +150,9 @@ public class WebScrapper extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                	WebScrapper webScrapper = new WebScrapper();
-                	webScrapper.setVisible(true);
-                	webScrapper.setLocationRelativeTo(null);
+                    WebScrapper webScrapper = new WebScrapper();
+                    webScrapper.setVisible(true);
+                    webScrapper.setLocationRelativeTo(null);
                     wsUIControlsManager = new WSUIControlsManager(webScrapper);
                     webScrapper.setFrame(webScrapper);
                     populateDetailArea();

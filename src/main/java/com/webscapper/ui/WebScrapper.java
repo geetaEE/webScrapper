@@ -149,13 +149,13 @@ public class WebScrapper extends JFrame {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-            	WebScrapper webScrapper = null;
-            	try {
+                WebScrapper webScrapper = null;
+                try {
                     webScrapper = new WebScrapper();
                     webScrapper.setVisible(true);
                     webScrapper.setLocationRelativeTo(null);
                     webScrapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    WSUIControlsManager wsUIControlsManagerNew = new WSUIControlsManager(webScrapper);                    
+                    WSUIControlsManager wsUIControlsManagerNew = new WSUIControlsManager(webScrapper);
                     webScrapper.setFrame(webScrapper);
                     webScrapper.setWebScrapperUIControls(wsUIControlsManagerNew);
                     webScrapper.populateDetailArea();
@@ -171,7 +171,7 @@ public class WebScrapper extends JFrame {
 
     /** Populate detail area. */
     public void populateDetailArea() {
-    	wsUIControlsManager.createMenus();
+        wsUIControlsManager.createMenus();
         wsUIControlsManager.createExtrctProcessPanel();
         wsUIControlsManager.createBatchProcessPanel();
         wsUIControlsManager.resetAllExtractProcessPanel();
@@ -318,12 +318,12 @@ public class WebScrapper extends JFrame {
         }
         queryTextField.setColumns(UIConstants.WS_COLUMN);
         JComboBox comboBox = new JComboBox();
-        comboBox.setModel(new DefaultComboBoxModel(new String[] { "Export", "Save Query For Batch" }));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] {"Export", "Save Query For Batch"}));
         JPanel message = new JPanel();
         message.add(queryLabel);
         message.add(queryTextField);
         message.add(comboBox);
-        Object[] options = new String[] { "Process", "Cancel" };
+        Object[] options = new String[] {"Process", "Cancel"};
         int returnvalue = JOptionPane.showOptionDialog(frame, message, UIConstants.WEB_SCRAPPER, JOptionPane.YES_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, options, options[0]);
         String optionValue = comboBox.getSelectedItem().toString();

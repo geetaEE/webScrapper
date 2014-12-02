@@ -29,7 +29,7 @@ public final class ExtractUtil {
 
     static {
         // Initialize for ssl communication.
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager(){
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                 return null;
             }

@@ -209,7 +209,7 @@ public class WSServiceProvider {
     public String[] fetchColumnNameForPreview(ExtractResponse extractResponse) {
         logger.info("Entering fetchColumnNameForPreview method.");
 
-        String[] columnArray = new String[] { UIConstants.WSSP_COLUMN_ONE, UIConstants.WSSP_COLUMN_TWO, UIConstants.WSSP_COLUMN_THREE,
+        String[] columnArray = new String[] {UIConstants.WSSP_COLUMN_ONE, UIConstants.WSSP_COLUMN_TWO, UIConstants.WSSP_COLUMN_THREE,
                 UIConstants.WSSP_COLUMN_FOUR };
 
         logger.info("Exiting from fetchColumnNameForPreview method.");

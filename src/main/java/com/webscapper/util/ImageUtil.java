@@ -31,8 +31,10 @@ public final class ImageUtil {
      *            file name
      * @param imageStorePath
      *            image directory
-     * @throws WebScrapperException 
-     * @throws IOException */
+     * @throws WebScrapperException
+     *             Web Scrapper Exception
+     * @throws IOException
+     *             IO Exception */
     public static void saveImage(String imageUrl, URL url, String fileName, String imageStorePath) throws WebScrapperException, IOException {
         InputStream is = null;
         OutputStream os = null;
@@ -52,12 +54,16 @@ public final class ImageUtil {
             while ((length = is.read(img)) != -1) {
                 os.write(img, 0, length);
             }
-        } catch(final IOException e){
-        	LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
+        } catch (final IOException e) {
+            LOG.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
             throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
-        }finally{
-            if(os != null){os.close();}
-            if(is != null){is.close();}
+        } finally {
+            if (os != null) {
+                os.close();
+            }
+            if (is != null) {
+                is.close();
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.webscrapper.constants;
 
-
 /** The Class UIConstants. */
 public final class UIConstants {
 

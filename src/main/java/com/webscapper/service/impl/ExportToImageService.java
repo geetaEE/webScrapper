@@ -62,11 +62,11 @@ public enum ExportToImageService implements ExportService {
             String fileName = url.getFile();
             if (null != fileName && fileName.contains("/")) {
                 try {
-					ImageUtil.saveImage(imageUrl, url, fileName, imageStorePath);
-				} catch (IOException e) {
-					logger.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
-		            throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
-				}
+                    ImageUtil.saveImage(imageUrl, url, fileName, imageStorePath);
+                } catch (IOException e) {
+                    logger.error(imageUrl + CommonConstants.EXP_IMG_OPER_ERROR, e);
+                    throw new WebScrapperException(CommonConstants.EXP_IMG_OPER_ERROR, e);
+                }
             }
         }
     }

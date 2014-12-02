@@ -39,7 +39,6 @@ import com.webscrapper.constants.TagType;
 import com.webscrapper.constants.UIConstants;
 import com.webscrapper.constants.UnStructuredExtractDocType;
 
-
 /** The Class WSUIControlsManager. */
 public class WSUIControlsManager {
 
@@ -346,7 +345,7 @@ public class WSUIControlsManager {
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
-            	frame.dispose(); 
+                frame.dispose();
             }
         });
         scrollPane.setVisible(false);
@@ -373,7 +372,7 @@ public class WSUIControlsManager {
         JButton buttonExit = new JButton("Exit");
         buttonExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	frame.dispose();
+                frame.dispose();
             }
         });
         buttonExit.setBounds(UIConstants.WSUM_X_28, UIConstants.WSUM_Y_28, UIConstants.WSUM_WIDTH_28, UIConstants.WSUM_HEIGHT_28);
@@ -563,9 +562,6 @@ public class WSUIControlsManager {
     }
 
     /** Method for reset Headers. */
-    /**
-	 * 
-	 */
     public void resetHeaderValuesValue() {
         logger.info("Entering in resetHeaderValuesValue()");
         wsUIControls.setUrl(null);

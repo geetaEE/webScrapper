@@ -17,7 +17,6 @@ import org.apache.log4j.Logger;
 
 import com.webscrapper.constants.UIConstants;
 
-
 /** The Class DialogDisplay. */
 public class DialogDisplay {
 

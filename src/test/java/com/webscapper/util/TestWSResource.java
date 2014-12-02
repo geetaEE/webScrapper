@@ -25,8 +25,8 @@ public class TestWSResource {
         // Negative Scenario
         value = WSResource.getValue("Test");
         Assert.assertNull("Value should be null.", value);
-        
-     // Negative Scenario
+
+        // Negative Scenario
         value = WSResource.getValue(null);
         Assert.assertNull("Value should be null.", value);
     }

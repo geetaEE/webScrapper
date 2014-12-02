@@ -1,6 +1,5 @@
 package com.webscrapper.constants;
 
-
 /** The Enum ExportType.
  * 
  * Defines Content types. */

@@ -346,7 +346,7 @@ public class WSUIControlsManager {
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
-                System.exit(1);
+            	frame.dispose(); 
             }
         });
         scrollPane.setVisible(false);
@@ -373,7 +373,7 @@ public class WSUIControlsManager {
         JButton buttonExit = new JButton("Exit");
         buttonExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(1);
+            	frame.dispose();
             }
         });
         buttonExit.setBounds(UIConstants.WSUM_X_28, UIConstants.WSUM_Y_28, UIConstants.WSUM_WIDTH_28, UIConstants.WSUM_HEIGHT_28);

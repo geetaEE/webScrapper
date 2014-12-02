@@ -56,10 +56,10 @@ public class WebScrapper extends JFrame {
     private ExtractResponse extractResponse = null;
 
     /** The ws service provider. */
-    private static WSServiceProvider wsServiceProvider;
+    private WSServiceProvider wsServiceProvider;
 
     /** The web scrapper ui controls. */
-    private static WSUIControlsManager wsUIControlsManager;
+    private WSUIControlsManager wsUIControlsManager;
 
     /** Sets the frame.
      * 
@@ -79,7 +79,7 @@ public class WebScrapper extends JFrame {
     /** Gets the web scrapper ui controls.
      * 
      * @return the web scrapper ui controls */
-    public static WSUIControlsManager getWebScrapperUIControls() {
+    public WSUIControlsManager getWebScrapperUIControls() {
         return wsUIControlsManager;
     }
 
@@ -87,8 +87,8 @@ public class WebScrapper extends JFrame {
      * 
      * @param wsUIControlsManager
      *            the new web scrapper ui controls */
-    public static void setWebScrapperUIControls(WSUIControlsManager wsUIControlsManager) {
-        WebScrapper.wsUIControlsManager = wsUIControlsManager;
+    public void setWebScrapperUIControls(WSUIControlsManager wsUIControlsManager) {
+        this.wsUIControlsManager = wsUIControlsManager;
     }
 
     /** Gets the extract request.
@@ -124,7 +124,7 @@ public class WebScrapper extends JFrame {
     /** Gets the ws service provider.
      * 
      * @return the ws service provider */
-    public static WSServiceProvider getWsServiceProvider() {
+    public WSServiceProvider getWsServiceProvider() {
         return wsServiceProvider;
     }
 
@@ -132,8 +132,8 @@ public class WebScrapper extends JFrame {
      * 
      * @param wsServiceProvider
      *            the new ws service provider */
-    public static void setWsServiceProvider(WSServiceProvider wsServiceProvider) {
-        WebScrapper.wsServiceProvider = wsServiceProvider;
+    public void setWsServiceProvider(WSServiceProvider wsServiceProvider) {
+        this.wsServiceProvider = wsServiceProvider;
     }
 
     /** Launch the application.
@@ -149,17 +149,20 @@ public class WebScrapper extends JFrame {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    WebScrapper webScrapper = new WebScrapper();
+            	WebScrapper webScrapper = null;
+            	try {
+                    webScrapper = new WebScrapper();
                     webScrapper.setVisible(true);
                     webScrapper.setLocationRelativeTo(null);
-                    wsUIControlsManager = new WSUIControlsManager(webScrapper);
+                    webScrapper.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    WSUIControlsManager wsUIControlsManagerNew = new WSUIControlsManager(webScrapper);                    
                     webScrapper.setFrame(webScrapper);
-                    populateDetailArea();
+                    webScrapper.setWebScrapperUIControls(wsUIControlsManagerNew);
+                    webScrapper.populateDetailArea();
 
                 } catch (Exception e) {
                     logger.error(e);
-                    System.exit(1);
+                    webScrapper.dispose();
                 }
             }
         });
@@ -167,8 +170,8 @@ public class WebScrapper extends JFrame {
     }
 
     /** Populate detail area. */
-    public static void populateDetailArea() {
-        wsUIControlsManager.createMenus();
+    public void populateDetailArea() {
+    	wsUIControlsManager.createMenus();
         wsUIControlsManager.createExtrctProcessPanel();
         wsUIControlsManager.createBatchProcessPanel();
         wsUIControlsManager.resetAllExtractProcessPanel();

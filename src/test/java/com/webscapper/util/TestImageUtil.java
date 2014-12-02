@@ -16,23 +16,16 @@ import com.webscrapper.constants.CommonConstants;
 public class TestImageUtil {
     // ~ Methods ------------------------------------------------------------------------------------------------------
 
-    /**
-     * 
-     * @throws MalformedURLException 
-     * @throws WebScrapperException
-     */
+    /** @throws MalformedURLException
+     * @throws WebScrapperException */
     @Test
-    public void testSaveImage() throws MalformedURLException
-    {        
-        try
-        {
-        	ImageUtil.saveImage("Test.java", new URL("http://www.google.com"), "Test.java", "Test.java");
-        	Assert.fail(" Unit test should be fail.");
-        }	
-        catch(WebScrapperException ex)
-        {
-        	Assert.assertEquals(CommonConstants.EXP_IMG_FILE_EXIST_RW_ERROR, ex.getMessage());
-        }        
-    }  
-    
+    public void testSaveImage() throws MalformedURLException {
+        try {
+            ImageUtil.saveImage("Test.java", new URL("http://www.google.com"), "..", "Test.java");
+            Assert.fail(" Unit test should be fail.");
+        } catch (WebScrapperException ex) {
+            Assert.assertEquals(CommonConstants.EXP_IMG_FILE_EXIST_RW_ERROR, ex.getMessage());
+        }
+    }
+
 }

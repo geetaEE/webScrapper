@@ -29,7 +29,9 @@ public final class ExtractUtil {
 
     static {
         // Initialize for ssl communication.
-        TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager(){
+        // Other approach for SSL could be is to implement a save trust manager and use keystore api to install certificate and a reloadable trust
+        // manager to verify and reload it. From UI user should be prompt to store or reload the certificate.
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                 return null;
             }

@@ -12,18 +12,26 @@ import com.webscapper.util.WSResource;
 import com.webscrapper.constants.CommonConstants;
 
 /** MongoConnection. */
-public class MongoConnection {
+public enum MongoConnection {
+    INSTANCE;
     private static Logger logger = Logger.getLogger(MongoConnection.class);
 
     /** The db. */
-    private DB db;
+    private volatile DB db;
     /** The client. */
-    private MongoClient client;
+    private volatile MongoClient client;
 
     /** Close connection. */
     public void closeConnection() {
-        if (client != null) {
-            closeClient();
+        synchronized (MongoConnection.class) {
+            if (client != null) {
+                synchronized (MongoConnection.class) {
+                    if (client != null) {
+                        db = null;
+                        client.close();
+                    }
+                }
+            }
         }
     }
 
@@ -34,47 +42,43 @@ public class MongoConnection {
      *             exception */
     public DB getDbConnection() throws WebScrapperException {
         logger.info("Entering from getDbConnection method.");
-        if (db == null) {
-            boolean auth = false;
-            String server = WSResource.getValue(CommonConstants.MONGO_SERVER);
-            String port = WSResource.getValue(CommonConstants.PORT_NO);
-            int portNo = 0;
+        synchronized (MongoConnection.class) {
+            if (db == null) {
+                synchronized (MongoConnection.class) {
+                    if (db == null) {
+                        boolean auth = false;
+                        String server = WSResource.getValue(CommonConstants.MONGO_SERVER);
+                        String port = WSResource.getValue(CommonConstants.PORT_NO);
+                        int portNo = 0;
 
-            try {
-                if (null != port && !port.isEmpty()) {
-                    portNo = Integer.parseInt(port);
+                        try {
+                            if (null != port && !port.isEmpty()) {
+                                portNo = Integer.parseInt(port);
+                            }
+
+                            client = new MongoClient(server, portNo);
+
+                            db = client.getDB(WSResource.getValue(CommonConstants.DB_NAME));
+                            db.addUser(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD).toCharArray());
+
+                            auth = db.authenticate(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD)
+                                    .toCharArray());
+                        } catch (UnknownHostException e) {
+                            logger.error("UnknownHost Exception", e);
+                            throw new WebScrapperException(CommonConstants.EXP_CONNECTION_FAILED, e);
+                        } catch (MongoException e) {
+                            logger.error("Authentication Fail.", e);
+                            throw new WebScrapperException(CommonConstants.EXP_CONNECTION_FAILED, e);
+                        }
+
+                        if (!auth) {
+                            throw new WebScrapperException("Authentication Fail");
+                        }
+                    }
                 }
-
-                client = new MongoClient(server, portNo);
-
-                db = client.getDB(WSResource.getValue(CommonConstants.DB_NAME));
-                db.addUser(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD).toCharArray());
-
-                auth = db.authenticate(WSResource.getValue(CommonConstants.USER_NAME), WSResource.getValue(CommonConstants.PASSWORD).toCharArray());
-            } catch (UnknownHostException e) {
-                logger.error("UnknownHost Exception", e);
-                throw new WebScrapperException(CommonConstants.EXP_CONNECTION_FAILED, e);
-            } catch (MongoException e) {
-                logger.error("Authentication Fail.", e);
-                throw new WebScrapperException(CommonConstants.EXP_CONNECTION_FAILED, e);
-            }
-
-            if (!auth) {
-                throw new WebScrapperException("Authentication Fail");
             }
         }
         logger.info("Exiting from getDbConnection method.");
         return db;
     }
-
-    /** Close client. */
-    public void closeClient() {
-        logger.info("Entering from closeClient method.");
-        if (client != null) {
-            db = null;
-            client.close();
-            logger.info("Exiting from closeClient method.");
-        }
-    }
-
 }

@@ -33,6 +33,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import org.apache.log4j.Logger;
+
+import com.webscrapper.connection.ConnectionManager;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.StructuredExtractDocType;
 import com.webscrapper.constants.TagType;
@@ -345,6 +347,7 @@ public class WSUIControlsManager {
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0) {
+                ConnectionManager.INSTANCE.releaseConnection();
                 frame.dispose();
             }
         });
@@ -372,6 +375,7 @@ public class WSUIControlsManager {
         JButton buttonExit = new JButton("Exit");
         buttonExit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                ConnectionManager.INSTANCE.releaseConnection();
                 frame.dispose();
             }
         });

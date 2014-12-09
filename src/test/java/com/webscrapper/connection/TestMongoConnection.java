@@ -23,7 +23,7 @@ public class TestMongoConnection {
 
     @Before
     public void setUp() throws UnknownHostException {
-        mongoConnection = new MongoConnection();
+        mongoConnection = MongoConnection.INSTANCE;
     }
 
     /** Method under test: getDbConnection() Scenario: Verifying the behavior when DB object is null. Expectation: Should return DB Object.
@@ -43,6 +43,7 @@ public class TestMongoConnection {
         String server = WSResourceLoader.getPropertiesMap().getProperty("mongoServer");
         try {
             WSResourceLoader.getPropertiesMap().put("mongoServer", "abc");
+            mongoConnection.closeConnection();
             mongoConnection.getDbConnection();
             Assert.fail("Failed as expected exception not occurred");
         } catch (WebScrapperException e) {

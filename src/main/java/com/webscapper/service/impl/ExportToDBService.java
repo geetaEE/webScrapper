@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mongodb.DBCollection;
 import com.webscapper.exception.WebScrapperException;
 import com.webscapper.request.ExportRequest;
 import com.webscapper.response.ExportResponse;
@@ -44,11 +43,8 @@ public enum ExportToDBService implements ExportService {
             map.put(CommonConstants.URL, request.getUrl());
             map.put(CommonConstants.TABLES, tableList);
 
-            DBCollection collection = new DataAccessServiceImpl().insertData(map);
-
-            if (collection != null) {
-                exportResponse.setSuccess(true);
-            }
+            DataAccessServiceImpl.INSTANCE.insertData(map);
+            exportResponse.setSuccess(true);
         }
 
         return exportResponse;

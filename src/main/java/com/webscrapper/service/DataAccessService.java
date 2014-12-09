@@ -2,7 +2,6 @@ package com.webscrapper.service;
 
 import java.util.Map;
 
-import com.mongodb.DBCollection;
 import com.webscapper.exception.WebScrapperException;
 
 /** DataAccessService. */
@@ -12,9 +11,7 @@ public interface DataAccessService {
      * 
      * @param map
      *            map
-     * @return db collection
      * @throws WebScrapperException
      *             exception */
-    DBCollection insertData(Map<String, Object> map) throws WebScrapperException;
-
+    void insertData(Map<String, Object> map) throws WebScrapperException;
 }

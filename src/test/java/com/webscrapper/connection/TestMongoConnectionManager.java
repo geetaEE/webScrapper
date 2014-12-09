@@ -12,13 +12,13 @@ import org.junit.runners.JUnit4;
 public class TestMongoConnectionManager {
 
     /** The connectionManager. */
-    private MongoConnectionManager connectionManager;
+    private ConnectionManager connectionManager;
     /** The connection. */
     private MongoConnection connection;
 
     @Before
     public void setUp() {
-        connectionManager = MongoConnectionManager.INSTANCE;
+        connectionManager = ConnectionManager.INSTANCE;
     }
 
     /** Method under test: getInstance() Scenario: Verifying the behavior when connectionManager is null. Expectation: Should return connectionManager. */

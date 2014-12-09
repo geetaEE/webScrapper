@@ -33,6 +33,7 @@ import com.webscapper.request.ExportRequest;
 import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
+import com.webscrapper.connection.ConnectionManager;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.UIConstants;
@@ -162,6 +163,7 @@ public class WebScrapper extends JFrame {
 
                 } catch (Exception e) {
                     logger.error(e);
+                    ConnectionManager.INSTANCE.releaseConnection();
                     webScrapper.dispose();
                 }
             }

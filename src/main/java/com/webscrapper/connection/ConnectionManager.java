@@ -2,6 +2,7 @@ package com.webscrapper.connection;
 
 /** Connection Manager. */
 public enum ConnectionManager {
+
     INSTANCE;
     /** The connection. */
     private MongoConnection connection;

@@ -133,4 +133,16 @@ public final class CommonConstants {
 
     /** The Constant CONFIG_PROP_FILE. */
     public static final String CONFIG_PROP_FILE = "/configuration.properties";
+
+    /** The Constant THREE. */
+    public static final int THREE = 3;
+
+    /** The Constant FOUR. */
+    public static final int FOUR = 4;
+
+    /** The Constant FIVE. */
+    public static final int FIVE = 5;
+
+    /** The Constant SEVEN. */
+    public static final int SEVEN = 7;
 }

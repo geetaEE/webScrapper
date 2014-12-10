@@ -36,8 +36,10 @@ public class TestExportUtil {
         }
     }
 
-    /** @throws IOException
-     * @throws WebScrapperException */
+    /** TestCloseFileWriter.
+     * 
+     * @throws IOException
+     *             the exception */
     @Test
     public void testCloseFileWriter() throws IOException {
         try {

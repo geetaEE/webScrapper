@@ -80,9 +80,9 @@ public class TestExtractService {
         ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
         List<List<List<String>>> tables = response.getTables();
         List<String> columns = tables.get(0).get(0);
-        Assert.assertEquals(7, tables.size());
-        Assert.assertEquals(5, tables.get(0).size());
-        Assert.assertEquals(4, columns.size());
+        Assert.assertEquals(CommonConstants.SEVEN, tables.size());
+        Assert.assertEquals(CommonConstants.FIVE, tables.get(0).size());
+        Assert.assertEquals(CommonConstants.FOUR, columns.size());
         Assert.assertEquals("Number", columns.get(0));
     }
 
@@ -97,7 +97,7 @@ public class TestExtractService {
         request.setContentType(ContentType.IMAGE);
         ExtractResponse response = ExtractServiceFactory.getInstance(request.getContentType()).extract(request);
         Set<String> imageUrls = response.getImageUrls();
-        Assert.assertEquals(3, imageUrls.size());
+        Assert.assertEquals(CommonConstants.THREE, imageUrls.size());
         Assert.assertEquals("https://www.httpsnow.org/images/httpsnow_banner.png", imageUrls.iterator().next());
     }
 
@@ -168,7 +168,8 @@ public class TestExtractService {
 
     /** Test blank url for text.
      * 
-     * @throws Exception */
+     * @throws WebScrapperException
+     *             the exception */
     @Test
     public void testEmptyUrlInText() throws WebScrapperException {
         ExtractRequest request = new ExtractRequest();
@@ -178,7 +179,8 @@ public class TestExtractService {
 
     /** Test blank url for image.
      * 
-     * @throws Exception */
+     * @throws WebScrapperException
+     *             the exception */
     @Test
     public void testEmptyUrlInImage() throws WebScrapperException {
         ExtractRequest request = new ExtractRequest();

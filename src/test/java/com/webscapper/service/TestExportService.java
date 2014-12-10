@@ -35,6 +35,7 @@ public class TestExportService {
     /** The extractResponse. */
     private ExtractResponse extractResponse;
 
+    /** Before setup. */
     @Before
     public void setUp() {
         exportRequest = new ExportRequest();
@@ -77,7 +78,7 @@ public class TestExportService {
 
         ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
         ExportResponse exportResponse = exportService.export(exportRequest);
-        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertTrue(exportResponse.isSuccess());
         Assert.assertNotNull(tableList);
         Assert.assertNotNull(exportRequest.getUrl());
     }
@@ -104,7 +105,7 @@ public class TestExportService {
         exportRequest.setTagsList(tagsList);
         ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
         ExportResponse exportResponse = exportService.export(exportRequest);
-        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertTrue(exportResponse.isSuccess());
         Assert.assertNotNull(tagDataMap);
         Assert.assertNotNull(tagsList);
     }
@@ -144,7 +145,7 @@ public class TestExportService {
         exportRequest.setTagsList(tagsList);
         ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
         ExportResponse exportResponse = exportService.export(exportRequest);
-        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertTrue(exportResponse.isSuccess());
         Assert.assertNotNull(tagDataMap);
         Assert.assertNotNull(tagsList);
     }
@@ -172,7 +173,7 @@ public class TestExportService {
         exportRequest.setTagsList(tagsList);
         ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
         ExportResponse exportResponse = exportService.export(exportRequest);
-        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertTrue(exportResponse.isSuccess());
         Assert.assertNotNull(tagDataMap);
         Assert.assertNotNull(tagsList);
     }
@@ -191,9 +192,10 @@ public class TestExportService {
         exportRequest.setExportType(ExportType.CSV);
         ExportService exportService = ExportServiceFactory.getInstance(exportRequest.getExportType());
         ExportResponse exportResponse = exportService.export(exportRequest);
-        Assert.assertTrue(exportResponse.isSuccess() == true);
+        Assert.assertTrue(exportResponse.isSuccess());
     }
 
+    /** After setup. */
     @After
     public void destroy() {
         exportRequest = null;

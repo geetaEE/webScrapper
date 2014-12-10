@@ -26,6 +26,7 @@ import com.webscrapper.service.ExportService;
 public class TestExportToImageService {
     private List<String> imageUrlsList;
 
+    /** Before setup. */
     @Before
     public void setUp() {
         imageUrlsList = new ArrayList<String>();
@@ -86,6 +87,7 @@ public class TestExportToImageService {
         assertFalse(exportService.export(exportRequest).isSuccess());
     }
 
+    /** The destroy. */
     @After
     public void destroy() {
         imageUrlsList = null;

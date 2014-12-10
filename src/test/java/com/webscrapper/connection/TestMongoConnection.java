@@ -21,6 +21,9 @@ public class TestMongoConnection {
     /** The mongoConnection. */
     private MongoConnection mongoConnection;
 
+    /** Before setup.
+     * 
+     * @throws UnknownHostException the exception */
     @Before
     public void setUp() throws UnknownHostException {
         mongoConnection = MongoConnection.INSTANCE;
@@ -52,6 +55,7 @@ public class TestMongoConnection {
         WSResourceLoader.getPropertiesMap().put("mongoServer", server);
     }
 
+    /** The destroy. */
     @After
     public void destroy() {
         mongoConnection = null;

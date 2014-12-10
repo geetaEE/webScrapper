@@ -9,8 +9,10 @@ import org.junit.runners.JUnit4;
 import com.webscapper.ui.CheckListItem;
 import com.webscapper.ui.CheckListRenderer;
 
+/** TestCheckListRenderer. */
 @RunWith(JUnit4.class)
 public class TestCheckListRenderer {
+    /** TestGetListCellRendererComponent. */
     @Test
     public void testGetListCellRendererComponent() {
         CheckListRenderer checkListRenderer = new CheckListRenderer();

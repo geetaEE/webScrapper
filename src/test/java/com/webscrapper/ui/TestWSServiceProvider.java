@@ -18,6 +18,7 @@ import com.webscapper.request.ExtractRequest;
 import com.webscapper.response.ExportResponse;
 import com.webscapper.response.ExtractResponse;
 import com.webscapper.ui.WSServiceProvider;
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.ContentType;
 import com.webscrapper.constants.ExportType;
 import com.webscrapper.constants.TagType;
@@ -48,9 +49,9 @@ public class TestWSServiceProvider {
         String title = "testTitle";
         ExtractResponse extractResponse = new ExtractResponse();
         ExportType exportType = ExportType.CSV;
-        List<String> tagsList = Arrays.asList(new String[] { "Tag1" });
+        List<String> tagsList = Arrays.asList(new String[] {"Tag1"});
         String location = "TestLocation";
-        List<String> selectedImageURLList = Arrays.asList(new String[] { "Image1" });
+        List<String> selectedImageURLList = Arrays.asList(new String[] {"Image1"});
 
         WSServiceProvider wsServiceProvider = new WSServiceProvider();
         ExportRequest exportRequest = wsServiceProvider.buildExportRequest(url, title, extractResponse, exportType, tagsList, location,
@@ -135,8 +136,8 @@ public class TestWSServiceProvider {
 
         String[][] result = wsServiceProvider.fetchTabularPreviewData(extractResponse);
 
-        Assert.assertTrue("Row count should be 4.", result.length == 4);
-        Assert.assertTrue("Column count should be 4.", result[0].length == 4);
+        Assert.assertTrue("Row count should be 4.", result.length == CommonConstants.FOUR);
+        Assert.assertTrue("Column count should be 4.", result[0].length == CommonConstants.FOUR);
     }
 
     /** Unit test for fetchColumnNameForPreview().
@@ -155,7 +156,7 @@ public class TestWSServiceProvider {
         ExtractResponse extractResponse = wsServiceProvider.executeExtractOperation(extractRequest);
 
         String[] columns = wsServiceProvider.fetchColumnNameForPreview(extractResponse);
-        Assert.assertTrue("Column count should be 4.", columns.length == 4);
+        Assert.assertTrue("Column count should be 4.", columns.length == CommonConstants.FOUR);
     }
 
     /** Unit test for fetchNonTabularPreviewData().

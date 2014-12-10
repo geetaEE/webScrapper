@@ -27,7 +27,7 @@ public class TestWebScrapperUtil {
     public void testGetSelectedListItems() {
         JList imageList = new JList(new CheckListItem[] {});
 
-        List<String> imagesList = Arrays.asList(new String[] { "Test1", "Test2" });
+        List<String> imagesList = Arrays.asList(new String[] {"Test1", "Test2"});
 
         imageList.setListData(WebScrapperUtil.getCheckListItemArray(imagesList));
 
@@ -55,7 +55,7 @@ public class TestWebScrapperUtil {
     public void testGetSelectedListItemValues() {
         JList imageList = new JList(new CheckListItem[] {});
 
-        List<String> imagesList = Arrays.asList(new String[] { "Test1", "Test2" });
+        List<String> imagesList = Arrays.asList(new String[] {"Test1", "Test2"});
 
         imageList.setListData(WebScrapperUtil.getCheckListItemArray(imagesList));
 
@@ -76,7 +76,7 @@ public class TestWebScrapperUtil {
     /** Unit Test for getCheckListItemArray(). */
     @Test
     public void testGetCheckListItemArray() {
-        List<String> imagesList = Arrays.asList(new String[] { "Test1", "Test2" });
+        List<String> imagesList = Arrays.asList(new String[] {"Test1", "Test2"});
 
         CheckListItem[] checkListItems = WebScrapperUtil.getCheckListItemArray(imagesList);
 

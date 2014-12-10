@@ -15,6 +15,7 @@ import org.junit.runners.JUnit4;
 
 import com.webscapper.ui.WSUIControlsManager;
 import com.webscapper.ui.WebScrapper;
+import com.webscrapper.constants.CommonConstants;
 import com.webscrapper.constants.ContentType;
 
 /** The Class TestWebScrapper. */
@@ -38,14 +39,14 @@ public class TestWSUIControlsManager {
     @Test
     public void testDisableBatchProessPanelControls() throws Exception {
         WebScrapper webScrapper = new WebScrapper();
-        WSUIControlsManager WSUIControlsManager = new WSUIControlsManager(webScrapper);
+        WSUIControlsManager wsuiControlsManager = new WSUIControlsManager(webScrapper);
         webScrapper.setFrame(webScrapper);
-        webScrapper.setWebScrapperUIControls(WSUIControlsManager);
+        webScrapper.setWebScrapperUIControls(wsuiControlsManager);
         webScrapper.populateDetailArea();
 
-        WSUIControlsManager.disableBatchProessPanelControls();
+        wsuiControlsManager.disableBatchProessPanelControls();
 
-        JTextField pathtextField = WSUIControlsManager.getWsUIControls().getPathtextField();
+        JTextField pathtextField = wsuiControlsManager.getWsUIControls().getPathtextField();
 
         Assert.assertEquals("", pathtextField.getText());
     }
@@ -265,6 +266,6 @@ public class TestWSUIControlsManager {
 
         ListModel<JList> dlm = (ListModel<JList>) imageList.getModel();
 
-        Assert.assertEquals(4, dlm.getSize());
+        Assert.assertEquals(CommonConstants.FOUR, dlm.getSize());
     }
 }
